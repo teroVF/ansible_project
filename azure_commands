@@ -1,0 +1,19 @@
+# Login to Azure
+az login
+az account list --output table # List all subscriptions
+az account set --subscription "SUBSCRIPTION_ID" # Set the subscription
+
+# turn the machine off
+az vm stop --resource-group "RESOURCE_GROUP" --name "VM_NAME"
+
+# turn the machine on
+az vm start --resource-group "RESOURCE_GROUP" --name "VM_NAME"
+
+# restart the machine
+az vm restart --resource-group "RESOURCE_GROUP" --name "VM_NAME"
+
+# list all VMs in a resource group
+az vm list --resource-group "RESOURCE_GROUP" --output table
+
+# list all resource in a resource group
+az resource list --resource-group "RESOURCE_GROUP" --output table
