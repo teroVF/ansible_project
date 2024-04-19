@@ -1,0 +1,7 @@
+servidores_linux_produção:
+  hosts:
+    #servidor_web:
+      ansible_host: #ip_privado (subnet do servidor control node já criado)
+    #servidor_bd
+      ansible_host: #ip_privado (subnet do servidor control node já criado)
+    
