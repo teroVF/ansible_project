@@ -112,6 +112,8 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
       host     = self.public_ip_address
     }
   }
+
+
   provisioner "file" {
   source = "./public_keys/antero.pub"
   destination = "/tmp/antero.pub"
@@ -159,7 +161,8 @@ resource "azurerm_network_interface" "grupo5-weu-prod-nic" {
   ip_configuration {
     name                          = "grupo5-weu-prod-nic-ipconfig"
     subnet_id                     = azurerm_subnet.grupo5-weu-prod-subnet.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
+    private_ip_address = "192.168.0.5"
     public_ip_address_id          = azurerm_public_ip.grupo5-weu-prod-public-ip.id
   }
 }
