@@ -115,8 +115,8 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
 
 
   provisioner "file" {
-  source = "./public_keys/antero.pub"
-  destination = "/tmp/antero.pub"
+  source = "public_keys"
+  destination = "/tmp/public_keys"
 
     connection {
       type     = "ssh"
@@ -125,6 +125,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
       host     = self.public_ip_address
     }
   }
+  
   #Execução do script
   provisioner "remote-exec" {
     inline = [
