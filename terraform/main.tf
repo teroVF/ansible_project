@@ -99,28 +99,35 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
     username   = "admin_user"
     public_key = file("./public_keys/admin.pub")
   }
-   provisioner "remote-exec" {
+
+  #Baixar o Script
+  provisioner "file" {
+    source = "./scripts/control_node.sh"
+    destination = "/tmp/control_node.sh"
+
+    connection {
+      type     = "ssh"
+      user     = "admin_user"
+      private_key = file("./private_key/admin")
+      host     = self.public_ip_address
+    }
+  }
+  provisioner "file" {
+  source = "./public_keys/antero.pub"
+  destination = "/tmp/antero.pub"
+
+    connection {
+      type     = "ssh"
+      user     = "admin_user"
+      private_key = file("./private_key/admin")
+      host     = self.public_ip_address
+    }
+  }
+  #Execução do script
+  provisioner "remote-exec" {
     inline = [
-    "sudo useradd -m -d /home/antero antero -s /bin/bash",
-    "sudo mkdir -p /home/antero/.ssh",
-    "sudo touch /home/antero/.ssh/authorized_keys",
-    "sudo chown -R antero:antero /home/antero/.ssh",
-    "sudo echo '${file("./public_keys/antero.pub")}' | sudo tee /home/antero/.ssh/authorized_keys > /dev/null",
-
-    "sudo useradd -m -d /home/miguel miguel -s /bin/bash",
-    "sudo mkdir -p /home/miguel/.ssh",
-    "sudo touch /home/miguel/.ssh/authorized_keys",
-    "sudo chown -R miguel:miguel /home/miguel/.ssh",
-    "sudo echo '${file("./public_keys/antero.pub")}' | sudo tee /home/miguel/.ssh/authorized_keys > /dev/null",
-
-    "sudo useradd -m -d /home/pedro pedro -s /bin/bash",
-    "sudo mkdir -p /home/pedro/.ssh",
-    "sudo touch /home/pedro/.ssh/authorized_keys",
-    "sudo chown -R pedro:pedro /home/pedro/.ssh",
-    "sudo echo '${file("./public_keys/antero.pub")}' | sudo tee /home/pedro/.ssh/authorized_keys > /dev/null",
-    "sudo apt update -y",
-    "sudo apt upgrade -y python",
-    "sudo apt install -y ansible",
+      "sudo chmod +x /tmp/control_node.sh",
+      "sudo /tmp/control_node.sh"
     ]
 
     connection {
@@ -130,6 +137,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
       host     = self.public_ip_address
     }
   }
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
@@ -163,6 +171,10 @@ resource "azurerm_public_ip" "grupo5-weu-prod-public-ip" {
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
   allocation_method   = "Dynamic"
+}
+
+output "public_ip_address" {
+  value = azurerm_public_ip.grupo5-weu-prod-public-ip.ip_address
 }
 
 
