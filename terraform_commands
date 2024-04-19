@@ -1,0 +1,14 @@
+# Initialize terraform
+terraform init
+
+# Plan the infrastructure
+terraform plan -out=plan.out
+
+# Apply the infrastructure
+terraform apply plan.out
+
+# Destroy the infrastructure
+terraform destroy
+
+# Taint the resource
+terraform taint azurerm_linux_virtual_machine.grupo5-weu-prod-vm
