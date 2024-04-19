@@ -1,0 +1,19 @@
+servidor windows
+ - mysql workbench acesso bd (ansible)
+ - criar users (ansible)
+
+
+
+Miguel (ate 00h)
+  - workbench
+  - apache
+
+Antero 
+  - wordpress (web)
+  - criar bm windows
+  - PHP
+
+Pedro
+  - MySql
+  - 
+  
