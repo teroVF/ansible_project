@@ -4,10 +4,10 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-web-vm" {
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   #maquina barata tipo B
   size                = "Standard_B2s"
-  admin_username      = "admin_user"
+  admin_username      = "ansible"
   network_interface_ids = [azurerm_network_interface.grupo5-weu-prod-nic-web.id]
   admin_ssh_key {
-    username   = "admin_user"
+    username   = "ansible"
     public_key = file("./public_keys/admin.pub")
   }
 
