@@ -17,7 +17,7 @@ create_user() {
 nomes=(antero miguel pedro)
 
 #pacotes
-package_to_install=(ansible),(software-properties-common)
+package_to_install=(ansible software-properties-common)
 package_to_upgrade=(python3)
 
 
@@ -51,4 +51,3 @@ for nome in ${nomes[@]}; do
     usermod -aG ansible_3 $nome || log_and_exit "Erro ao adicionar o usuário $nome ao grupo ansible"
     ln -s /opt/ansible /home/$nome/ansible || log_and_exit "Erro ao criar o link simbólico /home/$nome/ansible"
 done
-
