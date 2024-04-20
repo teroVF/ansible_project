@@ -37,5 +37,4 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-db-vm" {
         sku       = "18.04-LTS"
         version   = "latest"
     }
-    )
 }
