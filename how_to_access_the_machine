@@ -2,4 +2,6 @@ shh -i <<path of your private key>> your_name@public_ip_address
 
 example: 
     ssh -i /home/.ssh/antero.key antero@123.23.24.100
+
+scp -r -i C:\Users\Formando\.ssh\antero antero@52.233.137.177:/opt/ansible dest
     
