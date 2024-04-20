@@ -1,5 +1,4 @@
 #!/bin/bash
-
 log_and_exit() {
     echo $1 >> /var/log/control_node.log
     exit 1
@@ -8,8 +7,9 @@ log_and_exit() {
 create_user() {
     useradd -m -d /home/$1 $1 -s /bin/bash || log_and_exit "Erro ao criar o usuário $1"
     mkdir -p /home/$1/.ssh || log_and_exit "Erro ao criar o diretório /home/$1/.ssh"
-    touch /home/$1/.ssh/authorized_keys || log_and_exit "Erro ao criar o arquivo /home/$1/.ssh/authorized_keys"~
+    touch /home/$1/.ssh/authorized_keys || log_and_exit "Erro ao criar o arquivo /home/$1/.ssh/authorized_keys"
     chown -R $1:$1 /home/$1/.ssh || log_and_exit "Erro ao alterar o dono do diretório /home/$1/.ssh"
+    usermod -aG sudo $1 || log_and_exit "Erro ao adicionar o usuário $1 ao grupo sudo"
     cat /tmp/public_keys/$1.pub | tee /home/$1/.ssh/authorized_keys > /dev/null || log_and_exit "Erro ao adicionar a chave pública ao arquivo /home/$1/.ssh/authorized_keys"
 }
 
@@ -36,24 +36,13 @@ for package in ${package_to_upgrade[@]}; do
     apt upgrade $package -y || log_and_exit "Erro ao atualizar o pacote $package"
 done
 
-# equivalente ao script abaixo
-#  "sudo useradd -m -d /home/antero antero -s /bin/bash",
-#     "sudo mkdir -p /home/antero/.ssh",
-#     "sudo touch /home/antero/.ssh/authorized_keys",
-#     "sudo chown -R antero:antero /home/antero/.ssh",
-#     "sudo echo '${file("./public_keys/antero.pub")}' | sudo tee /home/antero/.ssh/authorized_keys > /dev/null",
+mkdir /opt/ansible || log_and_exit "Erro ao criar o diretório /opt/ansible"
+groupadd ansible_3 || log_and_exit "Erro ao criar o grupo ansible"
+chown :ansible_3 /opt/ansible || log_and_exit "Erro ao alterar o grupo do diretório /opt/ansible"
+chmod 1770 /opt/ansible || log_and_exit "Erro ao alterar as permissões do diretório /opt/ansible"
 
-#     "sudo useradd -m -d /home/miguel miguel -s /bin/bash",
-#     "sudo mkdir -p /home/miguel/.ssh",
-#     "sudo touch /home/miguel/.ssh/authorized_keys",
-#     "sudo chown -R miguel:miguel /home/miguel/.ssh",
-#     "sudo echo '${file("./public_keys/antero.pub")}' | sudo tee /home/miguel/.ssh/authorized_keys > /dev/null",
+for nome in ${nomes[@]}; do
+    usermod -aG ansible_3 $nome || log_and_exit "Erro ao adicionar o usuário $nome ao grupo ansible"
+    ln -s /opt/ansible /home/$nome/ansible || log_and_exit "Erro ao criar o link simbólico /home/$nome/ansible"
+done
 
-#     "sudo useradd -m -d /home/pedro pedro -s /bin/bash",
-#     "sudo mkdir -p /home/pedro/.ssh",
-#     "sudo touch /home/pedro/.ssh/authorized_keys",
-#     "sudo chown -R pedro:pedro /home/pedro/.ssh",
-#     "sudo echo '${file("./public_keys/antero.pub")}' | sudo tee /home/pedro/.ssh/authorized_keys > /dev/null",
-#     "sudo apt update -y",
-#     "sudo apt upgrade -y python",
-#     "sudo apt install -y ansible",
