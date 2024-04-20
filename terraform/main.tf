@@ -87,7 +87,7 @@ resource "azurerm_subnet" "grupo5-weu-prod-subnet" {
 #create a machine linux
 
 resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
-  name                = "grupo5-weu-prod-vm"
+  name                = "controlnode-prod-vm"
   resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   #maquina barata tipo B
@@ -174,7 +174,7 @@ resource "azurerm_public_ip" "grupo5-weu-prod-public-ip" {
   name                = "grupo5-weu-prod-public-ip"
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
-  allocation_method   = "Dynamic"
+  allocation_method   = "Static"
 }
 
 output "public_ip_address" {
