@@ -17,8 +17,9 @@ create_user() {
 nomes=(antero miguel pedro)
 
 #pacotes
-package_to_install=(ansible)
+package_to_install=(ansible),(software-properties-common)
 package_to_upgrade=(python3)
+
 
 for nome in ${nomes[@]}; do
     create_user $nome

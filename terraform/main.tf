@@ -91,7 +91,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
   resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   #maquina barata tipo B
-  size                = "Standard_B1s"
+  size                = "Standard_B2s"
   admin_username      = "admin_user"
   network_interface_ids = [azurerm_network_interface.grupo5-weu-prod-nic.id]
   #pc do antero
