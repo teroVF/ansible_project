@@ -66,24 +66,6 @@ resource "azurerm_subnet" "grupo5-weu-prod-subnet" {
   address_prefixes     = ["192.168.0.0/24"]
 }
 
-# VNET DR
-
-# resource "azurerm_virtual_network" "grupo5-neu-dr-vnet" {
-#     name                = "grupo5-neu-dr-vnet"
-#     resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
-#     location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-#     address_space       = ["192.168.1.0/24"]
-# }
-
-# #subnet DR
-
-# resource "azurerm_subnet" "grupo5-neu-dr-subnet" {
-#     name                 = "grupo5-neu-dr-subnet"
-#     resource_group_name  = azurerm_resource_group.grupo5-neu-dr-rg.name
-#     virtual_network_name = azurerm_virtual_network.grupo5-neu-dr-vnet.name
-#     address_prefixes     = ["192.168.1.0/24"]
-# }
-
 #create a machine linux
 
 resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
@@ -92,11 +74,10 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   #maquina barata tipo B
   size                = "Standard_B2s"
-  admin_username      = "admin_user"
+  admin_username      = "adminuser"
   network_interface_ids = [azurerm_network_interface.grupo5-weu-prod-nic.id]
-  #pc do antero
   admin_ssh_key {
-    username   = "admin_user"
+    username   = "adminuser"
     public_key = file("./public_keys/admin.pub")
   }
 
@@ -107,9 +88,10 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
 
     connection {
       type     = "ssh"
-      user     = "admin_user"
+      user     = "adminuser"
       private_key = file("./private_key/admin")
       host     = self.public_ip_address
+      timeout = "2m"
     }
   }
 
@@ -120,7 +102,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
 
     connection {
       type     = "ssh"
-      user     = "admin_user"
+      user     = "adminuser"
       private_key = file("./private_key/admin")
       host     = self.public_ip_address
     }
@@ -135,7 +117,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
 
     connection {
       type     = "ssh"
-      user     = "admin_user"
+      user     = "adminuser"
       private_key = file("./private_key/admin")
       host     = self.public_ip_address
     }
@@ -163,7 +145,7 @@ resource "azurerm_network_interface" "grupo5-weu-prod-nic" {
     name                          = "grupo5-weu-prod-nic-ipconfig"
     subnet_id                     = azurerm_subnet.grupo5-weu-prod-subnet.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = "192.168.0.5"
+    private_ip_address            = "192.168.0.101"
     public_ip_address_id          = azurerm_public_ip.grupo5-weu-prod-public-ip.id
   }
 }

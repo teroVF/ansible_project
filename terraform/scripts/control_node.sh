@@ -26,12 +26,6 @@ for nome in ${nomes[@]}; do
 done
 
 
-# Install all the necessary packages
-#Then, add the Ansible repository and install Ansible:
-#sudo apt-add-repository --yes --update ppa:ansible/ansible
-#após isso instalar o ansible
-#Passo 3 do Lab01 é necessário colocar este comando?
-
 apt update -y || log_and_exit "Erro ao atualizar o repositório"
 
 for package in ${package_to_install[@]}; do

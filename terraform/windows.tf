@@ -5,7 +5,7 @@ data "template_file" "init" {
 
 
 resource "azurerm_windows_virtual_machine" "windows" {
-    depends_on = [ azurerm_network_interface.nic, azurerm_public_ip.publicip, azurerm_subnet_network_security_group_association.nsg, azurerm_network_security_group.windows_nsg ]
+    depends_on = [ azurerm_network_interface.nic, azurerm_public_ip.publicip, azurerm_network_interface_security_group_association.example]
     name                  = "windows"
     resource_group_name   = azurerm_resource_group.grupo5-weu-prod-rg.name
     location              = azurerm_resource_group.grupo5-weu-prod-rg.location
@@ -138,9 +138,9 @@ resource "azurerm_network_security_group" "windows_nsg" {
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "nsg" {
-  subnet_id                 = azurerm_subnet.grupo5-weu-prod-subnet.id
+resource "azurerm_network_interface_security_group_association" "example" {
+  network_interface_id      = azurerm_network_interface.nic.id
   network_security_group_id = azurerm_network_security_group.windows_nsg.id
-  
 }
+
 #https://stackoverflow.com/questions/69390742/terraform-windows-server-2016-adding-and-running-scripts-using-winery
