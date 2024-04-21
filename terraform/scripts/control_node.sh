@@ -42,10 +42,13 @@ for package in ${package_to_upgrade[@]}; do
     apt upgrade $package -y || log_and_exit "Erro ao atualizar o pacote $package"
 done
 
+# diretório /opt/ansible, que vai ser replicado para os usuários via link simbólico
 mkdir /opt/ansible || log_and_exit "Erro ao criar o diretório /opt/ansible"
+#Grupo ansible_3 com os usuários antero, miguel e pedro para rwx o diretório /opt/ansible
 groupadd ansible_3 || log_and_exit "Erro ao criar o grupo ansible"
 chown :ansible_3 /opt/ansible || log_and_exit "Erro ao alterar o grupo do diretório /opt/ansible"
-chmod 1770 /opt/ansible || log_and_exit "Erro ao alterar as permissões do diretório /opt/ansible"
+
+chmod 3770 /opt/ansible || log_and_exit "Erro ao alterar as permissões do diretório /opt/ansible"
 
 for nome in ${nomes[@]}; do
     usermod -aG ansible_3 $nome || log_and_exit "Erro ao adicionar o usuário $nome ao grupo ansible"
