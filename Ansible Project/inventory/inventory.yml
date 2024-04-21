@@ -1,7 +1,94 @@
-servidores_linux_produção:
+#Hosts por ambiente (prod e disaster recovery):
+web-servers-prod:
+  #Lista de todos os servidores web
   hosts:
-    #servidor_web:
-      ansible_host: #ip_privado (subnet do servidor control node já criado)
-    #servidor_bd
-      ansible_host: #ip_privado (subnet do servidor control node já criado)
-    
+    #nome_servidor_web(igual ao definido no terraform):
+      ansible_host: #ip_privado (subnet do servidor control node) 
+    #nome_servidor_web:
+      ansible_host: #ip_privado (subnet do servidor control node)
+db-servers-prod:
+  #Lista de todos os servidores de Base de Dados
+  hosts:
+    #nome_servidor_bd:
+    ansible_host: #ip_privado (subnet do servidor control node já criado)
+windows-server-prod:
+  ##Lista de todos os servidores Windows (De ambos ambientes)
+  hosts:
+    #nome_servidor_windows:
+    ansible_host: #ip_privado (subnet do servidor control node já criado)
+    #no group vars vai ter mt coisa a ser definida
+
+web-servers-drecovery:
+  #Lista de todos os servidores web
+  hosts:
+    #nome_servidor_web(igual ao definido no terraform):
+    ansible_host: #ip_privado (subnet diferente do servidor control node?) 
+    #nome_servidor_web:
+    ansible_host: #ip_privado (subnet diferente do servidor control node?)
+db-servers-drecovery:
+  hosts:
+    #nome_servidor_bd:
+    ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
+windows-server-drecovery:
+  hosts:
+    #nome_servidor_windows:
+    ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
+    #no group vars vai ter mt coisa a ser definida
+
+#Agrupamento por tipo de servidor (web, db e wordpress)
+#Grupos pai por tipo de servidor:
+web-servers:
+  children:
+    web-servers-prod:
+    web-servers-drecovery:
+
+db-servers: 
+  children:
+    db-servers-prod:
+    db-servers-drecovery:
+
+wordpress-servers:
+  children:
+    windows-server-prod:
+    windows-server-drecovery:
+
+
+
+#Agrupamento por ambiente (prod e dev)
+#Grupos pai por ambiente:
+prod:
+  children:
+    web-servers-prod:
+    db-servers-prod:
+    windows-server-prod:
+
+drecovery:
+  children:
+    web-servers-drecovery:
+    db-servers-drecovery:
+    windows-server-drecovery:
+
+#Agrupamento por região (weu e neu)
+#Grupos pai por região:
+weu:
+  children:
+    prod:
+
+neu:
+  children:
+    drecovery:    
+
+#Agrupamento por tipo de sistema operacional (linux e windows)
+#Grupos pai por tipo de sistema operacional:
+linux:
+  children:
+    web-servers-prod:
+    web-servers-drecovery:
+    db-servers-prod:
+    db-servers-drecovery:
+
+windows:
+  children:
+    windows-server-prod:
+    windows-server-drecovery:
+ 
