@@ -8,7 +8,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-web-vm" {
   network_interface_ids = [azurerm_network_interface.grupo5-weu-prod-nic-web.id]
   admin_ssh_key {
     username   = "ansible"
-    public_key = file("./public_keys/admin.pub")
+    public_key = file("./public_keys/ansible.pub")
   }
 
     os_disk {

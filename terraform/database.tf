@@ -23,7 +23,7 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-db-vm" {
 
     admin_ssh_key {
     username   = "ansible"
-    public_key = file("./public_keys/admin.pub")
+    public_key = file("./public_keys/ansible.pub")
   }
 
     os_disk {
