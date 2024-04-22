@@ -1,31 +1,24 @@
 #Hosts por ambiente (prod e disaster recovery):
-web-servers-prod:
-  #Lista de todos os servidores web
+web-server-prod:
   hosts:
-    #nome_servidor_web(igual ao definido no terraform):
-      ansible_host: #ip_privado (subnet do servidor control node) 
-    #nome_servidor_web:
-      ansible_host: #ip_privado (subnet do servidor control node)
-db-servers-prod:
-  #Lista de todos os servidores de Base de Dados
+    webserver-linux:
+      ansible_host: 192.168.0.6 
+    
+db-server-prod:
   hosts:
-    #nome_servidor_bd:
-    ansible_host: #ip_privado (subnet do servidor control node já criado)
+    grupo5-weu-prod-db-vm:
+      ansible_host: 192.168.0.7
 windows-server-prod:
-  ##Lista de todos os servidores Windows (De ambos ambientes)
   hosts:
-    #nome_servidor_windows:
-    ansible_host: #ip_privado (subnet do servidor control node já criado)
-    #no group vars vai ter mt coisa a ser definida
+    windows:
+      ansible_host: 192.168.0.100
 
-web-servers-drecovery:
-  #Lista de todos os servidores web
+web-server-drecovery:
   hosts:
     #nome_servidor_web(igual ao definido no terraform):
     ansible_host: #ip_privado (subnet diferente do servidor control node?) 
     #nome_servidor_web:
-    ansible_host: #ip_privado (subnet diferente do servidor control node?)
-db-servers-drecovery:
+db-server-drecovery:
   hosts:
     #nome_servidor_bd:
     ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
@@ -39,13 +32,13 @@ windows-server-drecovery:
 #Grupos pai por tipo de servidor:
 web-servers:
   children:
-    web-servers-prod:
-    web-servers-drecovery:
+    web-server-prod:
+    web-server-drecovery:
 
 db-servers: 
   children:
-    db-servers-prod:
-    db-servers-drecovery:
+    db-server-prod:
+    db-server-drecovery:
 
 wordpress-servers:
   children:
