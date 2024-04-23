@@ -9,10 +9,15 @@ resource "azurerm_windows_virtual_machine" "windows" {
     name                  = "windows"
     resource_group_name   = azurerm_resource_group.grupo5-weu-prod-rg.name
     location              = azurerm_resource_group.grupo5-weu-prod-rg.location
-    size                  = "Standard_B1s"
+    size                  = "Standard_B2s"
     admin_username        = "ansible"
     admin_password        = "Password1234!"
     network_interface_ids = [azurerm_network_interface.nic.id]
+
+    provision_vm_agent = "true" 
+    winrm_listener {
+      protocol = "Http" 
+    }
     custom_data = base64encode(data.template_file.init.rendered)
     additional_unattend_content {
       setting      = "AutoLogon"
@@ -24,40 +29,6 @@ resource "azurerm_windows_virtual_machine" "windows" {
       content      = "${file("./scripts/firstlogoncommands.xml")}"
     }
 
-    provision_vm_agent = "true" 
-    winrm_listener {
-      protocol = "Http" 
-    }
-
-    # provisioner "remote-exec" {
-    #     inline = ["winrm qc"]
-
-    #     connection {
-    #         type     = "winrm"
-    #         user     = "ansible"
-    #         password = "Password1234!"
-    #         host     = self.public_ip_address
-    #         timeout  = "5m"
-    #         port     = 5985
-    #         https    = false
-    #     }
-    # }
-
-    provisioner "file" {
-        
-        source      = "./scripts/window_script.ps1"
-        destination = "C:/Users/ansible/Desktop/window_script.ps1"
-
-        connection {
-            type     = "winrm"
-            user     = "ansible"
-            password = "Password1234!"
-            host     = self.public_ip_address
-            timeout = "5m"
-            port = 5985
-            https = false
-        }
-    }
 
     os_disk {
         caching              = "ReadWrite"

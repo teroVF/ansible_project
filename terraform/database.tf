@@ -32,9 +32,9 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-db-vm" {
     }
 
     source_image_reference {
-        publisher = "Canonical"
-        offer     = "UbuntuServer"
-        sku       = "18.04-LTS"
-        version   = "latest"
-    }
+  publisher = "Canonical"
+  offer     = "0001-com-ubuntu-server-focal"
+  sku       = "20_04-lts-gen2"
+  version   = "20.04.202104150"  # replace with the most recent version
+}
 }
