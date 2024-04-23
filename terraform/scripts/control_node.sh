@@ -18,7 +18,7 @@ create_user() {
 nomes=(antero miguel pedro)
 
 #pacotes
-package_to_install=(python3-pip)
+package_to_install=(python3-pip ansible)
 package_to_upgrade=(python3)
 
 
