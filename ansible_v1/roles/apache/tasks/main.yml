@@ -1,0 +1,26 @@
+---
+#Install and configure web server tasks for Apache Role
+- name: Install Apache
+  become: true
+  ansible.builtin.apt:
+    name: apache2
+    state: latest
+- name: Start Apache
+  become: true
+  ansible.builtin.service:
+    name: apache2
+    state: started
+#Copy index.hmtl to webserver-linux (managed node)
+- name: Copy index.html
+  become: true
+  ansible.builtin.copy:
+    src: ./roles/ConfigureApacheRole/files/index.html
+    dest: /var/www/html/index.html
+- name: Run smoke test
+  ansible.builtin.uri:
+    url: http://localhost
+    return_content: yes
+  register: result
+- name: Debug smoke test
+  ansible.builtin.debug:
+    msg: "{{ result.content }}"
