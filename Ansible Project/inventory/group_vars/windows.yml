@@ -1,7 +1,0 @@
-ansible_port: 5985
-ansible_user: ansible
-ansible_connection: winrm
-#Sem https depois podemos tentar https (envolve certificado)
-ansible_winrm_server_cert_validation: ignore
-ansible_winrm_transport: ntlm
-ansible_winrm_scheme: http
