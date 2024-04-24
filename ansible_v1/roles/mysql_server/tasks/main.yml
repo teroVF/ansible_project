@@ -19,12 +19,12 @@
     enabled: true
   become: true
 
-handlers:
-  - name: Restart MySQL service
-    service:
-      name: mysql
-      state: restarted
-    become: true
+# handlers:
+#   - name: Restart MySQL service
+#     service:
+#       name: mysql
+#       state: restarted
+#     become: true
 
 - name: Configure MySQL root password
   debconf:
@@ -33,6 +33,22 @@ handlers:
     value: 'ubuntu'
     vtype: password
   notify: Restart MySQL service
+  become: true
+
+- name: Configure MySQL root user
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
+  become: true
+
+- name: Configure MySQL ansible user
+  mysql_user:
+    name: ansible
+    password: "{{ ansible_user_password }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
   become: true
 
 - name: Restart MySQL service
