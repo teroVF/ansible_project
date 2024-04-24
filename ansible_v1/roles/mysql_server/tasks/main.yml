@@ -1,2 +1,26 @@
 ---
 # tasks file for mysql_server
+
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    state: present
+
+- name: Start MySQL service
+  service:
+    name: mysql
+    state: started
+    enabled: true
+
+- name: Configure MySQL root password
+  debconf:
+    name: mysql-server
+    question: 'mysql-server/root_password'
+    value: 'ubuntu'
+    vtype: password
+  notify: Restart MySQL service
+
+- name: Restart MySQL service
+  service:
+    name: mysql
+    state: restarted
