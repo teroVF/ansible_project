@@ -10,7 +10,7 @@ db-server-prod:
       ansible_host: 192.168.0.7
 windows-server-prod:
   hosts:
-    windows:
+    windows-server:
       ansible_host: 192.168.0.100
 
 web-server-drecovery:
