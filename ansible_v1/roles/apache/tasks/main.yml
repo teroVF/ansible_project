@@ -14,8 +14,9 @@
 - name: Copy index.html
   become: true
   ansible.builtin.copy:
-    src: ./roles/ConfigureApacheRole/files/index.html
+    src: ./roles/apache/files/index.html
     dest: /var/www/html/index.html
+  notify: Restart Apache
 - name: Run smoke test
   ansible.builtin.uri:
     url: http://localhost

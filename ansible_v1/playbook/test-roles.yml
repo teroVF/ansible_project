@@ -1,9 +1,9 @@
 ---
-- nama: main playbook
+- name: test-roles
   host: all
   role:
     - mysql
     - php
-    - apache2
+    - apache
     - wordpress  
-...
+
