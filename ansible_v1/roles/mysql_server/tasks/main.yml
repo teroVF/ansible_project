@@ -32,7 +32,7 @@
     question: 'mysql-server/root_password'
     value: 'ubuntu'
     vtype: password
-  notify: Restart MySQL service
+  #notify: Restart MySQL service
   become: true
 
 - name: Configure MySQL root user
