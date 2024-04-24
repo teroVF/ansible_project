@@ -21,3 +21,6 @@
     - php-mysql
     - php-xml
     - php-zip
+    - libapache2-mod-php
+    
+
