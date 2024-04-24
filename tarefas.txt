@@ -6,7 +6,7 @@ servidor windows
 
 Miguel (ate 00h)
   - workbench
-  - apache
+  - apache (teste ok)
 
 Antero 
   - wordpress (web) (a fazer)
