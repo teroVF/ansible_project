@@ -5,12 +5,14 @@
   apt:
     name: mysql-server
     state: present
+  become: true
 
 - name: Start MySQL service
   service:
     name: mysql
     state: started
     enabled: true
+  become: true
 
 - name: Configure MySQL root password
   debconf:
@@ -19,8 +21,10 @@
     value: 'ubuntu'
     vtype: password
   notify: Restart MySQL service
+  become: true
 
 - name: Restart MySQL service
   service:
     name: mysql
     state: restarted
+  become: true

@@ -1,7 +1,2 @@
 ---
 # handlers file for mysql_server
-
-- name: Restart MySQL Service
-  service:
-    name: mysql
-    state: restarted
