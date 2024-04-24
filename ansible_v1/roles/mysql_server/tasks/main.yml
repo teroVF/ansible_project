@@ -19,14 +19,14 @@
     enabled: true
   become: true
 
-# - name: Configure MySQL root password
-#   debconf:
-#     name: mysql-server
-#     question: 'mysql-server/root_password'
-#     value: 'ubuntu'
-#     vtype: password
-#   notify: Restart MySQL service
-#   become: true
+- name: Configure MySQL root password
+  debconf:
+    name: mysql-server
+    question: 'mysql-server/root_password'
+    value: 'ubuntu'
+    vtype: password
+  notify: Restart MySQL service
+  become: true
 
 - name: Restart MySQL service
   service:
