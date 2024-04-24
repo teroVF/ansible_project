@@ -19,6 +19,13 @@
     enabled: true
   become: true
 
+handlers:
+  - name: Restart MySQL service
+    service:
+      name: mysql
+      state: restarted
+    become: true
+
 - name: Configure MySQL root password
   debconf:
     name: mysql-server
