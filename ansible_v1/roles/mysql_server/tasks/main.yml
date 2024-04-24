@@ -19,40 +19,83 @@
     enabled: true
   become: true
 
-# handlers:
-#   - name: Restart MySQL service
-#     service:
-#       name: mysql
-#       state: restarted
-#     become: true
+# # handlers:
+# #   - name: Restart MySQL service
+# #     service:
+# #       name: mysql
+# #       state: restarted
+# #     become: true
 
-- name: Configure MySQL root password
-  debconf:
-    name: mysql-server
-    question: 'mysql-server/root_password'
-    value: 'ubuntu'
-    vtype: password
-  #notify: Restart MySQL service
-  become: true
+# # - name: Configure MySQL root password
+# #   debconf:
+# #     name: mysql-server
+# #     question: 'mysql-server/root_password'
+# #     value: 'ubuntu'
+# #     vtype: password
+# #   #notify: Restart MySQL service
+# #   become: true
 
-- name: Configure MySQL root user
-  mysql_user:
-    name: root
-    password: "{{ mysql_root_password }}"
-    priv: "*.*:ALL,GRANT"
+# - name: Configure MySQL root user
+#   mysql_user:
+#     name: root
+#     password: "{{ mysql_root_password }}"
+#     priv: "*.*:ALL,GRANT"
+#     state: present
+#   become: true
+
+# - name: Configure MySQL ansible user
+#   mysql_user:
+#     name: ansible
+#     password: "{{ ansible_user_password }}"
+#     priv: "*.*:ALL,GRANT"
+#     state: present
+#   become: true
+
+# - name: Restart MySQL service
+#   service:
+#     name: mysql
+#     state: restarted
+#   become: true
+
+- name: Create a new database
+  mysql_db:
+    name: "{{ DB_NAME }}"
     state: present
-  become: true
+  become: yes
+  become_user: root
 
-- name: Configure MySQL ansible user
+- name: Create a new user
   mysql_user:
-    name: ansible
-    password: "{{ ansible_user_password }}"
-    priv: "*.*:ALL,GRANT"
+    name: "{{ DB_USER }}"
+    password: "{{ DB_PASSWORD }}"
+    host_all: yes
+    priv: "{{ DB_NAME }}.*:ALL"
     state: present
-  become: true
+  become: yes
+  become_user: root
+
+- name: Grant all privileges to root
+  mysql_user:
+    name: "root"
+    password: "{{ DB_PASS_ROOT }}"
+    host_all: yes
+    priv: "{{ DB_NAME }}.*:ALL"
+    state: present
+  become: yes
+  become_user: root
+
+- name: Set root password
+  mysql_user:
+    name: "root"
+    password: "{{ DB_PASS_ROOT }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+  become: yes
+  become_user: root
+
+#restart
 
 - name: Restart MySQL service
   service:
     name: mysql
     state: restarted
-  become: true
+  become: yes
