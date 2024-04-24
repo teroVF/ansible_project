@@ -57,12 +57,13 @@
 #     state: restarted
 #   become: true
 
-- name: Ensure PyMySQL is installed
+
+- name: Ensure MySQL-python is installed
   pip:
-    name: PyMySQL
+    name: MySQL-python
     state: present
   become: yes
-
+  
 - name: Create a new database
   mysql_db:
     name: "{{ DB_NAME }}"
