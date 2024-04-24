@@ -9,9 +9,9 @@ Miguel (ate 00h)
   - apache
 
 Antero 
-  - wordpress (web)
-  - criar bm windows
-  - PHP
+  - wordpress (web) (a fazer)
+  - criar bm windows (feito)
+  - PHP (penso que feito)
 
 Pedro
   - MySql
