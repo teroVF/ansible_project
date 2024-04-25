@@ -1,17 +1,20 @@
 ---
 # tasks file for mysql_server
 
+# first, update the apt cache
 - name: Update apt cache
   apt:
     update_cache: yes
   become: yes
 
+# install MySQL server
 - name: Install MySQL server
   apt:
     name: mysql-server
     state: present
   become: true
 
+# start MySQL service
 - name: Start MySQL service
   service:
     name: mysql
@@ -26,22 +29,24 @@
 # #       state: restarted
 # #     become: true
 
-# # - name: Configure MySQL root password
-# #   debconf:
-# #     name: mysql-server
-# #     question: 'mysql-server/root_password'
-# #     value: 'ubuntu'
-# #     vtype: password
-# #   #notify: Restart MySQL service
-# #   become: true
+# configure MySQL root password
+- name: Configure MySQL root password
+  ansible.builtin.debconf:
+    name: mysql-server
+    question: 'mysql-server/root_password'
+    value: "{{ DB_PASS_ROOT }}"
+    vtype: password
+  notify: Restart MySQL service
+  become: true
 
-# - name: Configure MySQL root user
-#   mysql_user:
-#     name: root
-#     password: "{{ mysql_root_password }}"
-#     priv: "*.*:ALL,GRANT"
-#     state: present
-#   become: true
+- name: Configure MySQL root user
+  mysql_user:
+    name: root
+    password: "{{ DB_PASS_ROOT }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
+  notify: Restart MySQL service
+  become: true
 
 # - name: Configure MySQL ansible user
 #   mysql_user:
