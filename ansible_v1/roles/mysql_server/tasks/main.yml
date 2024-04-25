@@ -15,13 +15,12 @@
   become: true
 
 # configure MySQL root password
-- name: Configure MySQL root password
-  ansible.builtin.debconf:
-    name: mysql-server
-    question: 'mysql-server/root_password'
-    value: "{{ DB_PASS_ROOT }}"
-    vtype: password
-  notify: Restart MySQL Service
+- name: Change root user's password and authentication method
+  mysql_user:
+    name: root
+    password: new_password  # substitua "new_password" pela nova senha
+    plugin: mysql_native_password
+    login_unix_socket: /var/run/mysqld/mysqld.sock
   become: true
 
 # - name: Start MySQL service
