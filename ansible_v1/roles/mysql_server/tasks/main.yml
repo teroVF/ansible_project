@@ -110,3 +110,12 @@
     login_user: root
     login_password: "{{ DB_PASS_ROOT }}"
   notify: Restart MySQL Service
+
+
+- name: Allow remote connections to MySQL
+  lineinfile:
+    path: /etc/mysql/mysql.conf.d/mysqld.cnf
+    regexp: '^bind-address\s*=\s*127\.0\.0\.1\s*$'
+    line: 'bind-address = 0.0.0.0'
+  become: yes
+  notify: Restart MySQL Service
