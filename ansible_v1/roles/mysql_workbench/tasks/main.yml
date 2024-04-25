@@ -1,18 +1,27 @@
 ---
-# tasks file for mysql_workbench
-- name: Installing Mysql Worbench
-  hosts: windows-server
-  gather_facts: true
-  tasks:
-  - name: Download Mysql Worbench installer
-    ansible.windows.win_get_url:
-        url: https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.6.5/npp.8.6.5.Installer.x64.exe
-        
-        dest: C:\npp.7.9.1.Installer.x64.exe
+#Tasks to install Mysql Workbench and verify the installation
+- name: Download Mysql Workbench MSI installer
+  ansible.windows.win_get_url:
+    url: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.36-winx64.msi
+    dest: C:\mysql-workbench.msi
 
-  - name: Execute Installer
-    ansible.windows.win_package: 
-        path: C:\npp.7.9.1.Installer.x64.exe
-        #Instalação silenciosa sem interação do utilizador
-        arguments: /S
-        state: present
+- name: Execute Installer
+  ansible.windows.win_package:
+    path: C:\mysql-workbench.msi
+    #Instalação silenciosa sem interação do utilizador
+    arguments: /quiet
+    state: present
+
+- name: Verify Mysql Workbench installation
+  ansible.windows.win_shell: |
+    $version = (Get-WmiObject -Class Win32_Product | Where-Object {$_.Name -like "MySQL Workbench*"}).Version
+    if ($version -eq "8.0.36") {
+      Write-Host "The Mysql Workbench installation was successful"
+    } else {
+      Write-Host "The Mysql Workbench installation failed"
+    }
+  register: result
+
+- name: Print installation result
+  ansible.builtin.debug:
+    var: result.stdout_lines
