@@ -86,7 +86,7 @@
     name: "{{ DB_NAME }}"
     state: present
     login_user: root
-    login_password: "{{ DB_ROOT_PASSWORD }}"
+    login_password: "{{ DB_PASS_ROOT }}"
   become: yes
   become_user: root
 
@@ -114,7 +114,7 @@
     name: "root"
     password: "{{ DB_PASS_ROOT }}"
     login_user: root
-    login_password: "{{ DB_ROOT_PASSWORD }}"
+    login_password: "{{ DB_PASS_ROOT }}"
     check_implicit_admin: yes
   become: yes
   become_user: root
