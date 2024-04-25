@@ -1,9 +1,14 @@
 ---
 #Tasks to install Mysql Workbench and verify the installation
-- name: Download Mysql Workbench MSI installer
-  ansible.windows.win_get_url:
-    url: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.28-winx64.msi
-    dest: C:\mysql-workbench.msi
+#- name: Download Mysql Workbench MSI installer
+#  ansible.windows.win_get_url:
+#    url: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.28-winx64.msi
+#    dest: C:\mysql-workbench.msi
+- name: Download Mysql Workbench from PowerShell
+  ansible.windows.win_shell: |
+    $url = "https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.36-winx64.msi"
+    $output = "C:\mysql-workbench.msi"
+    Invoke-WebRequest -Uri $url -OutFile $output
 
 - name: Execute Installer
   ansible.windows.win_package:
