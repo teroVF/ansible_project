@@ -5,7 +5,7 @@ servidor windows
 
 
 Miguel (ate 00h)
-  - workbench (a fazer)
+  - workbench (feito?)
   - apache (teste ok)
 
 Antero 
