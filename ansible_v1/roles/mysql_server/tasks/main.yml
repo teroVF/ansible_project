@@ -14,6 +14,12 @@
     state: present
   become: true
 
+- name: Ensure pip is installed
+  apt:
+    name: python3-pip
+    state: present
+  become: yes
+
 # configure MySQL root password
 - name: Change root user's password and authentication method
   mysql_user:
@@ -63,11 +69,7 @@
 # #     state: restarted
 # #   become: true
 
-# - name: Ensure pip is installed
-#   apt:
-#     name: python3-pip
-#     state: present
-#   become: yes
+
 
 # - name: Ensure pkg-config is installed
 #   apt:
