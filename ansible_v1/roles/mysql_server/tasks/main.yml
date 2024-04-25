@@ -79,36 +79,29 @@
     name: "{{ DB_USER }}"
     password: "{{ DB_PASSWORD }}"
     priv: "*.*:ALL"
+    state: absent
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
+  notify: Restart MySQL Service
+
+
+- name: Create a new database
+  mysql_db:
+    name: "{{ DB_NAME }}"
     state: present
     login_user: root
     login_password: "{{ DB_PASS_ROOT }}"
+  become: yes
+  become_user: root
 
-# # - name: Restart MySQL service
-# #   service:
-# #     name: mysql
-# #     state: restarted
-# #   become: true
-
-
-# - name: Create a new database
-#   mysql_db:
-#     name: "{{ DB_NAME }}"
-#     state: present
-#     login_user: root
-#     login_password: "{{ DB_PASS_ROOT }}"
-#   become: yes
-#   become_user: root
-
-# - name: Create a new user
-#   mysql_user:
-#     name: "{{ DB_USER }}"
-#     password: "{{ DB_PASSWORD }}"
-#     priv: "{{ DB_NAME }}.*:ALL"
-#     state: present
-#     login_user: root
-#     login_password: "{{ DB_PASS_ROOT }}"
-#   become: yes
-#   become_user: root
+- name: Create a new user
+  mysql_user:
+    name: "{{ DB_USER }}"
+    password: "{{ DB_PASSWORD }}"
+    priv: "{{ DB_NAME }}.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
 
 # - name: Grant all privileges to root
 #   mysql_user:
