@@ -20,6 +20,18 @@
     state: present
   become: yes
 
+- name: Ensure pkg-config is installed
+  ansible.builtin.apt:
+    name: pkg-config
+    state: present
+  become: yes
+
+- name: Ensure libmysqlclient-dev is installed
+  ansible.builtin.apt:
+    name: libmysqlclient-dev
+    state: present
+  become: yes
+
 - name: Ensure mysqlclient is installed
   ansible.builtin.pip:
     name: mysqlclient
@@ -74,20 +86,6 @@
 # #     name: mysql
 # #     state: restarted
 # #   become: true
-
-
-
-# - name: Ensure pkg-config is installed
-#   apt:
-#     name: pkg-config
-#     state: present
-#   become: yes
-
-# - name: Ensure libmysqlclient-dev is installed
-#   apt:
-#     name: libmysqlclient-dev
-#     state: present
-#   become: yes
 
 
 # - name: Create a new database
