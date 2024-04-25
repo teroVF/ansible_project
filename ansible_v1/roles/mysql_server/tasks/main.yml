@@ -40,16 +40,17 @@
   become: true
 
 - name: Start MySQL service
-  service:
+  ansible.builtin.service:
     name: mysql
     state: started
   become: true
 
 - name: Wait for MySQL to start up
-  wait_for:
+  ansible.builtin.wait_for:
     host: localhost
     port: 3306
     delay: 5
+
 
 - name: Configure MySQL root user
   mysql_user:
@@ -57,15 +58,19 @@
     password: "{{ DB_PASS_ROOT }}"
     priv: "*.*:ALL,GRANT"
     state: present
-  notify: Restart MySQL service
   become: true
 
+
 # - name: Configure MySQL ansible user
-#   mysql_user:
-#     name: ansible
-#     password: "{{ ansible_user_password }}"
-#     priv: "*.*:ALL,GRANT"
-#     state: present
+#     ansible.builtin.mysql_user:
+#       name: ansible
+#       password: "{{ ansible_user_password }}"
+#       priv: "*.*:ALL,GRANT"
+#       state: present
+#       name: ansible
+#       password: "{{ ansible_user_password }}"
+#       priv: "*.*:ALL,GRANT"
+#       state: present
 #   become: true
 
 # - name: Restart MySQL service
