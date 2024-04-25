@@ -5,7 +5,7 @@ servidor windows
 
 
 Miguel (ate 00h)
-  - workbench
+  - workbench (a fazer)
   - apache (teste ok)
 
 Antero 
@@ -17,3 +17,5 @@ Pedro
   - MySql
   - 
   
+Utilizar esta coleção para ser mais fácil gerir e instalar aplicações no windows:
+https://github.com/chocolatey/chocolatey-ansible
