@@ -63,6 +63,18 @@
     state: present
   become: yes
 
+- name: Ensure pkg-config is installed
+  apt:
+    name: pkg-config
+    state: present
+  become: yes
+
+- name: Ensure libmysqlclient-dev is installed
+  apt:
+    name: libmysqlclient-dev
+    state: present
+  become: yes
+
 - name: Ensure mysqlclient is installed
   pip:
     name: mysqlclient
