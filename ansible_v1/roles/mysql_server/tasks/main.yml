@@ -46,7 +46,8 @@
     plugin: mysql_native_password
     login_unix_socket: /var/run/mysqld/mysqld.sock
     login_user: root
-    login_password: "new_password"
+    login_password: "{{ DB_PASS_ROOT }}"
+  notify: Restart MySQL Service
   become: true
 
 # - name: Start MySQL service
@@ -55,20 +56,22 @@
 #     state: started
 #   become: true
 
-# - name: Wait for MySQL to start up
-#   ansible.builtin.wait_for:
-#     host: localhost
-#     port: 3306
-#     delay: 5
+# # - name: Wait for MySQL to start up
+# #   ansible.builtin.wait_for:
+# #     host: localhost
+# #     port: 3306
+# #     delay: 5
 
 
-# - name: Configure MySQL root user
-#   mysql_user:
-#     name: root
-#     password: "{{ DB_PASS_ROOT }}"
-#     priv: "*.*:ALL,GRANT"
-#     state: present
-#   become: true
+- name: Configure MySQL root user
+  mysql_user:
+    name: root
+    password: "{{ DB_PASS_ROOT }}"
+    priv: "*.*:ALL,GRANT"
+    state: present
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
+  become: true
 
 
 # # - name: Configure MySQL ansible user
