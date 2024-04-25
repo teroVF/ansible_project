@@ -39,6 +39,18 @@
   notify: Restart MySQL Service
   become: true
 
+- name: Start MySQL service
+  service:
+    name: mysql
+    state: started
+  become: true
+
+- name: Wait for MySQL to start up
+  wait_for:
+    host: localhost
+    port: 3306
+    delay: 5
+
 - name: Configure MySQL root user
   mysql_user:
     name: root
