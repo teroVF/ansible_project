@@ -79,6 +79,8 @@
   pip:
     name: mysqlclient
     state: present
+    login_user: root
+    login_password: "{{ DB_ROOT_PASSWORD }}"
   become: yes
 
 - name: Create a new database
