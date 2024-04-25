@@ -45,6 +45,8 @@
     password: "{{ DB_PASS_ROOT }}"
     priv: "*.*:ALL,GRANT"
     state: present
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
   notify: Restart MySQL service
   become: true
 
