@@ -74,17 +74,14 @@
   become: true
 
 
-# # - name: Configure MySQL ansible user
-# #     ansible.builtin.mysql_user:
-# #       name: ansible
-# #       password: "{{ ansible_user_password }}"
-# #       priv: "*.*:ALL,GRANT"
-# #       state: present
-# #       name: ansible
-# #       password: "{{ ansible_user_password }}"
-# #       priv: "*.*:ALL,GRANT"
-# #       state: present
-# #   become: true
+- name: Configure MySQL ansible user
+  mysql_user:
+    name: "{{ DB_USER }}"
+    password: "{{ DB_PASSWORD }}"
+    priv: "*.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
 
 # # - name: Restart MySQL service
 # #   service:
