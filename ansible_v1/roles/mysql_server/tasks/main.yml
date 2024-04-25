@@ -96,6 +96,8 @@
     password: "{{ DB_PASSWORD }}"
     priv: "{{ DB_NAME }}.*:ALL"
     state: present
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
   become: yes
   become_user: root
 
@@ -103,9 +105,10 @@
   mysql_user:
     name: "root"
     password: "{{ DB_PASS_ROOT }}"
-    host_all: yes
     priv: "{{ DB_NAME }}.*:ALL"
     state: present
+    login_user: root
+    login_password: "{{ DB_PASS_ROOT }}"
   become: yes
   become_user: root
 
