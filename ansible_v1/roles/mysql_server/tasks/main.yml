@@ -111,7 +111,9 @@
   mysql_user:
     name: "root"
     password: "{{ DB_PASS_ROOT }}"
-    login_unix_socket: /var/run/mysqld/mysqld.sock
+    login_user: root
+    login_password: "{{ DB_ROOT_PASSWORD }}"
+    check_implicit_admin: yes
   become: yes
   become_user: root
 
