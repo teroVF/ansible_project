@@ -14,140 +14,140 @@
     state: present
   become: true
 
-# start MySQL service
-- name: Start MySQL service
-  service:
-    name: mysql
-    state: started
-    enabled: true
-  become: true
-
-# # handlers:
-# #   - name: Restart MySQL service
-# #     service:
-# #       name: mysql
-# #       state: restarted
-# #     become: true
-
-# configure MySQL root password
-- name: Configure MySQL root password
-  ansible.builtin.debconf:
-    name: mysql-server
-    question: 'mysql-server/root_password'
-    value: "{{ DB_PASS_ROOT }}"
-    vtype: password
-  notify: Restart MySQL Service
-  become: true
-
-- name: Start MySQL service
-  ansible.builtin.service:
-    name: mysql
-    state: started
-  become: true
-
-- name: Wait for MySQL to start up
-  ansible.builtin.wait_for:
-    host: localhost
-    port: 3306
-    delay: 5
-
-
-- name: Configure MySQL root user
-  mysql_user:
-    name: root
-    password: "{{ DB_PASS_ROOT }}"
-    priv: "*.*:ALL,GRANT"
-    state: present
-  become: true
-
-
-# - name: Configure MySQL ansible user
-#     ansible.builtin.mysql_user:
-#       name: ansible
-#       password: "{{ ansible_user_password }}"
-#       priv: "*.*:ALL,GRANT"
-#       state: present
-#       name: ansible
-#       password: "{{ ansible_user_password }}"
-#       priv: "*.*:ALL,GRANT"
-#       state: present
+# # start MySQL service
+# - name: Start MySQL service
+#   service:
+#     name: mysql
+#     state: started
+#     enabled: true
 #   become: true
+
+# # # handlers:
+# # #   - name: Restart MySQL service
+# # #     service:
+# # #       name: mysql
+# # #       state: restarted
+# # #     become: true
+
+# # configure MySQL root password
+# - name: Configure MySQL root password
+#   ansible.builtin.debconf:
+#     name: mysql-server
+#     question: 'mysql-server/root_password'
+#     value: "{{ DB_PASS_ROOT }}"
+#     vtype: password
+#   notify: Restart MySQL Service
+#   become: true
+
+# - name: Start MySQL service
+#   ansible.builtin.service:
+#     name: mysql
+#     state: started
+#   become: true
+
+# - name: Wait for MySQL to start up
+#   ansible.builtin.wait_for:
+#     host: localhost
+#     port: 3306
+#     delay: 5
+
+
+# - name: Configure MySQL root user
+#   mysql_user:
+#     name: root
+#     password: "{{ DB_PASS_ROOT }}"
+#     priv: "*.*:ALL,GRANT"
+#     state: present
+#   become: true
+
+
+# # - name: Configure MySQL ansible user
+# #     ansible.builtin.mysql_user:
+# #       name: ansible
+# #       password: "{{ ansible_user_password }}"
+# #       priv: "*.*:ALL,GRANT"
+# #       state: present
+# #       name: ansible
+# #       password: "{{ ansible_user_password }}"
+# #       priv: "*.*:ALL,GRANT"
+# #       state: present
+# #   become: true
+
+# # - name: Restart MySQL service
+# #   service:
+# #     name: mysql
+# #     state: restarted
+# #   become: true
+
+# - name: Ensure pip is installed
+#   apt:
+#     name: python3-pip
+#     state: present
+#   become: yes
+
+# - name: Ensure pkg-config is installed
+#   apt:
+#     name: pkg-config
+#     state: present
+#   become: yes
+
+# - name: Ensure libmysqlclient-dev is installed
+#   apt:
+#     name: libmysqlclient-dev
+#     state: present
+#   become: yes
+
+# - name: Ensure mysqlclient is installed
+#   pip:
+#     name: mysqlclient
+#     state: present
+#   become: yes
+
+# - name: Create a new database
+#   mysql_db:
+#     name: "{{ DB_NAME }}"
+#     state: present
+#     login_user: root
+#     login_password: "{{ DB_PASS_ROOT }}"
+#   become: yes
+#   become_user: root
+
+# - name: Create a new user
+#   mysql_user:
+#     name: "{{ DB_USER }}"
+#     password: "{{ DB_PASSWORD }}"
+#     priv: "{{ DB_NAME }}.*:ALL"
+#     state: present
+#     login_user: root
+#     login_password: "{{ DB_PASS_ROOT }}"
+#   become: yes
+#   become_user: root
+
+# - name: Grant all privileges to root
+#   mysql_user:
+#     name: "root"
+#     password: "{{ DB_PASS_ROOT }}"
+#     priv: "{{ DB_NAME }}.*:ALL"
+#     state: present
+#     login_user: root
+#     login_password: "{{ DB_PASS_ROOT }}"
+#   become: yes
+#   become_user: root
+
+# - name: Set root password
+#   mysql_user:
+#     name: "root"
+#     password: "{{ DB_PASS_ROOT }}"
+#     login_user: root
+#     login_password: "{{ DB_PASS_ROOT }}"
+#     check_implicit_admin: yes
+#   become: yes
+#   become_user: root
+
+# #restart
 
 # - name: Restart MySQL service
 #   service:
 #     name: mysql
 #     state: restarted
-#   become: true
-
-- name: Ensure pip is installed
-  apt:
-    name: python3-pip
-    state: present
-  become: yes
-
-- name: Ensure pkg-config is installed
-  apt:
-    name: pkg-config
-    state: present
-  become: yes
-
-- name: Ensure libmysqlclient-dev is installed
-  apt:
-    name: libmysqlclient-dev
-    state: present
-  become: yes
-
-- name: Ensure mysqlclient is installed
-  pip:
-    name: mysqlclient
-    state: present
-  become: yes
-
-- name: Create a new database
-  mysql_db:
-    name: "{{ DB_NAME }}"
-    state: present
-    login_user: root
-    login_password: "{{ DB_PASS_ROOT }}"
-  become: yes
-  become_user: root
-
-- name: Create a new user
-  mysql_user:
-    name: "{{ DB_USER }}"
-    password: "{{ DB_PASSWORD }}"
-    priv: "{{ DB_NAME }}.*:ALL"
-    state: present
-    login_user: root
-    login_password: "{{ DB_PASS_ROOT }}"
-  become: yes
-  become_user: root
-
-- name: Grant all privileges to root
-  mysql_user:
-    name: "root"
-    password: "{{ DB_PASS_ROOT }}"
-    priv: "{{ DB_NAME }}.*:ALL"
-    state: present
-    login_user: root
-    login_password: "{{ DB_PASS_ROOT }}"
-  become: yes
-  become_user: root
-
-- name: Set root password
-  mysql_user:
-    name: "root"
-    password: "{{ DB_PASS_ROOT }}"
-    login_user: root
-    login_password: "{{ DB_PASS_ROOT }}"
-    check_implicit_admin: yes
-  become: yes
-  become_user: root
-
-#restart
-
-- name: Restart MySQL service
-  service:
-    name: mysql
-    state: restarted
-  become: yes
+#   become: yes
