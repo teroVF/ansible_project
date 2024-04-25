@@ -95,6 +95,7 @@
 - name: Create a new user
   mysql_user:
     name: "{{ DB_USER }}"
+    host: "%"
     password: "{{ DB_PASSWORD }}"
     priv: "{{ DB_NAME }}.*:ALL"
     state: present
