@@ -6,3 +6,5 @@
     name: mysql
     state: restarted
   become: true
+
+...

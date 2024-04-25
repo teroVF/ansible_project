@@ -36,7 +36,7 @@
     question: 'mysql-server/root_password'
     value: "{{ DB_PASS_ROOT }}"
     vtype: password
-  notify: Restart MySQL service
+  notify: Restart MySQL Service
   become: true
 
 - name: Configure MySQL root user
