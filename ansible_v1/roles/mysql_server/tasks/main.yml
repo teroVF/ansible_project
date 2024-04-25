@@ -63,12 +63,11 @@
     state: present
   become: yes
 
-- name: Ensure MySQL-python is installed
+- name: Ensure mysqlclient is installed
   pip:
-    name: MySQL-python
+    name: mysqlclient
     state: present
   become: yes
-
 
 - name: Create a new database
   mysql_db:
