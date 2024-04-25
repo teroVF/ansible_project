@@ -14,15 +14,15 @@
     state: present
   become: true
 
-# # configure MySQL root password
-# - name: Configure MySQL root password
-#   ansible.builtin.debconf:
-#     name: mysql-server
-#     question: 'mysql-server/root_password'
-#     value: "{{ DB_PASS_ROOT }}"
-#     vtype: password
-#   notify: Restart MySQL Service
-#   become: true
+# configure MySQL root password
+- name: Configure MySQL root password
+  ansible.builtin.debconf:
+    name: mysql-server
+    question: 'mysql-server/root_password'
+    value: "{{ DB_PASS_ROOT }}"
+    vtype: password
+  notify: Restart MySQL Service
+  become: true
 
 # - name: Start MySQL service
 #   ansible.builtin.service:
