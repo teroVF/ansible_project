@@ -92,7 +92,6 @@
   mysql_user:
     name: "{{ DB_USER }}"
     password: "{{ DB_PASSWORD }}"
-    host_all: yes
     priv: "{{ DB_NAME }}.*:ALL"
     state: present
   become: yes
