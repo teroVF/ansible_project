@@ -31,7 +31,7 @@
     chdir: /var/www/html/
 
 - name: Install Wordpress
-  command: wp core install --url={{ URL }} --title={{ TITLE }} --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }}
+  command: wp core install --url={{ URL }} --title={{ TITLE }} --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }} --allow-root --force
   become: yes
   args:
     chdir: /var/www/html/
