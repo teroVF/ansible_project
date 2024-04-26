@@ -20,6 +20,14 @@
     state: directory
     mode: '0775'
 
+- name: Ensure www-data has correct permissions
+  file:
+    path: /tmp
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: '0755'
+
 - name: Download Wordpress
   command: wp core download
   become_user: www-data
