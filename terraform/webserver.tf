@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-web-vm" {
-  name                = "webserver-linux"
+  name                = "webserver-prod-vm"
   resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
   location            = azurerm_resource_group.grupo5-weu-prod-rg.location
   #maquina barata tipo B

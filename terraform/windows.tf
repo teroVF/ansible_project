@@ -6,7 +6,7 @@ data "template_file" "init" {
 
 resource "azurerm_windows_virtual_machine" "windows" {
     depends_on = [ azurerm_network_interface.nic, azurerm_public_ip.publicip, azurerm_network_interface_security_group_association.example]
-    name                  = "windows"
+    name                  = "windows-prod-vm"
     resource_group_name   = azurerm_resource_group.grupo5-weu-prod-rg.name
     location              = azurerm_resource_group.grupo5-weu-prod-rg.location
     size                  = "Standard_B2s"
@@ -43,7 +43,7 @@ resource "azurerm_windows_virtual_machine" "windows" {
 }
 
 resource "azurerm_network_interface" "nic" {
-    name                = "nic"
+    name                = "windows-prod-nic"
     location            = azurerm_resource_group.grupo5-weu-prod-rg.location
     resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
 

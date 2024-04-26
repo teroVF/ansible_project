@@ -12,7 +12,7 @@ resource "azurerm_network_interface" "grupo5-weu-prod-nic-db" {
 }
 
 resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-db-vm" {
-    name                = "grupo5-weu-prod-db-vm"
+    name                = "database-prod-vm"
     location            = azurerm_resource_group.grupo5-weu-prod-rg.location
     resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
     size                = "Standard_DS2_v2"
