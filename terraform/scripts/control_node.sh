@@ -47,6 +47,8 @@ echo '%ansible_3 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers || log_and_exit "Erro 
 
 chmod -R 770 /opt/ansible || log_and_exit "Erro ao alterar as permissões do diretório /opt/ansible"
 
+echo "StrictHostKeyChecking no" >> /root/.ssh/config
+
 for nome in ${nomes[@]}; do
     usermod -aG ansible_3 $nome || log_and_exit "Erro ao adicionar o usuário $nome ao grupo ansible"
     ln -s /opt/ansible/ansible_v1 /home/$nome/ansible || log_and_exit "Erro ao criar o link simbólico /home/$nome/ansible"
