@@ -13,22 +13,11 @@
     dest: /usr/local/bin/wp
     mode: 0755
 
-#create /var/www/html/ if it doesn't exist (mode 0755 and owner www-data:www-data)
-- name: Ensure /var/www/html/ is writable
-  file:
-    path: /var/www/html/
-    state: directory
-    owner: www-data
-    group: www-data
-    recurse: yes
-    mode: '0755'
-
 - name: Download Wordpress
   command: wp core download --allow-root
   become: yes
   args:
     chdir: /var/www/html/
-
 
 - name: remove index.html
   file:
@@ -37,12 +26,21 @@
 
 - name : Create wp-config.php
   command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost=localhost --dbprefix=wp_ --force
-  become_user: www-data
+  become: yes
   args:
     chdir: /var/www/html/
 
 - name: Install Wordpress
   command: wp core install --url={{ URL }} --title={{ TITLE }} --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }}
-  become_user: www-data
+  become: yes
   args:
     chdir: /var/www/html/
+
+- name: Ensure /var/www/html/ is writable
+  file:
+    path: /var/www/html/
+    state: directory
+    owner: www-data
+    group: www-data
+    recurse: yes
+    mode: '0755'
