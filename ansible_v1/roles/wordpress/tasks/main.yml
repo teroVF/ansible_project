@@ -20,7 +20,7 @@
     chdir: /var/www/html/
 
 - name: remove index.html
-  file:
+  ansible.builtin.file:
     path: /var/www/html/index.html
     state: absent
 
@@ -37,7 +37,7 @@
     chdir: /var/www/html/
 
 - name: Ensure /var/www/html/ is writable
-  file:
+  ansible.builtin.file:
     path: /var/www/html/
     state: directory
     owner: www-data
