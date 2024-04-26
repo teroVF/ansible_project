@@ -18,14 +18,9 @@
   file:
     path: /var/www/html/
     state: directory
-    mode: '0775'
-
-- name: Ensure www-data has correct permissions
-  file:
-    path: /tmp
-    state: directory
     owner: www-data
     group: www-data
+    recurse: yes
     mode: '0755'
 
 - name: Download Wordpress
