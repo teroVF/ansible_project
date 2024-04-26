@@ -73,18 +73,6 @@
     login_password: "{{ DB_PASS_ROOT }}"
   become: true
 
-
-- name: Configure MySQL ansible user
-  mysql_user:
-    name: "{{ DB_USER }}"
-    password: "{{ DB_PASSWORD }}"
-    priv: "*.*:ALL"
-    state: absent
-    login_user: root
-    login_password: "{{ DB_PASS_ROOT }}"
-  notify: Restart MySQL Service
-
-
 - name: Create a new database
   mysql_db:
     name: "{{ DB_NAME }}"
@@ -120,3 +108,4 @@
     line: 'bind-address = 0.0.0.0'
   become: yes
   notify: Restart MySQL Service
+  
