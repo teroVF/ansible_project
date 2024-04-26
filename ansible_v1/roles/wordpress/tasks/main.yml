@@ -25,7 +25,6 @@
 
 - name: Download Wordpress
   command: wp core download
-  become_user: www-data
   become: yes
   args:
     chdir: /var/www/html/
