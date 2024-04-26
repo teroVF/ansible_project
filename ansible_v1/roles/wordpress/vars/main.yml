@@ -10,4 +10,4 @@ URL: http://localhost
 TITLE: "My WordPress Blog"
 ADMIN_USER: admin
 ADMIN_PASSWORD: 123
-ADMIN_EMAIL: admin@localhost
+ADMIN_EMAIL: admin@webserver.com
