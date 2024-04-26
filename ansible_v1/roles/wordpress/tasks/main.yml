@@ -24,7 +24,7 @@
     mode: '0755'
 
 - name: Download Wordpress
-  command: wp core download
+  command: wp core download --allow-root
   become: yes
   args:
     chdir: /var/www/html/
