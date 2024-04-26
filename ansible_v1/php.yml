@@ -1,0 +1,6 @@
+---
+- name: Install PHP and test it
+  hosts: webserver
+  become: yes
+  roles:
+    - php
