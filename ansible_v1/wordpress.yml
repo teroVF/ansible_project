@@ -1,0 +1,6 @@
+---
+- name: install wordpress
+  hosts: webserver
+  become: yes
+  roles:
+    - wordpress
