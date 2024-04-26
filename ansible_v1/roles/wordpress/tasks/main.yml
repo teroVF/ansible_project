@@ -7,67 +7,42 @@
   become: yes
 
 
-- name: Install WordPress
-  url: https://wordpress.org/latest.tar.gz
-  dest: /tmp/wordpress.tar.gz
-  become: yes
-
-- name: Extract WordPress
-  unarchive:
-    src: /tmp/wordpress.tar.gz
-    dest: /var/www/html/
-    remote_src: yes
-    become: yes
-
-- name: Set permissions
-  file:
-    path: /var/www/html/wordpress
-    state: directory
-    owner: www-data
-    group: www-data
-    mode: 0755
-    recurse: yes
-    become: yes
-
-- name: Copy wp-config.php
-  template:
-    src: wp-config.php.j2
-    dest: /var/www/html/wordpress/wp-config.php
-    owner: www-data
-    group: www-data
-    mode: 0644
-    become: yes
-
-- name: Remove index.html
-  file:
-    path: /var/www/html/index.html
-    state: absent
-    become: yes
-
-- name: Restart Apache
-  service:
-    name: apache2
-    state: restarted
-    become: yes
-
-- name: Remove temporary files
-  file:
-    path: /tmp/wordpress.tar.gz
-    state: absent
-    become: yes
-
-#install wordpress cli
-- name: Install wp-cli
-  get_url:
+- name: Install Wordpress CLI
+  ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     dest: /usr/local/bin/wp
     mode: 0755
-    become: yes
 
-- name: Create symbolic link
+#create /var/www/html/ if it doesn't exist (mode 0755 and owner www-data:www-data)
+
+- name: Create /var/www/html/ if it doesn't exist
   file:
-    src: /usr/local/bin/wp
-    dest: /usr/bin/wp
-    state: link
-    become: yes
+    path: /var/www/html/
+    state: directory
+    mode: 0755
+    owner: www-data
+    group: www-data
 
+
+- name: Download Wordpress
+  command: wp core download
+  become_user: www-data
+  args:
+    chdir: /var/www/html/
+
+- name: remove index.html
+  file:
+    path: /var/www/html/index.html
+    state: absent
+
+- name : Create wp-config.php
+  command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost=localhost --dbprefix=wp_ --force
+  become_user: www-data
+  args:
+    chdir: /var/www/html/
+
+- name: Install Wordpress
+  command: wp core install --url={{ URL }} --title={{ TITLE }} --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }}
+  become_user: www-data
+  args:
+    chdir: /var/www/html/
