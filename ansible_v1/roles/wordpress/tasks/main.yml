@@ -36,11 +36,18 @@
   args:
     chdir: /var/www/html/
 
-- name: Ensure /var/www/html/ is writable
+- name: Change file permissions to 644
   ansible.builtin.file:
-    path: /var/www/html/
-    state: directory
+    path: /path/to/your/directory
+    recurse: yes
+    mode: '0644'
     owner: www-data
     group: www-data
+
+- name: Change directory permissions to 755
+  ansible.builtin.file:
+    path: /path/to/your/directory
     recurse: yes
     mode: '0755'
+    state: directory
+
