@@ -50,4 +50,6 @@
     recurse: yes
     mode: '0755'
     state: directory
+    owner: www-data
+    group: www-data
 
