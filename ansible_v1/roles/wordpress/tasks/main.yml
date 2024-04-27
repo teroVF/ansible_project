@@ -38,7 +38,7 @@
 
 - name: Change file permissions to 644
   ansible.builtin.file:
-    path: /path/to/your/directory
+    path: /var/www/html/
     recurse: yes
     mode: '0644'
     owner: www-data
@@ -46,7 +46,7 @@
 
 - name: Change directory permissions to 755
   ansible.builtin.file:
-    path: /path/to/your/directory
+    path: /var/www/html/
     recurse: yes
     mode: '0755'
     state: directory
