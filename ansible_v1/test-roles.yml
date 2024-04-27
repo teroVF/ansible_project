@@ -2,8 +2,10 @@
 - name: test-roles
   host: all
   role:
-    - mysql
+    - mysql_server
     - php
     - apache
-    - wordpress  
+    - wordpress
+    - mysql_workbench
+
 
