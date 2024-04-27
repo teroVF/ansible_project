@@ -6,12 +6,24 @@
     update_cache: yes
   become: yes
 
-
 - name: Install Wordpress CLI
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     dest: /usr/local/bin/wp
     mode: 0755
+
+#create a directory for wordpress
+- name: Create a directory for wordpress
+  ansible.builtin.stat:
+    path: /var/www/html/
+  register: dir_check
+
+- name: Create a directory for wordpress
+  ansible.builtin.file:
+    path: /var/www/html/
+    state: directory
+    mode: '0755'
+  when: dir_check.stat.exists == False
 
 - name: Download Wordpress
   command: wp core download --allow-root --force
