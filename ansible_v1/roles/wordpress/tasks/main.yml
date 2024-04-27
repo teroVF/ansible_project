@@ -40,14 +40,17 @@
   ansible.builtin.file:
     path: /var/www/html/
     mode: '0644'
-    owner: www-data
-    group: www-data
 
 - name: Change directory permissions to 755
   ansible.builtin.file:
     path: /var/www/html/
     mode: '0755'
     state: directory
+
+- name: Change file owner and group
+  ansible.builtin.file:
+    path: /var/www/html/
+    recurse: yes
     owner: www-data
     group: www-data
 
