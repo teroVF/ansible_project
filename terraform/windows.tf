@@ -11,7 +11,7 @@ resource "azurerm_windows_virtual_machine" "windows" {
     location              = azurerm_resource_group.grupo5-weu-prod-rg.location
     size                  = "Standard_B2s"
     admin_username        = "ansible"
-    admin_password        = "Password1234!"
+    admin_password        = var.admin_password
     network_interface_ids = [azurerm_network_interface.nic.id]
 
     provision_vm_agent = "true" 
@@ -21,7 +21,7 @@ resource "azurerm_windows_virtual_machine" "windows" {
     custom_data = base64encode(data.template_file.init.rendered)
     additional_unattend_content {
       setting      = "AutoLogon"
-      content      = "<AutoLogon><Password><Value>Password1234!</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>ansible</Username></AutoLogon>"
+      content      = "<AutoLogon><Password><Value>${var.admin_password}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>ansible</Username></AutoLogon>"
    }
 
     additional_unattend_content {
