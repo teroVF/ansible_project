@@ -39,11 +39,22 @@
     dest: /etc/apache2/sites-available/wordpress.conf
   notify: Restart Apache
 
+- name: Check if rewrite module is enabled
+  ansible.builtin.stat:
+    path: /etc/apache2/mods-enabled/rewrite.load
+  register: rewrite_module
+
 - name: Enable URL rewriting module
   become: true
   ansible.builtin.command:
     cmd: a2enmod rewrite
   notify: Restart Apache
+  when: rewrite_module.stat.exists
+
+- name: Check if default site is enabled
+  ansible.builtin.stat:
+    path: /etc/apache2/sites-enabled/000-default.conf
+  register: default_site
 
 #Disable the default “It Works” site
 - name: Disable default apache site (000-default)
@@ -51,6 +62,7 @@
   ansible.builtin.command:
     cmd: a2dissite 000-default
   notify: Restart Apache
+  when: default_site.stat.exists
 
 - name: Run smoke test after wordpress configuration
   ansible.builtin.uri:
