@@ -1,2 +1,3 @@
 ---
 # vars file for apache
+wordpress_content_files: /var/www/html/

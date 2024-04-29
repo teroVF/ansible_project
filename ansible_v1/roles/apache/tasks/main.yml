@@ -32,12 +32,20 @@
 
 #Configure Apache for Wordpress
 #Copy wordpress.conf to /etc/apache2/sites-available/wordpress.conf (in webserver-linux)
-- name: Copy wordpress.conf to /etc/apache2/sites-available/wordpress.conf
-  become: true
-  ansible.builtin.copy:
-    src: ./roles/apache/files/wordpress.conf
-    dest: /etc/apache2/sites-available/wordpress.conf
-  notify: Restart Apache
+# - name: Copy wordpress.conf to /etc/apache2/sites-available/wordpress.conf
+#   become: true
+#   ansible.builtin.copy:
+#     src: ./roles/apache/files/wordpress.conf
+#     dest: /etc/apache2/sites-available/wordpress.conf
+#   notify: Restart Apache
+
+- name: Configure Apache sites-availabe to use Wordpress
+  ansible.builtin.template:
+    src: "templates/wordpress.conf.j2"
+    dest: "/etc/apache2/sites-available/wordpress.conf"
+  notify:
+      - Restart Apache
+
 
 - name: Check if rewrite module is enabled
   ansible.builtin.stat:
