@@ -1,6 +1,6 @@
 ---
 - name: Install PHP and test it
-  hosts: webserver
+  hosts: webserver-linux
   become: yes
   roles:
     - php
