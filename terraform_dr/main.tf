@@ -23,7 +23,7 @@ provider "azurerm" {
 
 
 data "azurerm_resource_group" "grupo5-neu-dr-rg" {
-  name                = "grupo5-neu-dr-rg-data"
+  name                = "grupo5-neu-dr-rg"
 }
 
 #VNET DR

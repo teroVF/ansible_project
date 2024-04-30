@@ -18,9 +18,10 @@
     arguments: /quiet
     state: present
 
+#37
 - name: Download Mysql Workbench from PowerShell
   ansible.windows.win_shell: |
-    $url = "https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.36-winx64.msi"
+    $url = "https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.36-winx64.msi" 
     $output = "C:\mysql-workbench.msi"
     Invoke-WebRequest -Uri $url -OutFile $output
 

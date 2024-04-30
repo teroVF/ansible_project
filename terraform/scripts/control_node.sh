@@ -33,9 +33,8 @@ apt-add-repository --yes --update ppa:ansible/ansible || log_and_exit "Erro ao a
 
 
 git clone https://github.com/teroVF/ansible_project.git /opt/ansible || log_and_exit "Erro ao clonar o repositório ansible_project"
-git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.directory"
-git reset --hard || log_and_exit "Erro ao resetar o repositório"
-git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.directory"
+cd /opt/ansible || log_and_exit "Erro ao acessar o diretório /opt/ansible"
+git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.directory"
 #Grupo ansible_3 com os usuários antero, miguel e pedro para rwx o diretório /opt/ansible
 groupadd ansible_3 || log_and_exit "Erro ao criar o grupo ansible"
 chown -R :ansible_3 /opt/ansible || log_and_exit "Erro ao alterar o grupo do diretório /opt/ansible"

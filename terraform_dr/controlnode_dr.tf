@@ -12,18 +12,6 @@ resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-vm" {
     public_key = file("./public_keys/admin.pub")
   }
 
-# ansible directory
-  provisioner "file" {
-    source = "ansible_cn"
-    destination = "/tmp/ansible/"
-
-    connection {
-      type     = "ssh"
-      user     = "ansible"
-      private_key = file("./private_key/admin")
-      host     = self.public_ip_address
-    }
-  }
 #Baixar a chave privada para os managed nodes
   provisioner "file" {
     source = "private_key/ansible"
