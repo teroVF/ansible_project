@@ -1,5 +1,5 @@
 #window machine azure windows server 2022 winrm
-data "template_file_dr" "init" {
+data "template_file" "init-dr" {
   template = file("./scripts/window_script.ps1")
 }
 
