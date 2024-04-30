@@ -1,7 +1,7 @@
 resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-web-vm" {
   name                = "webserver-dr-vm"
-  resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
-  location            = azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
+  location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
   #maquina barata tipo B
   size                = "Standard_B2s"
   admin_username      = "ansible"
@@ -26,8 +26,8 @@ resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-web-vm" {
 
 resource "azurerm_network_interface" "grupo5-neu-dr-nic-web" {
   name                      = "webserver-dr-nic-web"
-  location                  = azurerm_resource_group.grupo5-neu-dr-rg.location
-  resource_group_name       = azurerm_resource_group.grupo5-neu-dr-rg.name
+  location                  = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name       = data.azurerm_resource_group.grupo5-neu-dr-rg.name
 
   ip_configuration {
     name                          = "webserver-dr-nic-ipconfig"

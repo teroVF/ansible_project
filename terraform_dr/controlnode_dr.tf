@@ -1,8 +1,8 @@
 resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-vm" {
   depends_on = [azurerm_linux_virtual_machine.grupo5-neu-dr-db-vm, azurerm_linux_virtual_machine.grupo5-neu-dr-web-vm]
   name               = "controlnode-dr-vm"
-  resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
-  location            = azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
+  location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
   #maquina barata tipo B
   size                = "Standard_B2s"
   admin_username      = "ansible"
@@ -94,8 +94,8 @@ resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-vm" {
 
 resource "azurerm_network_interface" "grupo5-neu-dr-nic" {
   name                      = "controlnode-dr-nic"
-  location                  = azurerm_resource_group.grupo5-neu-dr-rg.location
-  resource_group_name       = azurerm_resource_group.grupo5-neu-dr-rg.name
+  location                  = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name       = data.azurerm_resource_group.grupo5-neu-dr-rg.name
 
   ip_configuration {
     name                          = "controlnode-dr-nic-ipconfig"
@@ -110,8 +110,8 @@ resource "azurerm_network_interface" "grupo5-neu-dr-nic" {
 
 resource "azurerm_public_ip" "grupo5-neu-dr-public-ip" {
   name                = "controlnode-dr-public-ip"
-  location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-  resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+  location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
   allocation_method   = "Static"
 }
 

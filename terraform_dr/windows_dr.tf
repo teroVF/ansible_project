@@ -5,20 +5,19 @@ data "template_file" "init-dr" {
 
 
 resource "azurerm_windows_virtual_machine" "windows-dr" {
-    depends_on = [ azurerm_network_interface.nic, azurerm_public_ip.publicip, azurerm_network_interface_security_group_association.example]
     name                  = "windows-dr-vm"
-    resource_group_name   = azurerm_resource_group.grupo5-neu-dr-rg.name
-    location              = azurerm_resource_group.grupo5-neu-dr-rg.location
+    resource_group_name   = data.azurerm_resource_group.grupo5-neu-dr-rg.name
+    location              = data.azurerm_resource_group.grupo5-neu-dr-rg.location
     size                  = "Standard_B2s"
     admin_username        = "ansible"
     admin_password        = var.admin_password
-    network_interface_ids = [azurerm_network_interface.nic.id]
+    network_interface_ids = [azurerm_network_interface.nic-dr.id]
 
     provision_vm_agent = "true" 
     winrm_listener {
       protocol = "Http" 
     }
-    custom_data = base64encode(data.template_file.init.rendered)
+    custom_data = base64encode(data.template_file.init-dr.rendered)
     additional_unattend_content {
       setting      = "AutoLogon"
       content      = "<AutoLogon><Password><Value>${var.admin_password}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>ansible</Username></AutoLogon>"
@@ -46,15 +45,15 @@ resource "azurerm_windows_virtual_machine" "windows-dr" {
 
 resource "azurerm_public_ip" "publicip-dr" {
     name                = "windows-dr-public-ip"
-    location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+    location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+    resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
     allocation_method   = "Static"
 }
 
 resource "azurerm_network_interface" "nic-dr" {
     name                = "windows-dr-nic"
-    location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+    location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+    resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
 
     ip_configuration {
         name                          = "windows-dr-nic-ipconfig"
@@ -70,8 +69,8 @@ resource "azurerm_network_interface" "nic-dr" {
 
 resource "azurerm_network_security_group" "windows_nsg-dr" {
   name                = "windows-dr-nsg"
-  location            = azurerm_resource_group.grupo5-neu-dr-rg.location 
-  resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+  location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location 
+  resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
 
   security_rule {
     name                       = "RDP"
@@ -109,8 +108,8 @@ resource "azurerm_network_security_group" "windows_nsg-dr" {
 }
 
 resource "azurerm_network_interface_security_group_association" "example-dr" {
-  network_interface_id      = azurerm_network_interface.nic.id
-  network_security_group_id = azurerm_network_security_group.windows_nsg.id
+  network_interface_id      = azurerm_network_interface.nic-dr.id
+  network_security_group_id = azurerm_network_security_group.windows_nsg-dr.id
 }
 
 #https://stackoverflow.com/questions/69390742/terraform-windows-server-2016-adding-and-running-scripts-using-winery

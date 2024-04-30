@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.6.5",
-  "serial": 477,
+  "serial": 476,
   "lineage": "b6444d65-8746-4604-4b5e-f843445d3ee8",
   "outputs": {
     "public_ip_address_dr": {
@@ -747,6 +747,27 @@
           "dependencies": [
             "azurerm_resource_group.grupo5-weu-prod-rg"
           ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "grupo5-neu-dr-rg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-neu-dr-rg",
+            "location": "northeurope",
+            "managed_by": "",
+            "name": "grupo5-neu-dr-rg",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfX0="
         }
       ]
     },

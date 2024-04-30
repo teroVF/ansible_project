@@ -1,0 +1,19 @@
+- name: Mysql
+  hosts: db-server-linux
+  become: yes
+  roles:
+    - mysql
+
+- name: Install PHP and test it
+  hosts: webserver-linux
+  become: yes
+  roles:
+    - php
+    - apache
+    - wordpress
+
+- name: windows
+  hosts: windows-server
+  become: yes
+  roles:
+    - mysql_workbench

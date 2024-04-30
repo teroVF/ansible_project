@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "grupo5-neu-dr-nic-db" {
     name                = "database-dr-nic"
-    location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+    location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+    resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
 
     ip_configuration {
         name                          = "database-dr-nic-ipconfig"
@@ -13,8 +13,8 @@ resource "azurerm_network_interface" "grupo5-neu-dr-nic-db" {
 
 resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-db-vm" {
     name                = "database-dr-vm"
-    location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+    location            = data.azurerm_resource_group.grupo5-neu-dr-rg.location
+    resource_group_name = data.azurerm_resource_group.grupo5-neu-dr-rg.name
     size                = "Standard_DS2_v2"
     admin_username      = "ansible"
     network_interface_ids = [
