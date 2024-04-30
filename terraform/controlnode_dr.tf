@@ -1,12 +1,12 @@
-resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
-  depends_on = [azurerm_linux_virtual_machine.grupo5-weu-prod-db-vm, azurerm_linux_virtual_machine.grupo5-weu-prod-web-vm]
-  name                = "controlnode-prod-vm"
-  resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
-  location            = azurerm_resource_group.grupo5-weu-prod-rg.location
+resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-vm" {
+  depends_on = [azurerm_linux_virtual_machine.grupo5-neu-dr-db-vm, azurerm_linux_virtual_machine.grupo5-neu-dr-web-vm]
+  name                = "controlnode-dr-vm"
+  resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+  location            = azurerm_resource_group.grupo5-neu-dr-rg.location
   #maquina barata tipo B
   size                = "Standard_B2s"
   admin_username      = "ansible"
-  network_interface_ids = [azurerm_network_interface.grupo5-weu-prod-nic.id]
+  network_interface_ids = [azurerm_network_interface.grupo5-neu-dr-nic.id]
   admin_ssh_key {
     username   = "ansible"
     public_key = file("./public_keys/admin.pub")
@@ -92,29 +92,29 @@ resource "azurerm_linux_virtual_machine" "grupo5-weu-prod-vm" {
   
 }
 
-resource "azurerm_network_interface" "grupo5-weu-prod-nic" {
-  name                      = "controlnode-prod-nic"
-  location                  = azurerm_resource_group.grupo5-weu-prod-rg.location
-  resource_group_name       = azurerm_resource_group.grupo5-weu-prod-rg.name
+resource "azurerm_network_interface" "grupo5-neu-dr-nic" {
+  name                      = "controlnode-dr-nic"
+  location                  = azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name       = azurerm_resource_group.grupo5-neu-dr-rg.name
 
   ip_configuration {
-    name                          = "controlnode-prod-nic-ipconfig"
-    subnet_id                     = azurerm_subnet.grupo5-weu-prod-subnet.id
+    name                          = "controlnode-dr-nic-ipconfig"
+    subnet_id                     = azurerm_subnet.grupo5-neu-dr-subnet.id
     private_ip_address_allocation = "Static"
-    private_ip_address            = "192.168.0.101"
-    public_ip_address_id          = azurerm_public_ip.grupo5-weu-prod-public-ip.id
+    private_ip_address            = "192.168.1.101"
+    public_ip_address_id          = azurerm_public_ip.grupo5-neu-dr-public-ip.id
   }
 }
 
 #public ip
 
-resource "azurerm_public_ip" "grupo5-weu-prod-public-ip" {
-  name                = "controlnode-prod-public-ip"
-  location            = azurerm_resource_group.grupo5-weu-prod-rg.location
-  resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
+resource "azurerm_public_ip" "grupo5-neu-dr-public-ip" {
+  name                = "controlnode-dr-public-ip"
+  location            = azurerm_resource_group.grupo5-neu-dr-rg.location
+  resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
   allocation_method   = "Static"
 }
 
 output "public_ip_address" {
-  value = azurerm_public_ip.grupo5-weu-prod-public-ip.ip_address
+  value = azurerm_public_ip.grupo5-neu-dr-public-ip.ip_address
 }

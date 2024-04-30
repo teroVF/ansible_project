@@ -1,10 +1,10 @@
 resource "azurerm_network_interface" "grupo5-weu-prod-nic-db" {
-    name                = "grupo5-weu-prod-nic-db"
+    name                = "database-prod-nic"
     location            = azurerm_resource_group.grupo5-weu-prod-rg.location
     resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
 
     ip_configuration {
-        name                          = "my-ip-configuration"
+        name                          = "database-prod-nic-ipconfig"
         subnet_id                     = azurerm_subnet.grupo5-weu-prod-subnet.id
         private_ip_address_allocation = "Static"
         private_ip_address            = "192.168.0.7"
