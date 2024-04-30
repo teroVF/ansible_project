@@ -1,6 +1,6 @@
 ---
 - name: install wordpress
-  hosts: webserver
+  hosts: webserver-linux
   become: yes
   roles:
     - wordpress
