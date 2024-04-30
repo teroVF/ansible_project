@@ -42,6 +42,15 @@ resource "azurerm_windows_virtual_machine" "windows-dr" {
     }
 }
 
+#public ip
+
+resource "azurerm_public_ip" "publicip" {
+    name                = "windows-dr-public-ip"
+    location            = azurerm_resource_group.grupo5-neu-dr-rg.location
+    resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
+    allocation_method   = "Static"
+}
+
 resource "azurerm_network_interface" "nic-dr" {
     name                = "windows-dr-nic"
     location            = azurerm_resource_group.grupo5-neu-dr-rg.location
@@ -54,18 +63,8 @@ resource "azurerm_network_interface" "nic-dr" {
         private_ip_address            = "192.168.1.100"
         public_ip_address_id = azurerm_public_ip.publicip.id
     }
+    depends_on = [azurerm_public_ip.publicip-dr]
 }
-
-#public ip
-
-resource "azurerm_public_ip" "publicip-dr" {
-    name                = "publicip"
-    location            = azurerm_resource_group.grupo5-neu-dr-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
-    allocation_method   = "Static"
-}
-
-
 
 #nsg windows
 
