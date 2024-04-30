@@ -44,7 +44,7 @@ resource "azurerm_windows_virtual_machine" "windows-dr" {
 
 #public ip
 
-resource "azurerm_public_ip" "publicip" {
+resource "azurerm_public_ip" "publicip-dr" {
     name                = "windows-dr-public-ip"
     location            = azurerm_resource_group.grupo5-neu-dr-rg.location
     resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
@@ -61,7 +61,7 @@ resource "azurerm_network_interface" "nic-dr" {
         subnet_id                     = azurerm_subnet.grupo5-neu-dr-subnet.id
         private_ip_address_allocation = "Static"
         private_ip_address            = "192.168.1.100"
-        public_ip_address_id = azurerm_public_ip.publicip.id
+        public_ip_address_id = azurerm_public_ip.publicip-dr.id
     }
     depends_on = [azurerm_public_ip.publicip-dr]
 }

@@ -1,6 +1,6 @@
 resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-vm" {
   depends_on = [azurerm_linux_virtual_machine.grupo5-neu-dr-db-vm, azurerm_linux_virtual_machine.grupo5-neu-dr-web-vm]
-  name                = "controlnode-dr-vm"
+  name               = "controlnode-dr-vm"
   resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
   location            = azurerm_resource_group.grupo5-neu-dr-rg.location
   #maquina barata tipo B
