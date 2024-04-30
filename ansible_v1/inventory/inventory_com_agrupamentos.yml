@@ -6,7 +6,7 @@ web-server-prod:
     
 db-server-prod:
   hosts:
-    grupo5-weu-prod-db-vm:
+    db-server-linux:
       ansible_host: 192.168.0.7
 windows-server-prod:
   hosts:
