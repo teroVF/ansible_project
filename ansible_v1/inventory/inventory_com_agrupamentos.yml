@@ -46,7 +46,6 @@ wordpress-servers:
     windows-server-drecovery:
 
 
-
 #Agrupamento por ambiente (prod e dev)
 #Grupos pai por ambiente:
 prod:
