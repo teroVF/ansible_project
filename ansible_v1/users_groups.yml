@@ -1,25 +1,26 @@
 #Incompleto 
+#falta dar acessos a pastas
 ---
 - name: Create users on different servers
   hosts: all
   become: true
 
   tasks:
-    - name: Create user on web server
+    - name: Create developer
       user:
-        name: user1
+        name: developer
+        password: 
         state: present
-      when: inventory_hostname == 'web-server'
+      when: inventory_hostname in groups['all']
 
-    - name: Create user on database server
+    - name: Create dbadmin
       user:
-        name: user2
+        name: dbadmin
         state: present
-      when: inventory_hostname == 'database'
+      when: inventory_hostname in groups['all']
 
-    - name: Create user on Windows server
+    - name: Create dbdev
       win_user:
-        name: user3
-        password: "{{ vaulted_password }}"
+        name: dbdev
         state: present
-      when: inventory_hostname == 'windows'
+      when: inventory_hostname in groups['all']
