@@ -1,10 +1,10 @@
 #window machine azure windows server 2022 winrm
-data "template_file" "init" {
+data "template_file_dr" "init" {
   template = file("./scripts/window_script.ps1")
 }
 
 
-resource "azurerm_windows_virtual_machine" "windows" {
+resource "azurerm_windows_virtual_machine" "windows-dr" {
     depends_on = [ azurerm_network_interface.nic, azurerm_public_ip.publicip, azurerm_network_interface_security_group_association.example]
     name                  = "windows-dr-vm"
     resource_group_name   = azurerm_resource_group.grupo5-neu-dr-rg.name
@@ -42,7 +42,7 @@ resource "azurerm_windows_virtual_machine" "windows" {
     }
 }
 
-resource "azurerm_network_interface" "nic" {
+resource "azurerm_network_interface" "nic-dr" {
     name                = "windows-dr-nic"
     location            = azurerm_resource_group.grupo5-neu-dr-rg.location
     resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
@@ -58,7 +58,7 @@ resource "azurerm_network_interface" "nic" {
 
 #public ip
 
-resource "azurerm_public_ip" "publicip" {
+resource "azurerm_public_ip" "publicip-dr" {
     name                = "publicip"
     location            = azurerm_resource_group.grupo5-neu-dr-rg.location
     resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
@@ -69,7 +69,7 @@ resource "azurerm_public_ip" "publicip" {
 
 #nsg windows
 
-resource "azurerm_network_security_group" "windows_nsg" {
+resource "azurerm_network_security_group" "windows_nsg-dr" {
   name                = "windows-dr-nsg"
   location            = azurerm_resource_group.grupo5-neu-dr-rg.location 
   resource_group_name = azurerm_resource_group.grupo5-neu-dr-rg.name
@@ -109,7 +109,7 @@ resource "azurerm_network_security_group" "windows_nsg" {
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "example" {
+resource "azurerm_network_interface_security_group_association" "example-dr" {
   network_interface_id      = azurerm_network_interface.nic.id
   network_security_group_id = azurerm_network_security_group.windows_nsg.id
 }

@@ -115,6 +115,6 @@ resource "azurerm_public_ip" "grupo5-weu-prod-public-ip" {
   allocation_method   = "Static"
 }
 
-output "public_ip_address" {
+output "public_ip_address_dr" {
   value = azurerm_public_ip.grupo5-weu-prod-public-ip.ip_address
 }
