@@ -2,7 +2,7 @@
   hosts: db-server-linux
   become: yes
   roles:
-    - mysql
+    - mysql_server
 
 - name: Install PHP and test it
   hosts: webserver-linux
