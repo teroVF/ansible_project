@@ -1,7 +1,7 @@
 #!/bin/bash
 log_and_exit() {
     #red
-    echo -e "\e[31m$1\e[0m" >> /tmp/control_node.log
+    echo -e "\e[31m$1\e[0m" >> /var/log/control_node.log
     exit 1
 }
 
@@ -34,11 +34,12 @@ apt-add-repository --yes --update ppa:ansible/ansible || log_and_exit "Erro ao a
 
 git clone https://github.com/teroVF/ansible_project.git /opt/ansible || log_and_exit "Erro ao clonar o repositório ansible_project"
 cd /opt/ansible || log_and_exit "Erro ao acessar o diretório /opt/ansible"
-git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.directory"
+git config --global --add safe.directory /opt/ansible || log_and_exit "Erro ao adicionar o safe.git config --global --add safe.directory /opt/ansible"
+git reset --hard || log_and_exit "Erro ao resetar o repositório"
+
 #Grupo ansible_3 com os usuários antero, miguel e pedro para rwx o diretório /opt/ansible
 groupadd ansible_3 || log_and_exit "Erro ao criar o grupo ansible"
 chown -R :ansible_3 /opt/ansible || log_and_exit "Erro ao alterar o grupo do diretório /opt/ansible"
-
 mv /tmp/ansible.pem /opt/ansible.pem || log_and_exit "Erro ao mover o arquivo /tmp/ansible.pem para /opt/ansible.pem"
 chown -R root:ansible_3 /opt/ansible.pem || log_and_exit "Erro ao alterar o dono do arquivo /opt/ansible.pem" 
 chown 600 /opt/ansible.pem || log_and_exit "Erro ao alterar as permissões do arquivo /opt/ansible.pem"
@@ -48,6 +49,7 @@ echo '%ansible_3 ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers || log_and_exit "Erro 
 
 chmod -R 770 /opt/ansible || log_and_exit "Erro ao alterar as permissões do diretório /opt/ansible"
 
+# Configuração StrictHostKeyChecking no arquivo /root/.ssh/config
 echo "StrictHostKeyChecking no" >> /root/.ssh/config
 
 for nome in ${nomes[@]}; do
@@ -59,10 +61,12 @@ done
 
 for package in ${package_to_install[@]}; do
     apt install $package -y || log_and_exit "Erro ao instalar o pacote $package"
+    echo "Pacote $package instalado com sucesso" | tee /var/log/control_node.log
 done
 
 for package in ${package_to_upgrade[@]}; do
     apt upgrade $package -y || log_and_exit "Erro ao atualizar o pacote $package"
+    echo "Pacote $package atualizado com sucesso" | tee /var/log/control_node.log
 done
 
 pip install "pywinrm>=0.3.0" || log_and_exit "Erro ao instalar o pacote pywinrm"
