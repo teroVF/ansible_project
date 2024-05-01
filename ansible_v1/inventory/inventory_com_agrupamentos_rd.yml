@@ -2,16 +2,16 @@
 web-server-prod:
   hosts:
     webserver-linux:
-      ansible_host: 192.168.1.6 
+      ansible_host: 192.168.0.6 
     
 db-server-prod:
   hosts:
     db-server-linux:
-      ansible_host: 192.168.1.7
+      ansible_host: 192.168.0.7
 windows-server-prod:
   hosts:
     windows-server:
-      ansible_host: 192.168.1.100
+      ansible_host: 192.168.0.100
 
 web-server-drecovery:
   hosts:
