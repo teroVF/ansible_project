@@ -22,8 +22,8 @@
 
     - name: Create dev and dba groups
       ansible.builtin.group:
-        name: "{{ item.name }}"
+        name: "{{ groups.name }}"
         state: present
-        members: "{{ item.members }}"
-      loop: "{{ (group_vars/all.yml) }}"
+        members: "{{ groups.members }}"
+      loop: "{{ all.yml }}"
 
