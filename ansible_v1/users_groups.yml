@@ -1,0 +1,27 @@
+---
+#Create users and groups defined in the inventory file (group_vars/all.yml)
+- hosts: all
+  gather_facts: true
+  tasks:
+    - name: Create users in Ubuntu
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: present
+        password: "{{ item.password }}"
+      loop: "{{ users }}"
+      when: ansible_os_family == 'Debian'
+
+    - name: Create users in Windows
+      ansible.windows.win_user:
+        name: "{{ item }}"
+        password: Ansible2024
+        state: present
+      loop: "{{ users }}"
+      when: ansible_os_family == 'Windows'
+
+    - name: Create dev and dba groups
+      group:
+        name: "{{ item.name }}"
+        state: present
+        members: "{{ item.members }}"
+      loop: "{{ groups }}"
