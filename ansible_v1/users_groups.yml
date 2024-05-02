@@ -2,6 +2,7 @@
 #Create users and groups defined in the inventory file (group_vars/all.yml)
 - hosts: all
   gather_facts: true
+  become: true
   tasks:
     - name: Create users in Ubuntu
       ansible.builtin.user:
