@@ -1,11 +1,11 @@
 #User variable with encrypted passwords using Ansible Vault
 users:
   - name: developer
-    password: Ansible2024   
+    password:    
   - name: dbadmin
-    password: Ansible2024
+    password: 
   - name: dbdev
-    password: Ansible2024
+    password:  
 
 #Group variable
 groups:
