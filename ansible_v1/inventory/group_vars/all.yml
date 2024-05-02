@@ -10,11 +10,5 @@ users:
 
 #Group variable
 groups:
-  - name: dev
-    members: 
-      - developer
-      - dbdev
-  - name: dba
-    members: 
-      - dbadmin 
-      - dbdev
+  - { name: dev, members: developer,dbdev }
+  - { name: dba, members: dbadmin,dbdev }
