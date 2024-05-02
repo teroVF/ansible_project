@@ -12,9 +12,9 @@ users:
 groups:
   - name: dev
     members: 
-      -developer
-      -dbdev
+      - developer
+      - dbdev
   - name: dba
     members: 
-      -dbadmin 
-      -dbdev
+      - dbadmin 
+      - dbdev
