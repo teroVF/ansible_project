@@ -5,7 +5,7 @@
   tasks:
     - name: Create users in Ubuntu
       ansible.builtin.user:
-        name: "{{ item.users }}"
+        name: "{{ item.name }}"
         state: present
         password: "{{ item.password }}"
       loop: "{{ users }}"
