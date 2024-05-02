@@ -5,23 +5,23 @@
   tasks:
     - name: Create users in Ubuntu
       ansible.builtin.user:
-        name: "{{ item }}"
+        name: "{{ users }}"
         state: present
-        password: "{{ item.password }}"
+        password: "{{ users.password }}"
       loop: "{{ users }}"
       when: ansible_os_family == 'Debian'
 
     - name: Create users in Windows
       ansible.windows.win_user:
-        name: "{{ item }}"
-        password: "{{ item.password }}"
+        name: "{{ users }}"
+        password: "{{ users.password }}"
         state: present
       loop: "{{ users }}"
       when: ansible_os_family == 'Windows'
 
     - name: Create dev and dba groups
       group:
-        name: "{{ item.name }}"
+        name: "{{ groups.name }}"
         state: present
-        members: "{{ item.members }}"
+        members: "{{ groups.members }}"
       loop: "{{ groups }}"

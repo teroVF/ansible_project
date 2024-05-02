@@ -1,4 +1,5 @@
 #User variable with encrypted passwords using Ansible Vault
+
 users:
   - name: developer
     password: Ansible2024   
