@@ -14,7 +14,7 @@
     - name: Create users in Windows
       ansible.windows.win_user:
         name: "{{ item }}"
-        password: Ansible2024
+        password: "{{ item.password }}"
         state: present
       loop: "{{ users }}"
       when: ansible_os_family == 'Windows'
