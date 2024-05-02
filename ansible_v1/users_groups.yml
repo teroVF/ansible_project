@@ -21,7 +21,7 @@
       when: ansible_os_family == 'Windows'
 
     - name: Create dev and dba groups
-      group:
+      ansible.builtin.user:
         name: "{{ groups.name }}"
         state: present
         members: "{{ groups.members }}"
