@@ -22,8 +22,8 @@
 
     - name: Create dev and dba groups
       group:
-        name: "{{ item.name }}"
+        name: "{{ groups.name }}"
         state: present
-        members: "{{ item.members }}"
+        members: "{{ groups.members }}"
       loop: "{{ groups }}"
 
