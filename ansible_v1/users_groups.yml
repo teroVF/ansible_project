@@ -20,10 +20,14 @@
       loop: "{{ users }}"
       when: ansible_os_family == 'Windows'
 
+    - name: Include group variables
+      include_vars:
+        file: group_vars/all.yml
+    
     - name: Create dev and dba groups
       ansible.builtin.group:
-        name: "{{ groups.name }}"
+        name: "{{ item.name }}"
         state: present
-        members: "{{ groups.members }}"
-      loop: "{{ all.yml }}"
+        members: "{{ item.members }}"
+      loop: "{{ groups }}"
 
