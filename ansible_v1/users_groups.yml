@@ -26,3 +26,4 @@
         state: present
         members: "{{ item.members }}"
       loop: "{{ groups }}"
+
