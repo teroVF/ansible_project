@@ -58,6 +58,8 @@ for nome in ${nomes[@]}; do
     ln -s /opt/ansible.pem /home/$nome/ansible.pem || log_and_exit "Erro ao criar o link simbólico /home/$nome/ansible.pem"
     echo "StrictHostKeyChecking no" >> /home/$nome/.ssh/config || log_and_exit "Erro ao adicionar a configuração StrictHostKeyChecking no arquivo /home/$nome/.ssh/config"
 done
+#Para o utilizador ansible poder aceder à pasta e executar playbooks
+usermod -aG ansible_3 ansible || log_and_exit "Erro ao adicionar o usuário ansible ao grupo ansible_3"
 
 for package in ${package_to_install[@]}; do
     apt install $package -y || log_and_exit "Erro ao instalar o pacote $package"
@@ -70,3 +72,4 @@ for package in ${package_to_upgrade[@]}; do
 done
 
 pip install "pywinrm>=0.3.0" || log_and_exit "Erro ao instalar o pacote pywinrm"
+
