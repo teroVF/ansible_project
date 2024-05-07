@@ -74,10 +74,10 @@ neu:
 #Grupos pai por tipo de sistema operacional:
 linux:
   children:
-    web-servers-prod:
-    web-servers-drecovery:
-    db-servers-prod:
-    db-servers-drecovery:
+    webserver-linux:
+    db-server-linux:
+    # db-servers-prod:
+    # db-servers-drecovery:
 
 windows:
   children:
