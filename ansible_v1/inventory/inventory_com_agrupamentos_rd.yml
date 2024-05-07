@@ -1,17 +1,17 @@
 #Hosts por ambiente (prod e disaster recovery):
 web-server-prod:
   hosts:
-    webserver-linux: 192.168.0.6
-       
+    webserver-linux:
+      ansible_host: 192.168.0.6 
     
 db-server-prod:
   hosts:
-    db-server-linux: 192.168.0.7
-       
+    db-server-linux:
+      ansible_host: 192.168.0.7
 windows-server-prod:
   hosts:
-    windows-server: 192.168.0.100
-       
+    windows-server:
+      ansible_host: 192.168.0.100
 
 web-server-drecovery:
   hosts:
