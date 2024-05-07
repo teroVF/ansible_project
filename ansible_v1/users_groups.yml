@@ -1,34 +1,45 @@
 ---
-#Create users and groups defined in the inventory file (group_vars/all.yml)
-- hosts: all
+#Create users and groups defined in the inventory file (group_vars/linux.yml)
+#Criar nova play à parte para criar os utilizadores de windows
+- hosts: linux
   gather_facts: true
   become: true
   tasks:
-    - name: Create users in Ubuntu
-      ansible.builtin.user:
-        name: "{{ item.name }}"
-        state: present
-        password: "{{ item.password }}"
-      loop: "{{ users }}"
-      when: ansible_os_family == 'Debian'
-
-    - name: Create users in Windows
-      ansible.windows.win_user:
-        name: "{{ item.name }}"
-        password: "{{ item.password }}"
-        state: present
-      loop: "{{ users }}"
-      when: ansible_os_family == 'Windows'
-
     - name: Add groups to Ubuntu Servers
       ansible.builtin.group:
         name: "{{ item.name }}"
         state: present
-        members: "{{ item.members }}"
       loop:
-         - { name: dev, members: "developer,dbdev" }
-         - { name: dba, members: "dbadmin,dbdev" }
-      when: ansible_os_family == 'Debian'
+         - { name: dev } 
+         - { name: dba }        
+      
+    - name: Create users and add to groups in Ubuntu
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        state: present
+        password: "{{ item.password }}"
+        groups: "{{ item.groups }}"
+        append: yes
+      loop: "{{ users }}"
+     
+- hosts: windows
+  gather_facts: true
+  tasks:
+    - name: Add groups to Ubuntu Servers
+      ansible.builtin.group:
+        name: "{{ item.name }}"
+        state: present
+      loop:
+         - { name: dev } 
+         - { name: dba }
+         
+    - name: Create users and add to groups in Windows
+      ansible.windows.win_user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        groups: "{{ item.groups }}"
+        append: yes
+      loop: "{{ users }}"
     
     # - name: Add groups to Windows Servers
     #   ansible.windows.win_group:

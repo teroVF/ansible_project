@@ -1,0 +1,10 @@
+users:
+  - name: developer
+    password: Ansible2024
+    groups: dev   
+  - name: dbadmin
+    password: Ansible2024
+    groups: dba
+  - name: dbdev
+    password: Ansible2024
+    groups: dev,dba
