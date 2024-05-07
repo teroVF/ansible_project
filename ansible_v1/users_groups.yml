@@ -22,24 +22,24 @@
         append: yes
       loop: "{{ users }}"
      
-- hosts: windows
-  gather_facts: true
-  tasks:
-    - name: Add groups to Ubuntu Servers
-      ansible.builtin.group:
-        name: "{{ item.name }}"
-        state: present
-      loop:
-         - { name: dev } 
-         - { name: dba }
-         
-    - name: Create users and add to groups in Windows
-      ansible.windows.win_user:
-        name: "{{ item.name }}"
-        password: "{{ item.password }}"
-        groups: "{{ item.groups }}"
-        append: yes
-      loop: "{{ users }}"
+# - hosts: windows
+#   gather_facts: true
+#   tasks:
+#     - name: Add groups to Ubuntu Servers
+#       ansible.builtin.group:
+#         name: "{{ item.name }}"
+#         state: present
+#       loop:
+#          - { name: dev } 
+#          - { name: dba }
+
+#     - name: Create users and add to groups in Windows
+#       ansible.windows.win_user:
+#         name: "{{ item.name }}"
+#         password: "{{ item.password }}"
+#         groups: "{{ item.groups }}"
+#         append: yes
+#       loop: "{{ users }}"
     
     # - name: Add groups to Windows Servers
     #   ansible.windows.win_group:
