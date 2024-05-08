@@ -9,7 +9,7 @@
     - wordpress
   
 - name: Run all windows server configurations in production environment
-  hosts: windows-server-prod
+  hosts: windows-server
   roles:
     - mysql_workbench
     
