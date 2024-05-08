@@ -2,31 +2,31 @@
 web-server-prod:
   hosts:
     webserver-linux:
-      ansible_host: 192.168.1.6 
+      ansible_host: 192.168.0.6 
     
 db-server-prod:
   hosts:
     db-server-linux:
-      ansible_host: 192.168.1.7
+      ansible_host: 192.168.0.7
 windows-server-prod:
   hosts:
     windows-server:
-      ansible_host: 192.168.1.100
+      ansible_host: 192.168.0.100
 
 web-server-drecovery:
   hosts:
     #nome_servidor_web(igual ao definido no terraform):
-    ansible_host: #ip_privado (subnet diferente do servidor control node?) 
+      #ansible_host: #ip_privado (subnet diferente do servidor control node?) 
     #nome_servidor_web:
 db-server-drecovery:
   hosts:
     #nome_servidor_bd:
-    ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
+      #ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
 windows-server-drecovery:
   hosts:
     #nome_servidor_windows:
-    ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
-    #no group vars vai ter mt coisa a ser definida
+      #ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
+    
 
 #Agrupamento por tipo de servidor (web, db e wordpress)
 #Grupos pai por tipo de servidor:
@@ -50,8 +50,8 @@ wordpress-servers:
 #Grupos pai por ambiente:
 prod:
   children:
-    web-servers-prod:
-    db-servers-prod:
+    web-server-prod:
+    db-server-prod:
     windows-server-prod:
 
 drecovery:
@@ -72,14 +72,23 @@ neu:
 
 #Agrupamento por tipo de sistema operacional (linux e windows)
 #Grupos pai por tipo de sistema operacional:
-linux:
+linux_prod:
   children:
-    web-servers-prod:
-    web-servers-drecovery:
-    db-servers-prod:
-    db-servers-drecovery:
+    web-server-prod:
+    db-server-prod:
+    
+      # hosts:
+      #   db-server-linux:
+    #Falta adicionar de distater recovery
+linux_dr: 
+  children:
+    web-server-drecovery:
+    db-server-drecovery:
 
-windows:
+windows_prod:
   children:
     windows-server-prod:
+windows_dr:
+  children:
     windows-server-drecovery:
+

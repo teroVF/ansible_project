@@ -8,7 +8,6 @@
     - mysql_server
     - wordpress
   
-
 - name: Run all windows server configurations in production environment
   hosts: windows-server
   roles:
