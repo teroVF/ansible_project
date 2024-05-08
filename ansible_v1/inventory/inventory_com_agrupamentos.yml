@@ -1,3 +1,4 @@
+#Falta mudar nomes dos grupos e hosts para corresponder ao disaster recovery!
 #Hosts por ambiente (prod e disaster recovery):
 web-server-prod:
   hosts:
