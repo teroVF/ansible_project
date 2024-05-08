@@ -7,10 +7,11 @@
     - apache
     - mysql_server
     - wordpress
-  when: ansible_os_family == "Debian"
+  when: ansible_facts['os_family'] == "Debian"
 
 - name: Run all windows server configurations in production environment
   hosts: windows-server
   roles:
     - mysql_workbench
+
     
