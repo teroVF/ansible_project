@@ -85,5 +85,7 @@ linux:
 windows_servers:
   children:
     windows-server-prod:
+      hosts:
+        windows-server:
     windows-server-drecovery:
 
