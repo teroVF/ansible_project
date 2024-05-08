@@ -5,6 +5,6 @@ mysql_port: 3306
 mysql_data_dir: /var/lib/mysql
 mysql_config_file: /etc/mysql/my.cnf
 DB_NAME: wordpress
-DB_USER: ansible
+DB_USER: dbdev
 DB_PASSWORD: 123
 DB_PASS_ROOT: 123

@@ -24,7 +24,8 @@ db-server-drecovery:
       #ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
 windows-server-drecovery:
   hosts:
-    #nome_servidor_windows:
+    windows-server-dr:
+      #ansible_host: 192.168.1.???
       #ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
     
 

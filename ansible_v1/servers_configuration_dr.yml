@@ -1,6 +1,6 @@
 ---
 - name: Run all linux servers configurations in production environment
-  hosts: linux_prod
+  hosts: linux_dr
   become: true
   roles:
     - mysql_server
@@ -9,7 +9,7 @@
     - wordpress
   
 - name: Run all windows server configurations in production environment
-  hosts: windows-server
+  hosts: windows-server-dr
   roles:
     - mysql_workbench
 

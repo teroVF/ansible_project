@@ -4,7 +4,7 @@
 - name: Update apt cache
   ansible.builtin.apt:
     update_cache: yes
-  become: yes
+  
 
 - name: Install Wordpress CLI
   ansible.builtin.get_url:
