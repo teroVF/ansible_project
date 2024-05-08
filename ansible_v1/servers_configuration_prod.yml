@@ -1,13 +1,13 @@
 ---
 - name: Run all linux servers configurations in production environment
-  hosts: prod
+  hosts: linux_prod
   become: true
   roles:
     - php
     - apache
     - mysql_server
     - wordpress
-  when: ansible_facts['os_family'] == "Debian"
+  
 
 - name: Run all windows server configurations in production environment
   hosts: windows-server

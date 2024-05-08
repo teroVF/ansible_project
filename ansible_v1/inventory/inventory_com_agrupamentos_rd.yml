@@ -72,7 +72,7 @@ neu:
 
 #Agrupamento por tipo de sistema operacional (linux e windows)
 #Grupos pai por tipo de sistema operacional:
-linux:
+linux_prod:
   children:
     web-server-prod:
     db-server-prod:
@@ -80,9 +80,15 @@ linux:
       # hosts:
       #   db-server-linux:
     #Falta adicionar de distater recovery
+linux_dr: 
+  children:
+    web-server-drecovery:
+    db-server-drecovery:
 
-windows:
+windows_prod:
   children:
     windows-server-prod:
+windows_dr:
+  children:
     windows-server-drecovery:
 
