@@ -74,12 +74,11 @@ neu:
 #Grupos pai por tipo de sistema operacional:
 linux:
   children:
-    web-servers-prod:
-      hosts:
-        webserver-linux:
+    web-server-prod:
     db-server-prod:
-      hosts:
-        db-server-linux:
+    
+      # hosts:
+      #   db-server-linux:
     #Falta adicionar de distater recovery
 
 windows:

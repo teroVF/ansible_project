@@ -1,0 +1,10 @@
+---
+- name: Run all server configurations in production environment
+  hosts: all
+  become: true
+
+  roles:
+    - role1
+    - role2
+    - role3
+    # Add more roles here as needed
