@@ -12,7 +12,6 @@
       loop:
          - { name: dev } 
          - { name: dba }        
-      
     - name: Create users and add to groups in Ubuntu
       ansible.builtin.user:
         name: "{{ item.name }}"
@@ -21,42 +20,24 @@
         groups: "{{ item.groups }}"
         append: yes
       loop: "{{ users }}"
-     
-# - hosts: windows
-#   gather_facts: true
-#   tasks:
-#     - name: Add groups to Ubuntu Servers
-#       ansible.builtin.group:
-#         name: "{{ item.name }}"
-#         state: present
-#       loop:
-#          - { name: dev } 
-#          - { name: dba }
-
-#     - name: Create users and add to groups in Windows
-#       ansible.windows.win_user:
-#         name: "{{ item.name }}"
-#         password: "{{ item.password }}"
-#         groups: "{{ item.groups }}"
-#         append: yes
-#       loop: "{{ users }}"
+#Falta testar o windows!     
+- hosts: windows
+  gather_facts: true
+  tasks:
+    - name: Add groups to Windows Server
+      ansible.builtin.win_group:
+        name: "{{ item.name }}"
+        state: present
+      loop:
+        - { name: dev } 
+        - { name: dba }
+    - name: Create users and add to groups in Windows
+      ansible.windows.win_user:
+        name: "{{ item.name }}"
+        password: "{{ item.password }}"
+        groups: "{{ item.groups }}"
+      loop: "{{ users }}"
     
-    # - name: Add groups to Windows Servers
-    #   ansible.windows.win_group:
-    #     name: "{{ item.name }}"
-    #     members: "{{ item.members }}"
-    #     state: present
-    #   loop:
-    #      - { name: dev, members: "developer,dbdev" }
-    #      - { name: dba, members: "dbadmin,dbdev" }
-    #   when: ansible_os_family == 'Windows'
-
-    # - name: Create dev and dba groups
-    #   ansible.builtin.group:
-    #     name: "{{ item.name }}"
-    #     state: present
-    #     members: "{{ item.members }}"
-    #   loop: "{{ groups }}"
 
 #Talvez a solução a baixo seja a melhor. Usar hash!
 # ---
