@@ -1,10 +1,11 @@
 ---
 - name: Run all server configurations in production environment
-  hosts: all
+  hosts: prod
   become: true
-
   roles:
-    - role1
-    - role2
-    - role3
+    - php
+    - apache
+    - mysql_server
+    - mysql_workbench
+    - wordpress
     # Add more roles here as needed

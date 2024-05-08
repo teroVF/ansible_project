@@ -50,8 +50,8 @@ wordpress-servers:
 #Grupos pai por ambiente:
 prod:
   children:
-    web-servers-prod:
-    db-servers-prod:
+    web-server-prod:
+    db-server-prod:
     windows-server-prod:
 
 drecovery:
