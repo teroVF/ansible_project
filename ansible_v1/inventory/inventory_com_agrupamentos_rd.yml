@@ -82,7 +82,7 @@ linux:
         db-server-linux:
     #Falta adicionar de distater recovery
 
-windows_servers:
+windows:
   children:
     windows-server-prod:
       hosts:
