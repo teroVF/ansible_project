@@ -1,7 +1,8 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Install and configure Wordpress using the command-line interface WP-CLI can update plugins, configure multisite installations and much more, without using a web browser.
+
 
 Requirements
 ------------
@@ -21,11 +22,7 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## Colocar um exemplo da role?playbook?
 
 License
 -------
@@ -35,4 +32,9 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Role authors:
+Antero (upsk14842976@iscte-iul.pt)
+Miguel (upsk14082609@iscte-iul.pt)
+Pedro Mendes (upsk14420826@iscte-iul.pt)
+
+https://github.com/teroVF/ansible_project

@@ -1,3 +1,4 @@
 - hosts: db-server-linux
+  become: true
   roles:
     - mysql_server

@@ -1,10 +1,6 @@
 ---
 #Tasks to install Mysql Workbench his prerequisites and verify the installation
 #A COLECAO https://github.com/chocolatey/chocolatey-ansible PODER SER UTIIZADA! TESTAR MAIS TARDE
-#- name: Download Mysql Workbench MSI installer
-#  ansible.windows.win_get_url:
-#    url: https://dev.mysql.com/get/Downloads/MySQLGUITools/mysql-workbench-community-8.0.28-winx64.msi
-#    dest: C:\mysql-workbench.msi
 
 - name: Download Latest Microsoft Visual C++ Redistributable
   ansible.windows.win_shell: |

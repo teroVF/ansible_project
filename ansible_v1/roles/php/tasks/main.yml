@@ -1,11 +1,11 @@
 ---
 # tasks file for php
 - name: Update apt cache
-  apt:
+  ansible.builtin.apt:
     update_cache: yes
 
 - name: Install PHP
-  apt:
+  ansible.builtin.apt:
     name: "{{ item }}"
     state: present
   with_items:

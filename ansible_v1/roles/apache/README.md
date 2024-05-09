@@ -1,27 +1,31 @@
-Role Name
+Apache Role
 =========
 
-A brief description of the role goes here.
+This role installs and configures the Apache web server to permit and host the wordpress website.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role requires Ansible to be installed on the target system. Additionally, the target system should have internet access to download the necessary packages.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The following variables can be customized to configure the Apache web server:
+
+- `apache_port`: The port on which Apache should listen. Default is 80.
+- `apache_document_root`: The document root directory for the web server. Default is "/var/www/html".
+- `apache_index_file`: The default index file for the web server. Default is "index.html".
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role has no dependencies on other roles.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Here's an example playbook that uses this role:
 
     - hosts: servers
       roles:
@@ -35,4 +39,9 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Role authors:
+Antero (upsk14842976@iscte-iul.pt)
+Miguel (upsk14082609@iscte-iul.pt)
+Pedro Mendes (upsk14420826@iscte-iul.pt)
+
+https://github.com/teroVF/ansible_project

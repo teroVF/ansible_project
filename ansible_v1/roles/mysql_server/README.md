@@ -1,7 +1,7 @@
-mysql_server
+Mysql_server role
 =========
 
-A brief description of the role goes here.
+Installs mysql, its dependencies (pynthon libraries required) and configures a database, its connection and allowed user
 
 Requirements
 ------------
@@ -11,7 +11,12 @@ Any pre-requisites that may not be covered by Ansible itself or the role should 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The following variables can be customized to configure your MySQL server:
+
+DB_PASS_ROOT: The root user’s password for MySQL.
+DB_NAME: The desired name for the database you want to create.
+DB_USER: The desired username for a new MySQL user.
+DB_PASSWORD: The password for the new MySQL user.
 
 Dependencies
 ------------
@@ -20,12 +25,17 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 
 Example Playbook
 ----------------
-
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+---
+- name: Configure MySQL Server
+  hosts: localhost
+  become: yes
+  vars:
+    DB_PASS_ROOT: "your_root_password"
+    DB_NAME: "my_database"
+    DB_USER: "my_user"
+    DB_PASSWORD: "my_user_password"
+  roles:
+    - mysql_server
 
 License
 -------
@@ -35,4 +45,9 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Role authors:
+Antero (upsk14842976@iscte-iul.pt)
+Miguel (upsk14082609@iscte-iul.pt)
+Pedro Mendes (upsk14420826@iscte-iul.pt)
+
+https://github.com/teroVF/ansible_project

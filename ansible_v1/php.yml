@@ -1,5 +1,5 @@
 ---
-- name: Install PHP and test it
+- name: Install PHP and his extensions
   hosts: webserver-linux
   become: yes
   roles:
