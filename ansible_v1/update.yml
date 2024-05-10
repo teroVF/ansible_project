@@ -1,16 +1,28 @@
 ---
-- name: Update apt packages
+- name: Update all linux based servers
   hosts: linux_all
   become: true
-
   tasks:
-    - name: Update apt cache
-      apt:
+    - name: Update apt cache if its older than 22 hours
+      ansible.builtin.apt:
         update_cache: yes
+        cache_valid_time: 79200
 
-    - name: Upgrade all packages
-      apt:
+    - name: Upgrade all packages and distro
+      ansible.builtin.apt:
         upgrade: dist
-        autoremove: yes
-        autoclean: yes
+        name: "*"
+        state: latest
+
+- name: Update all Windows servers
+  hosts: windows_all
+  tasks:
+    - name: Update Windows servers
+      ansible.windows.win_updates:
+        category_names: "*"
+        state: installed
+        reboot: true
+        reboot_timeout: 60
+        
+        
 
