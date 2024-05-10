@@ -1,0 +1,1075 @@
+{
+  "version": 4,
+  "terraform_version": "1.6.5",
+  "serial": 477,
+  "lineage": "b6444d65-8746-4604-4b5e-f843445d3ee8",
+  "outputs": {
+    "public_ip_address_dr": {
+      "value": "108.143.158.108",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "data",
+      "type": "template_file",
+      "name": "init",
+      "provider": "provider[\"registry.terraform.io/hashicorp/template\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "filename": null,
+            "id": "444e0fa4a0455491b8168f988b94851ca7535183e1825dc14ab13f65bf648ad5",
+            "rendered": "Write-Host \"turn off PowerShell execution policy restrictions\"\r\nSet-ExecutionPolicy -ExecutionPolicy Unrestricted\r\n\r\n\r\n# install python\r\nWrite-Host \"Install Python\"\r\n\r\n$python_url = \"https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe\"\r\n\r\n$python_installer = \"C:\\python-3.8.5-amd64.exe\"\r\n\r\nInvoke-WebRequest -Uri $python_url -OutFile $python_installer\r\n\r\nStart-Process -FilePath $python_installer -ArgumentList \"/quiet InstallAllUsers=1 PrependPath=1\" -Wait\r\n\r\n#install .net framework 4.0 \u003c\r\nWrite-Host \"Install .NET Framework 4.0\"\r\n\r\n$dotnet_url = \"https://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe\"\r\n\r\n$dotnet_installer = \"C:\\dotNetFx40_Full_x86_x64.exe\"\r\n\r\nInvoke-WebRequest -Uri $dotnet_url -OutFile $dotnet_installer\r\n\r\nStart-Process -FilePath $dotnet_installer -ArgumentList \"/q\" -Wait\r\n\r\n#firewall rule ansible\r\n\r\nWrite-Host \"Create a new firewall rule for ansible\"\r\n\r\nnetsh advfirewall firewall add rule name=\"ansible\" dir=in action=allow protocol=TCP localport=5986\r\n",
+            "template": "Write-Host \"turn off PowerShell execution policy restrictions\"\r\nSet-ExecutionPolicy -ExecutionPolicy Unrestricted\r\n\r\n\r\n# install python\r\nWrite-Host \"Install Python\"\r\n\r\n$python_url = \"https://www.python.org/ftp/python/3.8.5/python-3.8.5-amd64.exe\"\r\n\r\n$python_installer = \"C:\\python-3.8.5-amd64.exe\"\r\n\r\nInvoke-WebRequest -Uri $python_url -OutFile $python_installer\r\n\r\nStart-Process -FilePath $python_installer -ArgumentList \"/quiet InstallAllUsers=1 PrependPath=1\" -Wait\r\n\r\n#install .net framework 4.0 \u003c\r\nWrite-Host \"Install .NET Framework 4.0\"\r\n\r\n$dotnet_url = \"https://download.microsoft.com/download/9/5/A/95A9616B-7A37-4AF6-BC36-D6EA96C8DAAE/dotNetFx40_Full_x86_x64.exe\"\r\n\r\n$dotnet_installer = \"C:\\dotNetFx40_Full_x86_x64.exe\"\r\n\r\nInvoke-WebRequest -Uri $dotnet_url -OutFile $dotnet_installer\r\n\r\nStart-Process -FilePath $dotnet_installer -ArgumentList \"/q\" -Wait\r\n\r\n#firewall rule ansible\r\n\r\nWrite-Host \"Create a new firewall rule for ansible\"\r\n\r\nnetsh advfirewall firewall add rule name=\"ansible\" dir=in action=allow protocol=TCP localport=5986\r\n",
+            "vars": null
+          },
+          "sensitive_attributes": []
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "grupo5-weu-prod-db-vm",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "admin_password": null,
+            "admin_ssh_key": [
+              {
+                "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB/ywDnIWZOgwClsOx2RdogtRQc9Ge50oQvLM+NaY2PKoRDfcs8q0kBT4CQhngaUqPbj9Ih9l0hy4VA2Ar/rp2yntkKVSJs/Q1KR7gtUw7ntkBVrniR+VNaC5z2WQrTYAIVDyPrbyp153bdiSkcJ7PcqW1k/46mSdvQE2JdL1Q78V1m6DpEl7PHByhX90imHHIXRqVRDkE3/pu5C1bocgHoWGAnk/LGoW13UFAbemYoIDFSZePqOnLUVpKJ4IrifvqnPtw1P00yg2sVVPZWqyQILs2zorflT5bMFOH4SnMKeHebVIE2tveMP9xXpFqhJiwDhzy8+CliEn/+LJ1t+RGK8EVGn/cdCCJwG/FMfRGGaB6D2ql0MqtfBrRI1wNTWZyPpERuo1wgHCWo5Ilw+aBbT87GMZYY97kDfLBwSbXh/O2xhOCHAc1IvXhr7HMgKTqy1LDQxco74wKsmpskbwfUnOMogtnZn4YHL5jwn5vKTZ4StIldCAZWtdcECl9URNzazkPyjBqyHyRrta3Y4jZhThkh/tRoWN9S4aorOJOuNKdyrn0JMTk6mP0ULoa1GjZ55Af9vLP51Jb8cwsmJAva3sQirS2SqQa5kVrkkCeyyAHBEDWlUMcEyNaFpX4fm56Zw7wsl6qf9kAF0mEpdRAJo+xU0e8G4Iv0gaE7i1yEK8= formando@PC013407\r\n",
+                "username": "ansible"
+              }
+            ],
+            "admin_username": "ansible",
+            "allow_extension_operations": true,
+            "availability_set_id": "",
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": "",
+            "computer_name": "database-prod-vm",
+            "custom_data": null,
+            "dedicated_host_group_id": "",
+            "dedicated_host_id": "",
+            "disable_password_authentication": true,
+            "disk_controller_type": "SCSI",
+            "edge_zone": "",
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/database-prod-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "westeurope",
+            "max_bid_price": -1,
+            "name": "database-prod-vm",
+            "network_interface_ids": [
+              "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/database-prod-nic"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 30,
+                "name": "database-prod-vm_OsDisk_1_f2ccc09bafa84f65a9b2cd209f0b1a33",
+                "secure_vm_disk_encryption_set_id": "",
+                "security_encryption_type": "",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "os_image_notification": [],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "ImageDefault",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "192.168.0.7",
+            "private_ip_addresses": [
+              "192.168.0.7"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "",
+            "public_ip_addresses": [],
+            "reboot_setting": "",
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "secret": [],
+            "secure_boot_enabled": false,
+            "size": "Standard_DS2_v2",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "0001-com-ubuntu-server-focal",
+                "publisher": "Canonical",
+                "sku": "20_04-lts-gen2",
+                "version": "20.04.202104150"
+              }
+            ],
+            "tags": {},
+            "termination_notification": [],
+            "timeouts": null,
+            "user_data": "",
+            "virtual_machine_id": "7c3a5f35-c4ec-4851-beed-aa785447cd66",
+            "virtual_machine_scale_set_id": "",
+            "vm_agent_platform_updates_enabled": false,
+            "vtpm_enabled": false,
+            "zone": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_network_interface.grupo5-weu-prod-nic-db",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "grupo5-weu-prod-vm",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "admin_password": null,
+            "admin_ssh_key": [
+              {
+                "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDeyY35ZA503sYoqVkS7EAqq3Gy8nSqAGY5lfo6/6oDmQ0s5WiHAEEl4vkP50u9j/X44WL1wPkF2+juza8yUQuNKOgqs2Ks9o2CARmkttM612+J/QLbk7AIHvM7Gr8Con9+WMCFn3KpIhTr1yu+zbLLkdhFxEFYLjlRtAVh8z4FjHW9KlBdBMmHwvKvsDziZUy4GdIf28nYppYhjBFpdIeqk2S5k3JRBxUDlibVdnvj3Pv2xxDw4otYQkOS0vfBqhmfLZel/QbTMRmPf6m8TuXhJgv5Gs76hybIq9mzsWeM2wG6ERzXQAb/xpyWDsSTvwe7cxZYx/EyoInkA6mnIqQbNR/S5SOHxP+aCVay8Wk32BH6AEA06/dIx0l+u1jyS1JItCpenxpQi+RkZri4v7X+YPiCByNJWYduwaxSxH9ZFg0gilJcGHGu09lqSgN1AOQIhjHxx8Ke5usqrFMsbHyURR3fFZOUsZ8UlnooAJt+rTII8Ot/0RY0RMey7LaT2MtJMdOE5AQNibNzhl4I3n65ffOPTaukagJl3b4ZybaATg625KBEZ2iPKIyPQNxmjy8zCMqABvfxL+nkK2MiNgEW2xC2XS1M+FwAcZF09sHFC8ODudj1Elmlm4aeIBczmgoCrGEF6V8y+IBxgBlAEpPiTKBHO7ZAiqYoipPjtUMl1w== formando@PC013407\r\n",
+                "username": "ansible"
+              }
+            ],
+            "admin_username": "ansible",
+            "allow_extension_operations": true,
+            "availability_set_id": "",
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": "",
+            "computer_name": "controlnode-prod-vm",
+            "custom_data": null,
+            "dedicated_host_group_id": "",
+            "dedicated_host_id": "",
+            "disable_password_authentication": true,
+            "disk_controller_type": "SCSI",
+            "edge_zone": "",
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/controlnode-prod-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "westeurope",
+            "max_bid_price": -1,
+            "name": "controlnode-prod-vm",
+            "network_interface_ids": [
+              "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/controlnode-prod-nic"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 30,
+                "name": "controlnode-prod-vm_OsDisk_1_bf18196691da48a3a2fc7d553b92115a",
+                "secure_vm_disk_encryption_set_id": "",
+                "security_encryption_type": "",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "os_image_notification": [],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "ImageDefault",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "192.168.0.101",
+            "private_ip_addresses": [
+              "192.168.0.101"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "108.143.158.108",
+            "public_ip_addresses": [
+              "108.143.158.108"
+            ],
+            "reboot_setting": "",
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "secret": [],
+            "secure_boot_enabled": false,
+            "size": "Standard_B2s",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "0001-com-ubuntu-server-focal",
+                "publisher": "Canonical",
+                "sku": "20_04-lts-gen2",
+                "version": "20.04.202104150"
+              }
+            ],
+            "tags": null,
+            "termination_notification": null,
+            "timeouts": null,
+            "user_data": "",
+            "virtual_machine_id": "87223898-a041-483c-9f08-d446445334e8",
+            "virtual_machine_scale_set_id": "",
+            "vm_agent_platform_updates_enabled": false,
+            "vtpm_enabled": false,
+            "zone": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_linux_virtual_machine.grupo5-weu-prod-db-vm",
+            "azurerm_linux_virtual_machine.grupo5-weu-prod-web-vm",
+            "azurerm_network_interface.grupo5-weu-prod-nic",
+            "azurerm_network_interface.grupo5-weu-prod-nic-db",
+            "azurerm_network_interface.grupo5-weu-prod-nic-web",
+            "azurerm_public_ip.grupo5-weu-prod-public-ip",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_linux_virtual_machine",
+      "name": "grupo5-weu-prod-web-vm",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "admin_password": null,
+            "admin_ssh_key": [
+              {
+                "public_key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAB/ywDnIWZOgwClsOx2RdogtRQc9Ge50oQvLM+NaY2PKoRDfcs8q0kBT4CQhngaUqPbj9Ih9l0hy4VA2Ar/rp2yntkKVSJs/Q1KR7gtUw7ntkBVrniR+VNaC5z2WQrTYAIVDyPrbyp153bdiSkcJ7PcqW1k/46mSdvQE2JdL1Q78V1m6DpEl7PHByhX90imHHIXRqVRDkE3/pu5C1bocgHoWGAnk/LGoW13UFAbemYoIDFSZePqOnLUVpKJ4IrifvqnPtw1P00yg2sVVPZWqyQILs2zorflT5bMFOH4SnMKeHebVIE2tveMP9xXpFqhJiwDhzy8+CliEn/+LJ1t+RGK8EVGn/cdCCJwG/FMfRGGaB6D2ql0MqtfBrRI1wNTWZyPpERuo1wgHCWo5Ilw+aBbT87GMZYY97kDfLBwSbXh/O2xhOCHAc1IvXhr7HMgKTqy1LDQxco74wKsmpskbwfUnOMogtnZn4YHL5jwn5vKTZ4StIldCAZWtdcECl9URNzazkPyjBqyHyRrta3Y4jZhThkh/tRoWN9S4aorOJOuNKdyrn0JMTk6mP0ULoa1GjZ55Af9vLP51Jb8cwsmJAva3sQirS2SqQa5kVrkkCeyyAHBEDWlUMcEyNaFpX4fm56Zw7wsl6qf9kAF0mEpdRAJo+xU0e8G4Iv0gaE7i1yEK8= formando@PC013407\r\n",
+                "username": "ansible"
+              }
+            ],
+            "admin_username": "ansible",
+            "allow_extension_operations": true,
+            "availability_set_id": "",
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": "",
+            "computer_name": "webserver-prod-vm",
+            "custom_data": null,
+            "dedicated_host_group_id": "",
+            "dedicated_host_id": "",
+            "disable_password_authentication": true,
+            "disk_controller_type": "SCSI",
+            "edge_zone": "",
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/webserver-prod-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "westeurope",
+            "max_bid_price": -1,
+            "name": "webserver-prod-vm",
+            "network_interface_ids": [
+              "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/webserver-prod-nic-web"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 30,
+                "name": "webserver-prod-vm_OsDisk_1_a3a960764f6f4ff6af2e20696b5b09bb",
+                "secure_vm_disk_encryption_set_id": "",
+                "security_encryption_type": "",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "os_image_notification": [],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "ImageDefault",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "192.168.0.6",
+            "private_ip_addresses": [
+              "192.168.0.6"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "",
+            "public_ip_addresses": [],
+            "reboot_setting": "",
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "secret": [],
+            "secure_boot_enabled": false,
+            "size": "Standard_B2s",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "0001-com-ubuntu-server-focal",
+                "publisher": "Canonical",
+                "sku": "20_04-lts-gen2",
+                "version": "20.04.202104150"
+              }
+            ],
+            "tags": {},
+            "termination_notification": [],
+            "timeouts": null,
+            "user_data": "",
+            "virtual_machine_id": "6a2ce7b3-f378-4236-b19a-96973e649149",
+            "virtual_machine_scale_set_id": "",
+            "vm_agent_platform_updates_enabled": false,
+            "vtpm_enabled": false,
+            "zone": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_network_interface.grupo5-weu-prod-nic-web",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "grupo5-weu-prod-nic",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "auxiliary_mode": "",
+            "auxiliary_sku": "",
+            "dns_servers": [],
+            "edge_zone": "",
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/controlnode-prod-nic",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "tiw4cwrm5elejd414dnmsjo3vc.ax.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "gateway_load_balancer_frontend_ip_configuration_id": "",
+                "name": "controlnode-prod-nic-ipconfig",
+                "primary": true,
+                "private_ip_address": "192.168.0.101",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/publicIPAddresses/controlnode-prod-public-ip",
+                "subnet_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet/subnets/grupo5-weu-prod-subnet"
+              }
+            ],
+            "location": "westeurope",
+            "mac_address": "60-45-BD-F6-6D-5E",
+            "name": "controlnode-prod-nic",
+            "private_ip_address": "192.168.0.101",
+            "private_ip_addresses": [
+              "192.168.0.101"
+            ],
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/controlnode-prod-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.grupo5-weu-prod-public-ip",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "grupo5-weu-prod-nic-db",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "auxiliary_mode": "",
+            "auxiliary_sku": "",
+            "dns_servers": [],
+            "edge_zone": "",
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/database-prod-nic",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "tiw4cwrm5elejd414dnmsjo3vc.ax.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "gateway_load_balancer_frontend_ip_configuration_id": "",
+                "name": "database-prod-nic-ipconfig",
+                "primary": true,
+                "private_ip_address": "192.168.0.7",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "",
+                "subnet_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet/subnets/grupo5-weu-prod-subnet"
+              }
+            ],
+            "location": "westeurope",
+            "mac_address": "7C-1E-52-27-01-57",
+            "name": "database-prod-nic",
+            "private_ip_address": "192.168.0.7",
+            "private_ip_addresses": [
+              "192.168.0.7"
+            ],
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/database-prod-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "grupo5-weu-prod-nic-web",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "auxiliary_mode": "",
+            "auxiliary_sku": "",
+            "dns_servers": [],
+            "edge_zone": "",
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/webserver-prod-nic-web",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "tiw4cwrm5elejd414dnmsjo3vc.ax.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "gateway_load_balancer_frontend_ip_configuration_id": "",
+                "name": "webserver-prod-nic-ipconfig",
+                "primary": true,
+                "private_ip_address": "192.168.0.6",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "",
+                "subnet_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet/subnets/grupo5-weu-prod-subnet"
+              }
+            ],
+            "location": "westeurope",
+            "mac_address": "60-45-BD-8F-BA-7B",
+            "name": "webserver-prod-nic-web",
+            "private_ip_address": "192.168.0.6",
+            "private_ip_addresses": [
+              "192.168.0.6"
+            ],
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/webserver-prod-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface",
+      "name": "nic",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "applied_dns_servers": [],
+            "auxiliary_mode": "",
+            "auxiliary_sku": "",
+            "dns_servers": [],
+            "edge_zone": "",
+            "enable_accelerated_networking": false,
+            "enable_ip_forwarding": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/windows-prod-nic",
+            "internal_dns_name_label": "",
+            "internal_domain_name_suffix": "tiw4cwrm5elejd414dnmsjo3vc.ax.internal.cloudapp.net",
+            "ip_configuration": [
+              {
+                "gateway_load_balancer_frontend_ip_configuration_id": "",
+                "name": "windows-prod-nic-ipconfig",
+                "primary": true,
+                "private_ip_address": "192.168.0.100",
+                "private_ip_address_allocation": "Static",
+                "private_ip_address_version": "IPv4",
+                "public_ip_address_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/publicIPAddresses/publicip",
+                "subnet_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet/subnets/grupo5-weu-prod-subnet"
+              }
+            ],
+            "location": "westeurope",
+            "mac_address": "60-45-BD-92-F3-A5",
+            "name": "windows-prod-nic",
+            "private_ip_address": "192.168.0.100",
+            "private_ip_addresses": [
+              "192.168.0.100"
+            ],
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "tags": {},
+            "timeouts": null,
+            "virtual_machine_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/windows-prod-vm"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_public_ip.publicip",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_interface_security_group_association",
+      "name": "example",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/windows-prod-nic|/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkSecurityGroups/windows-prod-nsg",
+            "network_interface_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/windows-prod-nic",
+            "network_security_group_id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkSecurityGroups/windows-prod-nsg",
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMH19",
+          "dependencies": [
+            "azurerm_network_interface.nic",
+            "azurerm_network_security_group.windows_nsg",
+            "azurerm_public_ip.publicip",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_network_security_group",
+      "name": "windows_nsg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkSecurityGroups/windows-prod-nsg",
+            "location": "westeurope",
+            "name": "windows-prod-nsg",
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "security_rule": [
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "3389",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "RDP",
+                "priority": 100,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "5985",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "WinRM",
+                "priority": 110,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              },
+              {
+                "access": "Allow",
+                "description": "",
+                "destination_address_prefix": "*",
+                "destination_address_prefixes": [],
+                "destination_application_security_group_ids": [],
+                "destination_port_range": "80",
+                "destination_port_ranges": [],
+                "direction": "Inbound",
+                "name": "HTTP",
+                "priority": 120,
+                "protocol": "Tcp",
+                "source_address_prefix": "*",
+                "source_address_prefixes": [],
+                "source_application_security_group_ids": [],
+                "source_port_range": "*",
+                "source_port_ranges": []
+              }
+            ],
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_public_ip",
+      "name": "grupo5-weu-prod-public-ip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "ddos_protection_mode": "VirtualNetworkInherited",
+            "ddos_protection_plan_id": null,
+            "domain_name_label": null,
+            "edge_zone": "",
+            "fqdn": null,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/publicIPAddresses/controlnode-prod-public-ip",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "108.143.158.108",
+            "ip_tags": {},
+            "ip_version": "IPv4",
+            "location": "westeurope",
+            "name": "controlnode-prod-public-ip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "reverse_fqdn": null,
+            "sku": "Basic",
+            "sku_tier": "Regional",
+            "tags": {},
+            "timeouts": null,
+            "zones": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_public_ip",
+      "name": "publicip",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "allocation_method": "Static",
+            "ddos_protection_mode": "VirtualNetworkInherited",
+            "ddos_protection_plan_id": null,
+            "domain_name_label": null,
+            "edge_zone": "",
+            "fqdn": null,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/publicIPAddresses/publicip",
+            "idle_timeout_in_minutes": 4,
+            "ip_address": "108.143.158.4",
+            "ip_tags": {},
+            "ip_version": "IPv4",
+            "location": "westeurope",
+            "name": "publicip",
+            "public_ip_prefix_id": null,
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "reverse_fqdn": null,
+            "sku": "Basic",
+            "sku_tier": "Regional",
+            "tags": {},
+            "timeouts": null,
+            "zones": []
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_resource_group",
+      "name": "grupo5-weu-prod-rg",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg",
+            "location": "westeurope",
+            "managed_by": "",
+            "name": "grupo5-weu-prod-rg",
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo1NDAwMDAwMDAwMDAwLCJkZWxldGUiOjU0MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjo1NDAwMDAwMDAwMDAwfSwic2NoZW1hX3ZlcnNpb24iOiIwIn0="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "grupo5-neu-dr-subnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_prefixes": [
+              "192.168.1.0/24"
+            ],
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-neu-dr-rg/providers/Microsoft.Network/virtualNetworks/grupo5-neu-dr-vnet/subnets/grupo5-neu-dr-subnet",
+            "name": "grupo5-neu-dr-subnet",
+            "private_endpoint_network_policies_enabled": true,
+            "private_link_service_network_policies_enabled": true,
+            "resource_group_name": "grupo5-neu-dr-rg",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "grupo5-neu-dr-vnet"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-neu-dr-rg",
+            "azurerm_virtual_network.grupo5-neu-dr-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "grupo5-weu-prod-subnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_prefixes": [
+              "192.168.0.0/24"
+            ],
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet/subnets/grupo5-weu-prod-subnet",
+            "name": "grupo5-weu-prod-subnet",
+            "private_endpoint_network_policies_enabled": true,
+            "private_link_service_network_policies_enabled": true,
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "grupo5-weu-prod-vnet"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "grupo5-neu-dr-vnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_space": [
+              "192.168.1.0/24"
+            ],
+            "bgp_community": "",
+            "ddos_protection_plan": [],
+            "dns_servers": [],
+            "edge_zone": "",
+            "encryption": [],
+            "flow_timeout_in_minutes": 0,
+            "guid": "eef2a49f-22f4-4a2a-92a6-2d22abeec2c6",
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-neu-dr-rg/providers/Microsoft.Network/virtualNetworks/grupo5-neu-dr-vnet",
+            "location": "northeurope",
+            "name": "grupo5-neu-dr-vnet",
+            "resource_group_name": "grupo5-neu-dr-rg",
+            "subnet": [
+              {
+                "address_prefix": "192.168.1.0/24",
+                "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-neu-dr-rg/providers/Microsoft.Network/virtualNetworks/grupo5-neu-dr-vnet/subnets/grupo5-neu-dr-subnet",
+                "name": "grupo5-neu-dr-subnet",
+                "security_group": ""
+              }
+            ],
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-neu-dr-rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_virtual_network",
+      "name": "grupo5-weu-prod-vnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_space": [
+              "192.168.0.0/24"
+            ],
+            "bgp_community": "",
+            "ddos_protection_plan": [],
+            "dns_servers": [],
+            "edge_zone": "",
+            "encryption": [],
+            "flow_timeout_in_minutes": 0,
+            "guid": "5ae12d9a-f92c-4416-8fdb-f0dac925ddaa",
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet",
+            "location": "westeurope",
+            "name": "grupo5-weu-prod-vnet",
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "subnet": [
+              {
+                "address_prefix": "192.168.0.0/24",
+                "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/virtualNetworks/grupo5-weu-prod-vnet/subnets/grupo5-weu-prod-subnet",
+                "name": "grupo5-weu-prod-subnet",
+                "security_group": ""
+              }
+            ],
+            "tags": {},
+            "timeouts": null
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-weu-prod-rg"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "azurerm_windows_virtual_machine",
+      "name": "windows",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "additional_capabilities": [],
+            "additional_unattend_content": [
+              {
+                "content": "\u003cAutoLogon\u003e\u003cPassword\u003e\u003cValue\u003ePassword1234!\u003c/Value\u003e\u003c/Password\u003e\u003cEnabled\u003etrue\u003c/Enabled\u003e\u003cLogonCount\u003e1\u003c/LogonCount\u003e\u003cUsername\u003eansible\u003c/Username\u003e\u003c/AutoLogon\u003e",
+                "setting": "AutoLogon"
+              },
+              {
+                "content": "\u003cFirstLogonCommands\u003e\r\n    \u003cSynchronousCommand\u003e\r\n        \u003cCommandLine\u003ecmd /c \"copy C:\\AzureData\\CustomData.bin C:\\winrm.ps1\"\u003c/CommandLine\u003e\r\n        \u003cDescription\u003eMove the CustomData file to the working directory\u003c/Description\u003e\r\n        \u003cOrder\u003e12\u003c/Order\u003e\r\n    \u003c/SynchronousCommand\u003e\r\n    \u003cSynchronousCommand\u003e\r\n        \u003cCommandLine\u003epowershell.exe -sta -ExecutionPolicy Unrestricted -file C:\\winrm.ps1\u003c/CommandLine\u003e\r\n        \u003cDescription\u003eExecute the WinRM enabling script\u003c/Description\u003e\r\n        \u003cOrder\u003e13\u003c/Order\u003e\r\n    \u003c/SynchronousCommand\u003e\r\n\u003c/FirstLogonCommands\u003e",
+                "setting": "FirstLogonCommands"
+              }
+            ],
+            "admin_password": "Password1234!",
+            "admin_username": "ansible",
+            "allow_extension_operations": true,
+            "availability_set_id": "",
+            "boot_diagnostics": [],
+            "bypass_platform_safety_checks_on_user_schedule_enabled": false,
+            "capacity_reservation_group_id": "",
+            "computer_name": "windows-prod-vm",
+            "custom_data": "V3JpdGUtSG9zdCAidHVybiBvZmYgUG93ZXJTaGVsbCBleGVjdXRpb24gcG9saWN5IHJlc3RyaWN0aW9ucyINClNldC1FeGVjdXRpb25Qb2xpY3kgLUV4ZWN1dGlvblBvbGljeSBVbnJlc3RyaWN0ZWQNCg0KDQojIGluc3RhbGwgcHl0aG9uDQpXcml0ZS1Ib3N0ICJJbnN0YWxsIFB5dGhvbiINCg0KJHB5dGhvbl91cmwgPSAiaHR0cHM6Ly93d3cucHl0aG9uLm9yZy9mdHAvcHl0aG9uLzMuOC41L3B5dGhvbi0zLjguNS1hbWQ2NC5leGUiDQoNCiRweXRob25faW5zdGFsbGVyID0gIkM6XHB5dGhvbi0zLjguNS1hbWQ2NC5leGUiDQoNCkludm9rZS1XZWJSZXF1ZXN0IC1VcmkgJHB5dGhvbl91cmwgLU91dEZpbGUgJHB5dGhvbl9pbnN0YWxsZXINCg0KU3RhcnQtUHJvY2VzcyAtRmlsZVBhdGggJHB5dGhvbl9pbnN0YWxsZXIgLUFyZ3VtZW50TGlzdCAiL3F1aWV0IEluc3RhbGxBbGxVc2Vycz0xIFByZXBlbmRQYXRoPTEiIC1XYWl0DQoNCiNpbnN0YWxsIC5uZXQgZnJhbWV3b3JrIDQuMCA8DQpXcml0ZS1Ib3N0ICJJbnN0YWxsIC5ORVQgRnJhbWV3b3JrIDQuMCINCg0KJGRvdG5ldF91cmwgPSAiaHR0cHM6Ly9kb3dubG9hZC5taWNyb3NvZnQuY29tL2Rvd25sb2FkLzkvNS9BLzk1QTk2MTZCLTdBMzctNEFGNi1CQzM2LUQ2RUE5NkM4REFBRS9kb3ROZXRGeDQwX0Z1bGxfeDg2X3g2NC5leGUiDQoNCiRkb3RuZXRfaW5zdGFsbGVyID0gIkM6XGRvdE5ldEZ4NDBfRnVsbF94ODZfeDY0LmV4ZSINCg0KSW52b2tlLVdlYlJlcXVlc3QgLVVyaSAkZG90bmV0X3VybCAtT3V0RmlsZSAkZG90bmV0X2luc3RhbGxlcg0KDQpTdGFydC1Qcm9jZXNzIC1GaWxlUGF0aCAkZG90bmV0X2luc3RhbGxlciAtQXJndW1lbnRMaXN0ICIvcSIgLVdhaXQNCg0KI2ZpcmV3YWxsIHJ1bGUgYW5zaWJsZQ0KDQpXcml0ZS1Ib3N0ICJDcmVhdGUgYSBuZXcgZmlyZXdhbGwgcnVsZSBmb3IgYW5zaWJsZSINCg0KbmV0c2ggYWR2ZmlyZXdhbGwgZmlyZXdhbGwgYWRkIHJ1bGUgbmFtZT0iYW5zaWJsZSIgZGlyPWluIGFjdGlvbj1hbGxvdyBwcm90b2NvbD1UQ1AgbG9jYWxwb3J0PTU5ODYNCg==",
+            "dedicated_host_group_id": "",
+            "dedicated_host_id": "",
+            "disk_controller_type": "",
+            "edge_zone": "",
+            "enable_automatic_updates": true,
+            "encryption_at_host_enabled": false,
+            "eviction_policy": "",
+            "extensions_time_budget": "PT1H30M",
+            "gallery_application": [],
+            "hotpatching_enabled": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Compute/virtualMachines/windows-prod-vm",
+            "identity": [],
+            "license_type": "",
+            "location": "westeurope",
+            "max_bid_price": -1,
+            "name": "windows-prod-vm",
+            "network_interface_ids": [
+              "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-weu-prod-rg/providers/Microsoft.Network/networkInterfaces/windows-prod-nic"
+            ],
+            "os_disk": [
+              {
+                "caching": "ReadWrite",
+                "diff_disk_settings": [],
+                "disk_encryption_set_id": "",
+                "disk_size_gb": 127,
+                "name": "windows-prod-vm_OsDisk_1_5bcdc34341a7494199639fa92685b536",
+                "secure_vm_disk_encryption_set_id": "",
+                "security_encryption_type": "",
+                "storage_account_type": "Standard_LRS",
+                "write_accelerator_enabled": false
+              }
+            ],
+            "os_image_notification": [],
+            "patch_assessment_mode": "ImageDefault",
+            "patch_mode": "AutomaticByOS",
+            "plan": [],
+            "platform_fault_domain": -1,
+            "priority": "Regular",
+            "private_ip_address": "192.168.0.100",
+            "private_ip_addresses": [
+              "192.168.0.100"
+            ],
+            "provision_vm_agent": true,
+            "proximity_placement_group_id": "",
+            "public_ip_address": "108.143.158.4",
+            "public_ip_addresses": [
+              "108.143.158.4"
+            ],
+            "reboot_setting": "",
+            "resource_group_name": "grupo5-weu-prod-rg",
+            "secret": [],
+            "secure_boot_enabled": false,
+            "size": "Standard_B2s",
+            "source_image_id": "",
+            "source_image_reference": [
+              {
+                "offer": "WindowsServer",
+                "publisher": "MicrosoftWindowsServer",
+                "sku": "2022-Datacenter",
+                "version": "latest"
+              }
+            ],
+            "tags": {},
+            "termination_notification": [],
+            "timeouts": null,
+            "timezone": "",
+            "user_data": "",
+            "virtual_machine_id": "cd9ddf8d-35a5-4999-972c-05dfe0614b7d",
+            "virtual_machine_scale_set_id": "",
+            "vm_agent_platform_updates_enabled": false,
+            "vtpm_enabled": false,
+            "winrm_listener": [
+              {
+                "certificate_url": "",
+                "protocol": "Http"
+              }
+            ],
+            "zone": ""
+          },
+          "sensitive_attributes": [
+            [
+              {
+                "type": "get_attr",
+                "value": "admin_password"
+              }
+            ],
+            [
+              {
+                "type": "get_attr",
+                "value": "additional_unattend_content"
+              },
+              {
+                "type": "index",
+                "value": {
+                  "value": 0,
+                  "type": "number"
+                }
+              },
+              {
+                "type": "get_attr",
+                "value": "content"
+              }
+            ]
+          ],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoyNzAwMDAwMDAwMDAwLCJkZWxldGUiOjI3MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoyNzAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_network_interface.nic",
+            "azurerm_network_interface_security_group_association.example",
+            "azurerm_network_security_group.windows_nsg",
+            "azurerm_public_ip.publicip",
+            "azurerm_resource_group.grupo5-weu-prod-rg",
+            "azurerm_subnet.grupo5-weu-prod-subnet",
+            "azurerm_virtual_network.grupo5-weu-prod-vnet",
+            "data.template_file.init"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}

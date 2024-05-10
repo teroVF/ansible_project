@@ -1,0 +1,44 @@
+{
+  "version": 4,
+  "terraform_version": "1.6.5",
+  "serial": 497,
+  "lineage": "b6444d65-8746-4604-4b5e-f843445d3ee8",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "azurerm_subnet",
+      "name": "grupo5-neu-dr-subnet",
+      "provider": "provider[\"registry.terraform.io/hashicorp/azurerm\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "address_prefixes": [
+              "192.168.1.0/24"
+            ],
+            "delegation": [],
+            "enforce_private_link_endpoint_network_policies": false,
+            "enforce_private_link_service_network_policies": false,
+            "id": "/subscriptions/c34f0752-7151-4ee1-ac5c-6369a3e67318/resourceGroups/grupo5-neu-dr-rg/providers/Microsoft.Network/virtualNetworks/grupo5-neu-dr-vnet/subnets/grupo5-neu-dr-subnet",
+            "name": "grupo5-neu-dr-subnet",
+            "private_endpoint_network_policies_enabled": true,
+            "private_link_service_network_policies_enabled": true,
+            "resource_group_name": "grupo5-neu-dr-rg",
+            "service_endpoint_policy_ids": [],
+            "service_endpoints": [],
+            "timeouts": null,
+            "virtual_network_name": "grupo5-neu-dr-vnet"
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAwLCJkZWxldGUiOjE4MDAwMDAwMDAwMDAsInJlYWQiOjMwMDAwMDAwMDAwMCwidXBkYXRlIjoxODAwMDAwMDAwMDAwfX0=",
+          "dependencies": [
+            "azurerm_resource_group.grupo5-neu-dr-rg",
+            "azurerm_virtual_network.grupo5-neu-dr-vnet"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
