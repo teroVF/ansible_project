@@ -1,4 +1,3 @@
-#Falta mudar nomes dos grupos e hosts para corresponder ao disaster recovery!
 #Hosts por ambiente (prod e disaster recovery):
 web-server-prod:
   hosts:
@@ -16,18 +15,18 @@ windows-server-prod:
 
 web-server-drecovery:
   hosts:
-    #nome-servidor-web(igual ao definido no terraform):
-      #ansible-host: #ip-privado (subnet diferente do servidor control node?) 
-    #nome-servidor-web:
+    web-server-dr:
+      ansible-host: 192.168.1.6
+
 db-server-drecovery:
   hosts:
-    #nome-servidor-bd:
-      #ansible-host: #ip-privado (subnet diferente do servidor control node já criado?)
+    db-server-dr:
+      ansible-host: 192.168.1.7
+
 windows-server-drecovery:
   hosts:
     windows-server-dr:
-      #ansible-host: 192.168.1.???
-      #ansible-host: #ip-privado (subnet diferente do servidor control node já criado?)
+      ansible-host: 192.168.1.100
     
 
 #Agrupamento por tipo de servidor (web, db e wordpress)
@@ -58,9 +57,9 @@ prod:
 
 drecovery:
   children:
-    web-servers-drecovery:
-    db-servers-drecovery:
-    windows-server-drecovery:
+    web-server-drecovery:
+    db-server-dr:
+    windows-server-dr:
 
 #Agrupamento por região (weu e neu)
 #Grupos pai por região:
