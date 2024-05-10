@@ -1,5 +1,5 @@
 ---
-- name: Run all linux servers configurations in production environment
+- name: Run all linux servers configurations in disaster recovery environment
   hosts: linux_dr
   become: true
   roles:
@@ -8,8 +8,8 @@
     - apache
     - wordpress
   
-- name: Run all windows server configurations in production environment
-  hosts: windows-server-dr
+- name: Run all windows server configurations in disaster recovery environment
+  hosts: windows_dr
   roles:
     - mysql_workbench
 
