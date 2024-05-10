@@ -7,8 +7,8 @@ data "template_file" "init" {
 resource "azurerm_windows_virtual_machine" "windows" {
     depends_on = [ azurerm_network_interface.nic, azurerm_public_ip.publicip, azurerm_network_interface_security_group_association.example]
     name                  = "windows-prod-vm"
-    resource_group_name   = azurerm_resource_group.grupo5-weu-prod-rg.name
-    location              = azurerm_resource_group.grupo5-weu-prod-rg.location
+    resource_group_name   = data.azurerm_resource_group.grupo5-weu-prod-rg.name
+    location              = data.azurerm_resource_group.grupo5-weu-prod-rg.location
     size                  = "Standard_B2s"
     admin_username        = "ansible"
     admin_password        = var.admin_password
@@ -44,8 +44,8 @@ resource "azurerm_windows_virtual_machine" "windows" {
 
 resource "azurerm_network_interface" "nic" {
     name                = "windows-prod-nic"
-    location            = azurerm_resource_group.grupo5-weu-prod-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
+    location            = data.azurerm_resource_group.grupo5-weu-prod-rg.location
+    resource_group_name = data.azurerm_resource_group.grupo5-weu-prod-rg.name
 
     ip_configuration {
         name                          = "windows-prod-nic-ipconfig"
@@ -60,8 +60,8 @@ resource "azurerm_network_interface" "nic" {
 
 resource "azurerm_public_ip" "publicip" {
     name                = "publicip"
-    location            = azurerm_resource_group.grupo5-weu-prod-rg.location
-    resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
+    location            = data.azurerm_resource_group.grupo5-weu-prod-rg.location
+    resource_group_name = data.azurerm_resource_group.grupo5-weu-prod-rg.name
     allocation_method   = "Static"
 }
 
@@ -71,8 +71,8 @@ resource "azurerm_public_ip" "publicip" {
 
 resource "azurerm_network_security_group" "windows_nsg" {
   name                = "windows-prod-nsg"
-  location            = azurerm_resource_group.grupo5-weu-prod-rg.location 
-  resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
+  location            = data.azurerm_resource_group.grupo5-weu-prod-rg.location 
+  resource_group_name = data.azurerm_resource_group.grupo5-weu-prod-rg.name
 
   security_rule {
     name                       = "RDP"

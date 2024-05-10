@@ -36,9 +36,8 @@ provider "azurerm" {
 #     }
 # }
 
-resource "azurerm_resource_group" "grupo5-weu-prod-rg" {
-  name     = "grupo5-weu-prod-rg"
-  location = "West Europe"
+data "azurerm_resource_group" "grupo5-weu-prod-rg" {
+  name                = "grupo5-weu-prod-rg"
 }
 
 
@@ -47,8 +46,8 @@ resource "azurerm_resource_group" "grupo5-weu-prod-rg" {
 
 resource "azurerm_virtual_network" "grupo5-weu-prod-vnet" {
   name                = "grupo5-weu-prod-vnet"
-  resource_group_name = azurerm_resource_group.grupo5-weu-prod-rg.name
-  location            = azurerm_resource_group.grupo5-weu-prod-rg.location
+  resource_group_name = data.azurerm_resource_group.grupo5-weu-prod-rg.name
+  location            = data.azurerm_resource_group.grupo5-weu-prod-rg.location
   address_space       = ["192.168.0.0/24"]
   
 }
@@ -57,7 +56,7 @@ resource "azurerm_virtual_network" "grupo5-weu-prod-vnet" {
 
 resource "azurerm_subnet" "grupo5-weu-prod-subnet" {
   name                 = "grupo5-weu-prod-subnet"
-  resource_group_name  = azurerm_resource_group.grupo5-weu-prod-rg.name
+  resource_group_name  = data.azurerm_resource_group.grupo5-weu-prod-rg.name
   virtual_network_name = azurerm_virtual_network.grupo5-weu-prod-vnet.name
   address_prefixes     = ["192.168.0.0/24"]
 }

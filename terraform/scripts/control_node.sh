@@ -1,4 +1,5 @@
 #!/bin/bash
+
 log_and_exit() {
     #red
     echo -e "\e[31m$1\e[0m" >> /var/log/control_node.log
@@ -14,7 +15,7 @@ create_user() {
     cat /tmp/public_keys/$1.pub | tee /home/$1/.ssh/authorized_keys > /dev/null || log_and_exit "Erro ao adicionar a chave pública ao arquivo /home/$1/.ssh/authorized_keys"
 }
 
-#users
+#usersLF
 nomes=(antero miguel pedro)
 
 #pacotes

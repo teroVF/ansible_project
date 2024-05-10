@@ -17,6 +17,7 @@
     - php-json
     - php-mbstring
     - php-mysql
+    - php-mysqli
     - php-xml
     - php-zip
     - libapache2-mod-php
