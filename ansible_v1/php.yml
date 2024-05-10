@@ -1,6 +1,6 @@
 ---
 - name: Install PHP and his extensions
-  hosts: webserver-linux
+  hosts: webserver_linux
   become: yes
   roles:
     - php

@@ -1,6 +1,6 @@
 ---
 - name: Install Apache and test it
-  hosts: webserver-linux
+  hosts: webserver_linux
   become: yes
   roles:
     - apache

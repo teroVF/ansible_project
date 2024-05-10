@@ -1,7 +1,7 @@
 ---
 #Create users and groups defined in the inventory file (group_vars/linux.yml)
 #Criar nova play à parte para criar os utilizadores de windows
-- hosts: linux-prod
+- hosts: linux_prod
   gather_facts: true
   become: true
   tasks:
@@ -21,7 +21,7 @@
         append: yes
       loop: "{{ users }}"
 
-- hosts: windows-prod
+- hosts: windows_prod
   gather_facts: true
   tasks:
     - name: Add groups to Windows Server

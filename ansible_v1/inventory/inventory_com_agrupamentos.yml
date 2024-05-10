@@ -1,65 +1,65 @@
 #Hosts por ambiente (prod e disaster recovery):
-web-server-prod:
+web_server_prod:
   hosts:
-    webserver-linux:
-      ansible-host: 192.168.0.6 
+    webserver_linux:
+      ansible_host: 192.168.0.6 
     
-db-server-prod:
+db_server_prod:
   hosts:
-    db-server-linux:
-      ansible-host: 192.168.0.7
-windows-server-prod:
+    db_server_linux:
+      ansible_host: 192.168.0.7
+windows_server_prod:
   hosts:
-    windows-server:
-      ansible-host: 192.168.0.100
+    windows_server:
+      ansible_host: 192.168.0.100
 
-web-server-drecovery:
+web_server_drecovery:
   hosts:
-    web-server-dr:
-      ansible-host: 192.168.1.6
+    web_server_dr:
+      ansible_host: 192.168.1.6
 
-db-server-drecovery:
+db_server_drecovery:
   hosts:
-    db-server-dr:
-      ansible-host: 192.168.1.7
+    db_server_dr:
+      ansible_host: 192.168.1.7
 
-windows-server-drecovery:
+windows_server_drecovery:
   hosts:
-    windows-server-dr:
-      ansible-host: 192.168.1.100
+    windows_server_dr:
+      ansible_host: 192.168.1.100
     
 
 #Agrupamento por tipo de servidor (web, db e wordpress)
 #Grupos pai por tipo de servidor:
-web-servers:
+web_servers:
   children:
-    web-server-prod:
-    web-server-drecovery:
+    web_server_prod:
+    web_server_drecovery:
 
-db-servers: 
+db_servers: 
   children:
-    db-server-prod:
-    db-server-drecovery:
+    db_server_prod:
+    db_server_drecovery:
 
-wordpress-servers:
+wordpress_servers:
   children:
-    windows-server-prod:
-    windows-server-drecovery:
+    windows_server_prod:
+    windows_server_drecovery:
 
 
 #Agrupamento por ambiente (prod e dev)
 #Grupos pai por ambiente:
 prod:
   children:
-    web-server-prod:
-    db-server-prod:
-    windows-server-prod:
+    web_server_prod:
+    db_server_prod:
+    windows_server_prod:
 
 drecovery:
   children:
-    web-server-drecovery:
-    db-server-dr:
-    windows-server-dr:
+    web_server_drecovery:
+    db_server_drecovery:
+    windows_server_drecovery:
 
 #Agrupamento por região (weu e neu)
 #Grupos pai por região:
@@ -73,29 +73,29 @@ neu:
 
 #Agrupamento por tipo de sistema operacional (linux e windows)
 #Grupos pai por tipo de sistema operacional e tipo de ambiente:
-linux-prod:
+linux_prod:
   children:
-    web-server-prod:
-    db-server-prod:
+    web_server_prod:
+    db_server_prod:
     
-linux-dr: 
+linux_dr: 
   children:
-    web-server-drecovery:
-    db-server-drecovery:
+    web_server_drecovery:
+    db_server_drecovery:
 
-windows-prod:
+windows_prod:
   children:
-    windows-server-prod:
-windows-dr:
+    windows_server_prod:
+windows_dr:
   children:
-    windows-server-drecovery:
+    windows_server_drecovery:
 
-linux-all:
+linux_all:
   children:
-    linux-prod:
-    linux-dr:
+    linux_prod:
+    linux_dr:
 
-windows-all:
+windows_all:
   children:
-    windows-prod:
-    windows-dr:
+    windows_prod:
+    windows_dr:
