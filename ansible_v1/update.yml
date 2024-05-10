@@ -1,6 +1,6 @@
 ---
 - name: Update apt packages
-  hosts: all
+  hosts: linux-all
   become: true
 
   tasks:

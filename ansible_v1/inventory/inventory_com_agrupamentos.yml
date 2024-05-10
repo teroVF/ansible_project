@@ -3,31 +3,31 @@
 web-server-prod:
   hosts:
     webserver-linux:
-      ansible_host: 192.168.0.6 
+      ansible-host: 192.168.0.6 
     
 db-server-prod:
   hosts:
     db-server-linux:
-      ansible_host: 192.168.0.7
+      ansible-host: 192.168.0.7
 windows-server-prod:
   hosts:
     windows-server:
-      ansible_host: 192.168.0.100
+      ansible-host: 192.168.0.100
 
 web-server-drecovery:
   hosts:
-    #nome_servidor_web(igual ao definido no terraform):
-      #ansible_host: #ip_privado (subnet diferente do servidor control node?) 
-    #nome_servidor_web:
+    #nome-servidor-web(igual ao definido no terraform):
+      #ansible-host: #ip-privado (subnet diferente do servidor control node?) 
+    #nome-servidor-web:
 db-server-drecovery:
   hosts:
-    #nome_servidor_bd:
-      #ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
+    #nome-servidor-bd:
+      #ansible-host: #ip-privado (subnet diferente do servidor control node já criado?)
 windows-server-drecovery:
   hosts:
     windows-server-dr:
-      #ansible_host: 192.168.1.???
-      #ansible_host: #ip_privado (subnet diferente do servidor control node já criado?)
+      #ansible-host: 192.168.1.???
+      #ansible-host: #ip-privado (subnet diferente do servidor control node já criado?)
     
 
 #Agrupamento por tipo de servidor (web, db e wordpress)
@@ -73,24 +73,30 @@ neu:
     drecovery:    
 
 #Agrupamento por tipo de sistema operacional (linux e windows)
-#Grupos pai por tipo de sistema operacional:
-linux_prod:
+#Grupos pai por tipo de sistema operacional e tipo de ambiente:
+linux-prod:
   children:
     web-server-prod:
     db-server-prod:
     
-      # hosts:
-      #   db-server-linux:
-    #Falta adicionar de distater recovery
-linux_dr: 
+linux-dr: 
   children:
     web-server-drecovery:
     db-server-drecovery:
 
-windows_prod:
+windows-prod:
   children:
     windows-server-prod:
-windows_dr:
+windows-dr:
   children:
     windows-server-drecovery:
 
+linux-all:
+  children:
+    linux-prod:
+    linux-dr:
+
+windows-all:
+  children:
+    windows-prod:
+    windows-dr:
