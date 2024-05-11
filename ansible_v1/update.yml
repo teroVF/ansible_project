@@ -28,8 +28,6 @@
           - SecurityUpdates
           - CriticalUpdates
           - UpdateRollups
-      become: true
-      become_method: runas
       become_user: SYSTEM
         
         
