@@ -1,6 +1,5 @@
 ---
 #Tasks to install Mysql Workbench his prerequisites and verify the installation
-#A COLECAO https://github.com/chocolatey/chocolatey-ansible PODER SER UTIIZADA! TESTAR MAIS TARDE
 
 - name: Download Latest Microsoft Visual C++ Redistributable
   ansible.windows.win_shell: |

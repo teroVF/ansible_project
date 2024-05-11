@@ -11,8 +11,7 @@
     - name: Upgrade all packages and distro
       ansible.builtin.apt:
         upgrade: dist
-        name: "*"
-        state: latest
+        
 
 - name: Update all Windows servers
   hosts: windows_all
