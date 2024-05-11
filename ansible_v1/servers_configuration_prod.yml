@@ -12,7 +12,7 @@
   hosts: db_server_prod
   become: true
   roles:
-    - mysql
+    - mysql_server
 
 - name: Run all windows server configurations in production environment
   hosts: windows_server_prod
