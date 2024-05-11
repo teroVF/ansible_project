@@ -1,16 +1,23 @@
+#PENDENTE DE ALTERAÇÂO Play para cada servidor com a suas respetivas roles
 ---
-- name: Run all linux servers configurations in production environment
-  hosts: linux_prod
+- name: Run all configurations in web-server linux
+  hosts: web_server_prod
   become: true
   roles:
-    - mysql_server
     - php
     - apache
     - wordpress
-  
+
+- name: Run all configuration in database-server
+  hosts: db_server_prod
+  become: true
+  roles:
+    - mysql
+
 - name: Run all windows server configurations in production environment
-  hosts: windows_prod
+  hosts: windows_server_prod
   roles:
     - mysql_workbench
+
 
     
