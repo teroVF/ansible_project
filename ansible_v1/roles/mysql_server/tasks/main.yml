@@ -104,4 +104,3 @@
     regexp: '^bind-address\s*=\s*127\.0\.0\.1\s*$'
     line: 'bind-address = 0.0.0.0'
   notify: Restart MySQL Service
-  

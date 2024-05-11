@@ -55,8 +55,9 @@ resource "azurerm_linux_virtual_machine" "grupo5-neu-dr-vm" {
   #Execução do script
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/control_node.sh",
-      "sudo /tmp/control_node.sh"
+      "tr -d '\r' < /tmp/control_node.sh > /tmp/control_node_run.sh",
+      "chmod +x /tmp/control_node_run.sh",
+      "sudo /tmp/control_node_run.sh"
     ]
 
     connection {

@@ -73,6 +73,9 @@
   when: default_site.stat.exists
 
 - name: Run smoke test 
+
+#isto parece que está errado
+- name: Run smoke test after wordpress configuration
   ansible.builtin.uri:
     url: http://localhost
     return_content: yes
