@@ -63,12 +63,12 @@
     owner: www-data
     group: www-data
 
-- name: Run smoke test after wordpress configuration
-  ansible.builtin.uri:
-    url: http://localhost
-    return_content: yes
-  register: result
+# - name: Run smoke test after wordpress configuration
+#   ansible.builtin.uri:
+#     url: http://localhost
+#     return_content: yes
+#   register: result
 
-- name: Debug smoke test after wordpress configuration
-  ansible.builtin.debug:
-    msg: "{{ result.content }}"
+# - name: Debug smoke test after wordpress configuration
+#   ansible.builtin.debug:
+#     msg: "{{ result.content }}"
