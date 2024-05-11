@@ -29,11 +29,10 @@
           - SecurityUpdates
           - CriticalUpdates
           - UpdateRollups
-      become_user: SYSTEM
-      state: installed
+        become_user: SYSTEM
+        state: installed
     
-
-    - name: Install all updates and reboot as many times as needed
-      ansible.windows.win_updates:
-        category_names: '*'
-        reboot: true
+    # - name: Install all updates and reboot as many times as needed
+    #   ansible.windows.win_updates:
+    #     category_names: '*'
+    #     reboot: true
