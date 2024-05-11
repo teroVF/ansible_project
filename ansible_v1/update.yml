@@ -16,6 +16,12 @@
 - name: Update all Windows servers
   hosts: windows_all
   tasks:
+    # - name: Update all types of Windows updates and reboot if needed
+    #   ansible.windows.win_updates:
+    #     category_names: "*"
+    #     state: installed
+    #     reboot: true
+    #     reboot_timeout: 1800
     - name: Update all types of Windows updates and reboot if needed
       ansible.windows.win_updates:
         category_names: "*"
