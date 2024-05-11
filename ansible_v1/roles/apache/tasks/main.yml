@@ -72,6 +72,8 @@
   notify: Restart Apache
   when: default_site.stat.exists
 
+
+#isto parece que está errado
 - name: Run smoke test after wordpress configuration
   ansible.builtin.uri:
     url: http://localhost
