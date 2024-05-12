@@ -22,16 +22,45 @@
     #     state: installed
     #     reboot: true
     #     reboot_timeout: 1800
+    - name: Download all security, critical, and rollup updates 
+      ansible.windows.win_updates:
+        category_names:
+          - SecurityUpdates
+          - CriticalUpdates
+          - UpdateRollups
+        state: downloaded
+      register: win_downloaded_updates
+    
+    # - name: Install all updates and reboot as many times as needed
+    #   ansible.windows.win_updates:
+    #     category_names: '*'
+    #     reboot: true
 
-    - name: Install all security, critical, and rollup updates without a scheduled task
+  #   - name: Patching and Updating Windows systems
+  # hosts: windows-os:&azure-prod
+  # tasks:
+  #   - name: Update Windows systems databases
+  #     ansible.windows.win_updates:
+  #       category_names: "*"
+  #       state: searched
+  #     register: win_updates_results
+
+    - name: Reboot Windows if necessary
+      ansible.windows.win_reboot:
+      when:
+        - win_downloaded_updates.reboot_required == true
+
+    - name: Install security updates
       ansible.windows.win_updates:
         category_names:
           - SecurityUpdates
           - CriticalUpdates
           - UpdateRollups
         state: installed
-    
-    # - name: Install all updates and reboot as many times as needed
-    #   ansible.windows.win_updates:
-    #     category_names: '*'
-    #     reboot: true
+      register: win_upgrades_results
+      when:
+        - win_upgrades_results.updates | length > 0
+      ansible.builtin.debug:
+        failed_msg: "Update failed: {{ win_upgrades_results.failure_msg }}"
+        success_msg: "The following update was successfully installed: {{ win_upgrades_results.installed }}"
+      
