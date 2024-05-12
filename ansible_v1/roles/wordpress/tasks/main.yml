@@ -39,28 +39,28 @@
   ansible.builtin.command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost={{ DB_HOST }} --allow-root --force
   args:
     chdir: /var/www/html/
-  when: ansible_default_ipv4.address == DB_HOST
+  when: vars['DB_HOST']
   notify: Restart Apache
 
 - name : Create wp-config.php in DR
   ansible.builtin.command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost={{ DB_HOST_DR }} --allow-root --force
   args:
     chdir: /var/www/html/
-  when: "{{ DB_HOST_DR }}"
+  when: vars['DB_HOST_DR']
   notify: Restart Apache
 
 - name: Install Wordpress
   ansible.builtin.command: wp core install --url={{ URL }} --title="{{ TITLE }}" --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }} --allow-root
   args:
     chdir: /var/www/html/
-  when: ansible_default_ipv4.address == DB_HOST
+  when: vars['URL']
   notify: Restart Apache
 
 - name: Install Wordpress in DR
   ansible.builtin.command: wp core install --url={{ URL_DR }} --title="{{ TITLE }}" --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }} --allow-root
   args:
     chdir: /var/www/html/
-  when: "{{ URL_DR }}"
+  when: vars['URL_DR']
   notify: Restart Apache
 
 - name: Change file permissions to 644
