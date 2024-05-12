@@ -38,19 +38,7 @@
         groups: "{{ item.groups }}"
       loop: "{{ users }}"
     
+    - name: Restart Windows Server(s)
+      ansible.windows.win_reboot:
 
-#Talvez a solução a baixo seja a melhor. Usar hash!
-# ---
-# - name: Create users and groups
-#   hosts: all
-#   tasks:
-#      - name: Add users
-#       ansible.builtin.user:
-#         name: "{{ item.name }}"
-#         password: "{{ item.password }}"
-#         state: present
-#       loop:
-#         - { name: developer, password: Ansible2024 }
-#         - { name: dbadmin, password: Ansible2024 }
-#         - { name: dbdev, password: Ansible2024 }
 
