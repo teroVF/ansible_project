@@ -73,3 +73,13 @@
 - name: Debug smoke test after wordpress configuration
   ansible.builtin.debug:
     msg: "{{ result.content }}"
+
+- name: Debug DB_PASSWORD
+  debug:
+    var: DB_PASSWORD
+    verbosity: 4
+
+- name: Debug ADMIN_PASSWORD
+  debug:
+    var: ADMIN_PASSWORD
+    verbosity: 4
