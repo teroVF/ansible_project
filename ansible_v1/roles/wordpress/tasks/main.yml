@@ -39,12 +39,29 @@
   ansible.builtin.command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost={{ DB_HOST }} --allow-root --force
   args:
     chdir: /var/www/html/
+  when: inventory_hostname == "web_server_prod"
   notify: Restart Apache
+
+- name : Create wp-config.php
+  ansible.builtin.command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost={{ DB_HOST_DR }} --allow-root --force
+  args:
+    chdir: /var/www/html/
+  when: inventory_hostname == "web_server_drecovery"
+  notify: Restart Apache
+
 
 - name: Install Wordpress
   ansible.builtin.command: wp core install --url={{ URL }} --title="{{ TITLE }}" --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }} --allow-root
   args:
     chdir: /var/www/html/
+  when: inventory_hostname == "web_server_prod"
+  notify: Restart Apache
+
+- name: Install Wordpress
+  ansible.builtin.command: wp core install --url={{ URL_DR }} --title="{{ TITLE }}" --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }} --allow-root
+  args:
+    chdir: /var/www/html/
+  when: inventory_hostname == "web_server_drecovery"
   notify: Restart Apache
 
 - name: Change file permissions to 644
