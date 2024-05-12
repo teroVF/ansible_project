@@ -75,11 +75,13 @@
 #     msg: "{{ result.content }}"
 
 - name: Debug DB_PASSWORD
+  include_vars: vars/main.yml
   debug:
     var: DB_PASSWORD
     verbosity: 4
 
 - name: Debug ADMIN_PASSWORD
+  include_vars: vars/main.yml
   debug:
     var: ADMIN_PASSWORD
     verbosity: 4
