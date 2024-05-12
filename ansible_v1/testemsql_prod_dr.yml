@@ -1,0 +1,4 @@
+- hosts: db_server_dr
+  become: true
+  roles:
+    - mysql_server

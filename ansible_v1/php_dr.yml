@@ -1,0 +1,6 @@
+---
+- name: Install PHP and his extensions
+  hosts: web_server_dr
+  become: yes
+  roles:
+    - php

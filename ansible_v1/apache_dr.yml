@@ -1,0 +1,6 @@
+---
+- name: Install Apache and test it
+  hosts: web_server_dr
+  become: yes
+  roles:
+    - apache
