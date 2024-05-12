@@ -12,7 +12,19 @@ It is asked by the trainer (Tiago Bernardo) to use ansible and to:
 
 We use terraform to create the infrastructure on azure and on ansible to deploy all the users and configuration needed to comply with the previously mentioned requeriments
 
-Playbooks and corresponding command that can be used:
+We also  stored sensitive data, such as passwords or keys, encrypted in-place.
 
-To update all the machines you can use the following command:
-ansible-playbook
+Playbooks and corresponding Ansible commands that can be used:
+
+- Update all the machines you can use the following command
+
+ansible-playbook -i inventory/inventory_com_agrupamentos.yml update
+
+- Configure all the machines in one environment (servers_configuration_prod.yml/servers_configuration_dr.yml)
+
+ansible-playbook -i inventory/inventory_com_agrupamentos.yml servers_configuration_prod.yml --vault-id @prompt (password: 123)
+
+- Create users and groups in one environment (users_groups.yml/users_groups_dr.yml)
+
+ansible-playbook -i inventory/inventory_com_agrupamentos.yml users_groups.yml --vault-id @prompt (password:123)
+
