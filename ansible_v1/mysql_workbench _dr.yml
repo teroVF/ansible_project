@@ -1,0 +1,5 @@
+---
+- name: Install Workbench and test it
+  hosts: windows_server_dr
+  roles:
+    - mysql_workbench
