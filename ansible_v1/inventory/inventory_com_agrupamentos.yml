@@ -8,6 +8,7 @@ db_server_prod:
   hosts:
     db_server_linux:
       ansible_host: 192.168.0.7
+
 windows_server_prod:
   hosts:
     windows_server:
@@ -31,6 +32,7 @@ windows_server_drecovery:
 
 #Agrupamento por tipo de servidor (web, db e wordpress)
 #Grupos pai por tipo de servidor:
+
 web_servers:
   children:
     web_server_prod:
@@ -47,7 +49,7 @@ wordpress_servers:
     windows_server_drecovery:
 
 
-#Agrupamento por ambiente (prod e dev)
+#Agrupamento por ambiente (prod e disaster recovery)
 #Grupos pai por ambiente:
 prod:
   children:
