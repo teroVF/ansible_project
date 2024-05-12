@@ -81,9 +81,4 @@
     #     state: installed
     #   register: win_upgrades_results
     
-    
-    # - name: Verify if the update was installed
-    #   ansible.builtin.debug:
-    #     failed_msg: "Update failed: {{ win_upgrades_results.failure_msg }}"
-    #     success_msg: "The following update was successfully installed: {{ win_upgrades_results.installed }}"
       
