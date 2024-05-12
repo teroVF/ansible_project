@@ -1,4 +1,4 @@
-Role Name
+Php Role
 =========
 
 This role aims to set up PHP and related packages on the Web-server ensuring that the Apache service is ready to handle PHP processes

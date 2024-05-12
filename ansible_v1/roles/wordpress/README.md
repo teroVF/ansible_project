@@ -1,4 +1,4 @@
-Role Name
+Wordpress Role
 =========
 
 Install and configure Wordpress using the command-line interface WP-CLI can update plugins, configure multisite installations and much more, without using a web browser.
