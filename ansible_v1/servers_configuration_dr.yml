@@ -1,15 +1,21 @@
 ---
-- name: Run all linux servers configurations in disaster recovery environment
-  hosts: linux_dr
+#PENDENTE DE ALTERAÇÂO Play para cada servidor com a suas respetivas roles
+---
+- name: Run all configuration in database-server
+  hosts: db_server_drecovery
   become: true
   roles:
     - mysql_server
-    - php
-    - apache
+
+- name: Run all configurations in web-server linux
+  hosts: web_server_drecovery
+  become: true
+  roles:
     - wordpress
-  
-- name: Run all windows server configurations in disaster recovery environment
-  hosts: windows_dr
+
+
+- name: Run all windows server configurations in production environment
+  hosts: windows_server_drecovery
   roles:
     - mysql_workbench
 
