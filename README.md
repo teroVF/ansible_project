@@ -12,3 +12,7 @@ It is asked by the trainer (Tiago Bernardo) to use ansible and to:
 
 We use terraform to create the infrastructure on azure and on ansible to deploy all the users and configuration needed to comply with the previously mentioned requeriments
 
+Playbooks and corresponding command that can be used:
+
+To update all the machines you can use the following command:
+ansible-playbook
