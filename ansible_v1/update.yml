@@ -58,8 +58,7 @@
           - UpdateRollups
         state: installed
       register: win_upgrades_results
-      when:
-        - win_upgrades_results.updates | length > 0
+    
     
     - name: Verify if the update was installed
       ansible.builtin.debug:
