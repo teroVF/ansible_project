@@ -39,12 +39,13 @@
   command: wp config create --dbname={{ DB_NAME }} --dbuser={{ DB_USER }} --dbpass={{ DB_PASSWORD }} --dbhost={{ DB_HOST }} --allow-root --force
   args:
     chdir: /var/www/html/
+  register: Restart Apache
 
 - name: Install Wordpress
   command: wp core install --url={{ URL }} --title="{{ TITLE }}" --admin_user={{ ADMIN_USER }} --admin_password={{ ADMIN_PASSWORD }} --admin_email={{ ADMIN_EMAIL }} --allow-root
   args:
     chdir: /var/www/html/
-  register: restart_apache
+  register: Restart Apache
 
 - name: Change file permissions to 644
   ansible.builtin.file:
@@ -64,25 +65,12 @@
     owner: www-data
     group: www-data
 
-# - name: Run smoke test after wordpress configuration
-#   ansible.builtin.uri:
-#     url: http://localhost
-#     return_content: yes
-#   register: result
+- name: Run smoke test after wordpress configuration
+  ansible.builtin.uri:
+    url: http://localhost
+    return_content: yes
+  register: result
 
-# - name: Debug smoke test after wordpress configuration
-#   ansible.builtin.debug:
-#     msg: "{{ result.content }}"
-
-- name: Include variables
-  include_vars: vars/main.yml
-
-- name: Debug DB_PASSWORD
-  debug:
-    var: DB_PASSWORD
-    verbosity: 4
-
-- name: Debug ADMIN_PASSWORD
-  debug:
-    var: ADMIN_PASSWORD
-    verbosity: 4
+- name: Debug smoke test after wordpress configuration
+  ansible.builtin.debug:
+    msg: "{{ result.content }}"
