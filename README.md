@@ -16,15 +16,15 @@ We also  stored sensitive data, such as passwords or keys, encrypted in-place.
 
 Playbooks and corresponding Ansible commands that can be used:
 
--Update all the machines you can use the following command
+- Update all the machines you can use the following command
 
 ansible-playbook -i inventory/inventory_com_agrupamentos.yml update
 
--Configure all the machines in one environment (servers_configuration_prod.yml/servers_configuration_dr.yml)
+- Configure all the machines in one environment (servers_configuration_prod.yml/servers_configuration_dr.yml)
 
 ansible-playbook -i inventory/inventory_com_agrupamentos.yml servers_configuration_prod.yml --vault-id @prompt (password: 123)
 
--Create users and groups in one environment (users_groups.yml/users_groups_dr.yml)
+- Create users and groups in one environment (users_groups.yml/users_groups_dr.yml)
 
 ansible-playbook -i inventory/inventory_com_agrupamentos.yml users_groups.yml --vault-id @prompt (password:123)
 
