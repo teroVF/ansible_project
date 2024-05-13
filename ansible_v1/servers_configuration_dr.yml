@@ -16,6 +16,6 @@
 - name: Run all windows server configurations in production environment
   hosts: windows_server_drecovery
   roles:
-    - mysql_workbench
+   - mysql_workbench
 
 ...

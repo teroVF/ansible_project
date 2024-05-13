@@ -64,6 +64,10 @@
   when: inventory_hostname == "web_server_drecovery"
   notify: Restart Apache
 
+- name: Debug inventory_hostname
+  debug:
+    var: inventory_hostname
+
 - name: Change file permissions to 644
   ansible.builtin.file:
     path: /var/www/html/
