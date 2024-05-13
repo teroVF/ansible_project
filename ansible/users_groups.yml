@@ -16,10 +16,11 @@
       ansible.builtin.user:
         name: "{{ item.name }}"
         state: present
-        password: "{{ item.password }}"
+        password: "{{ item.password | password_hash('sha512') }}"
         groups: "{{ item.groups }}"
         append: yes
       loop: "{{ users }}"
+      no_log: true
 
 - hosts: windows_prod
   gather_facts: true
@@ -37,6 +38,7 @@
         password: "{{ item.password }}"
         groups: "{{ item.groups }}"
       loop: "{{ users }}"
+      no
     
     - name: Restart Windows Server(s)
       ansible.windows.win_reboot:
