@@ -10,7 +10,7 @@
 
     - name: Upgrade all packages and distro
       ansible.builtin.apt:
-        upgrade: dist
+        upgrade: yes
         
 # - name: Update all Windows servers
 #   hosts: windows_all
@@ -44,41 +44,51 @@
   #       state: searched
   #     register: win_updates_results
 
-- name: Patching and Updating Windows systems
-  hosts: windows_all
+# - name: Patching and Updating Windows systems
+#   hosts: windows_all
+#   tasks:
+#     - name: Update Windows systems databases
+#       ansible.windows.win_updates:
+#         category_names: "*"
+#         state: searched
+#       register: win_updates_results
+
+#     - name: Reboot Windows if necessary
+#       ansible.windows.win_reboot:
+#       when:
+#         - win_updates_results.reboot_required == true
+
+#     - name: Install security updates
+#       ansible.windows.win_updates:
+#         category_names: "*"
+#         state: installed
+#       register: win_upgrades_results
+#       when:
+#         - win_updates_results.updates | length > 0
+
+
+#     # - name: Reboot Windows if necessary
+#     #   ansible.windows.win_reboot:
+#     #   when:
+#     #     - win_downloaded_updates.reboot_required == true
+
+#     # - name: Install security updates
+#     #   ansible.windows.win_updates:
+#     #     category_names:
+#     #       - SecurityUpdates
+#     #       - CriticalUpdates
+#     #       - UpdateRollups
+#     #     state: installed
+#     #   register: win_upgrades_results
+
+- hosts: windows
   tasks:
-    - name: Update Windows systems databases
+    - name: Install all updates
       ansible.windows.win_updates:
-        category_names: "*"
-        state: searched
-      register: win_updates_results
-
-    - name: Reboot Windows if necessary
-      ansible.windows.win_reboot:
-      when:
-        - win_updates_results.reboot_required == true
-
-    - name: Install security updates
-      ansible.windows.win_updates:
-        category_names: "*"
+        category_names: 'all'
         state: installed
-      register: win_upgrades_results
-      when:
-        - win_updates_results.updates | length > 0
+      register: update_result
 
-
-    # - name: Reboot Windows if necessary
-    #   ansible.windows.win_reboot:
-    #   when:
-    #     - win_downloaded_updates.reboot_required == true
-
-    # - name: Install security updates
-    #   ansible.windows.win_updates:
-    #     category_names:
-    #       - SecurityUpdates
-    #       - CriticalUpdates
-    #       - UpdateRollups
-    #     state: installed
-    #   register: win_upgrades_results
-    
-      
+    - name: Reboot the machine if updates were installed
+      ansible.windows.win_reboot:
+      when: update_result.reboot_required
