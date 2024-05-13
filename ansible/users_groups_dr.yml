@@ -20,6 +20,7 @@
         groups: "{{ item.groups }}"
         append: yes
       loop: "{{ users }}"
+      no_log: true
 
 - hosts: windows_dr
   gather_facts: true
@@ -34,9 +35,10 @@
     - name: Create users and add to groups in Windows
       ansible.windows.win_user:
         name: "{{ item.name }}"
-        password: "{{ item.password | password_hash('sha512') }}"
+        password: "{{ item.password }}"
         groups: "{{ item.groups }}"
       loop: "{{ users }}"
+      no_log: true
     
     - name: Restart Windows Server(s)
       ansible.windows.win_reboot:
