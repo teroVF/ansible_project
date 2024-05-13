@@ -99,8 +99,6 @@
         Install-WindowsUpdate -AcceptAll -AutoReboot
       args:
         executable: powershell
-      notify: Reboot if required
 
-  handlers:
-    - name: Reboot if required
+    - name: Reboot
       ansible.windows.win_reboot:
