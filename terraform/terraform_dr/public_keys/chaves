@@ -1,0 +1,4 @@
+ansible é a chave dos servers.
+Nota: para melhor segurança devia ser criado uma chave para cada servidor.
+
+admin foi a chave publica usada no terraform para criar os servidores.
