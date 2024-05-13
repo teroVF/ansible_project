@@ -92,4 +92,3 @@
   handlers:
     - name: Reboot Windows if necessary
       ansible.windows.win_reboot:
-      when: update_result.reboot_required == true
