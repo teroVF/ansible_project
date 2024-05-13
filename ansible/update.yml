@@ -93,14 +93,10 @@
         $ProgressPreference = 'SilentlyContinue'
         Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
         Install-Module PSWindowsUpdate -Force -Confirm:$false
-      args:
-        executable: powershell
     
     - name: Install Windows updates
       ansible.windows.win_shell: |
         Install-WindowsUpdate -AcceptAll -AutoReboot
-      args:
-        executable: powershell
 
     - name: Reboot
       ansible.windows.win_reboot:
