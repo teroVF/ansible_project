@@ -1,8 +1,23 @@
 ---
 - name: Update all linux based servers
   hosts: linux_all
+  gather_facts: no
   become: true
   tasks:
+    - name: Check for SSH port
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        timeout: 5
+      delegate_to: localhost
+      ignore_errors: yes
+      register: ssh_check
+
+    - name: Fail if SSH is not accessible
+      fail:
+        msg: "Host is not reachable, possibly it is turned off or not connected to the network."
+      when: ssh_check.failed
+
     - name: Update apt cache if its older than 22 hours
       ansible.builtin.apt:
         update_cache: true
@@ -82,10 +97,25 @@
 #     #   register: win_upgrades_results
 
 - hosts: windows_all
+  gather_facts: no
   become: yes
   become_method: runas
   become_user: SYSTEM
   tasks:
+    - name: Check for WinRM port
+      wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 5986
+        timeout: 5
+      delegate_to: localhost
+      ignore_errors: yes
+      register: winrm_check
+
+    - name: Fail if WinRM is not accessible
+      fail:
+        msg: "Host is not reachable, possibly it is turned off or not connected to the network."
+      when: winrm_check.failed
+      
     - name: Install PSWindowsUpdate module
       ansible.windows.win_shell: |
         $ProgressPreference = 'SilentlyContinue'
