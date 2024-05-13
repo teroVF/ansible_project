@@ -19,19 +19,22 @@ Playbooks and corresponding Ansible commands that can be used:
 - Update all the machines you can use the following command
 
 ```bash
-ansible-playbook -i inventory/inventory.yml update
+cd ansible
+ansible-playbook -i inventory/inventory.yml playbook/update_all.yml --vault-id @prompt #password: 123
 ```
 
 - Configure all the machines in one environment (servers_configuration_prod.yml/servers_configuration_dr.yml)
 
 ```bash
-ansible-playbook -i inventory/inventory.yml servers_configuration_prod.yml --vault-id @prompt #password: 123
+cd ansible
+ansible-playbook -i inventory/inventory.yml playbook/servers_configuration_prod.yml --vault-id @prompt #password: 123
 ```
 
 - Create users and groups in one environment (users_groups.yml/users_groups_dr.yml)
 
 ```bash
-ansible-playbook -i inventory/inventory.yml users_groups.yml --vault-id @prompt #password:123
+cd ansible
+ansible-playbook -i inventory/inventory.yml playbook/users_groups.yml --vault-id @prompt #password:123
 
 ```
 
