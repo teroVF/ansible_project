@@ -83,21 +83,24 @@
 
 - hosts: windows_all
   tasks:
-    - name: Download all updates
-      ansible.windows.win_updates:
-        category_names: 'all'
-        state: downloaded
-    - name: Install all updates
-      ansible.windows.win_updates:
-        category_names: 'all'
-        state: installed
-      register: win_updates_result
-      notify: Reboot Windows if necessary
-    - name: Display update information
-      ansible.builtin.debug:
-        var: win_updates_result
+  #   - name: Download all updates
+  #     ansible.windows.win_updates:
+  #       category_names: 'all'
+  #       state: downloaded
+  #   - name: Install all updates
+  #     ansible.windows.win_updates:
+  #       category_names: 'all'
+  #       state: installed
+  #     register: win_updates_result
+  #     notify: Reboot Windows if necessary
+  #   - name: Display update information
+  #     ansible.builtin.debug:
+  #       var: win_updates_result
+    - name: Install PSWindowsUpdate module
+      ansible.windows.win_shell: Install-Module PSWindowsUpdate -Force -Confirm:$false
+      args:
+        executable: powershell
 
   handlers:
     - name: Reboot Windows if necessary
       ansible.windows.win_reboot:
-      when: win_updates_result.reboot_required
