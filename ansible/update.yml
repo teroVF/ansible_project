@@ -84,6 +84,7 @@
 - hosts: windows_all
   become: yes
   become_method: runas
+  become_user: SYSTEM
   tasks:
     - name: Install PSWindowsUpdate module
       ansible.windows.win_shell: |
@@ -95,7 +96,6 @@
     
     - name: Install Windows updates
       ansible.windows.win_shell: |
-        Import-Module PSWindowsUpdate
         Install-WindowsUpdate -AcceptAll -AutoReboot
       args:
         executable: powershell
