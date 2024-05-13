@@ -82,6 +82,8 @@
 #     #   register: win_upgrades_results
 
 - hosts: windows_all
+  become: yes
+  become_method: runas
   tasks:
     - name: Install PSWindowsUpdate module
       ansible.windows.win_shell: |
