@@ -8,7 +8,7 @@
         update_cache: true
         cache_valid_time: 79200
 
-    - name: Upgrade all packages and distro
+    - name: Upgrade all packages
       ansible.builtin.apt:
         upgrade: yes
         

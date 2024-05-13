@@ -32,5 +32,40 @@ ansible-playbook -i inventory/inventory.yml servers_configuration_prod.yml --vau
 
 ```bash
 ansible-playbook -i inventory/inventory.yml users_groups.yml --vault-id @prompt #password:123
+
 ```
+
+
+## Terraform
+
+Essential commands to create the infrastructure on Azure:
+
+- Initialize the working directory containing Terraform configuration files
+
+```bash
+terraform init
+```
+
+- Create an execution plan
+
+```bash
+terraform plan --out=plan
+```
+
+- Apply the changes required to reach the desired state of the configuration
+
+```bash
+terraform apply plan
+```
+
+- Destroy the Terraform-managed infrastructure
+
+```bash
+terraform destroy
+```
+
+### Authors
+Antero
+Miguel
+Pedro
 
