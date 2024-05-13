@@ -10,7 +10,7 @@
   hosts: web_server_drecovery
   become: true
   roles:
-    - wordpress_dr
+    - wordpress
 
 
 - name: Run all windows server configurations in production environment
