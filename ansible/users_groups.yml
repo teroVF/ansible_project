@@ -41,7 +41,7 @@
       no_log: true
       notify: Restart Windows Server
     
-    handlers:
+    handler:
       - name: Restart Windows Server
         ansible.windows.win_reboot:
 
