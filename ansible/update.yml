@@ -89,7 +89,7 @@
         state: installed
       notify: Reboot Windows if necessary
 
-handlers:
-  - name: Reboot Windows if necessary
-    ansible.windows.win_reboot:
-    when: update_result.reboot_required == true
+  handlers:
+    - name: Reboot Windows if necessary
+      ansible.windows.win_reboot:
+      when: update_result.reboot_required == true
