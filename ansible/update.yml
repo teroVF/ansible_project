@@ -87,7 +87,6 @@
       ansible.windows.win_updates:
         category_names: 'all'
         state: installed
-      register: update_result
       notify: Reboot Windows if necessary
 
 handlers:
