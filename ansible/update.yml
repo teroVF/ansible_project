@@ -90,23 +90,10 @@
         Install-Module PSWindowsUpdate -Force -Confirm:$false
       args:
         executable: powershell
-
-    - name: Download all updates
-      ansible.windows.win_updates:
-        category_names: 'all'
-        state: downloaded
-
-    - name: Install all updates
-      ansible.windows.win_updates:
-        category_names: 'all'
-        state: installed
-      register: win_updates_result
-      notify: Reboot Windows if necessary
-      
-    - name: Display update information
-      ansible.builtin.debug:
-        var: win_updates_result
-
-  handlers:
-    - name: Reboot Windows if necessary
-      ansible.windows.win_reboot:
+    
+    - name: Install Windows updates
+      ansible.windows.win_shell: |
+        Import-Module PSWindowsUpdate
+        Install-WindowsUpdate -AcceptAll -AutoReboot
+      args:
+        executable: powershell
