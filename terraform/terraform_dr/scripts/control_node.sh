@@ -1,4 +1,5 @@
 #!/bin/bash
+
 log_and_exit() {
     #red
     echo -e "\e[31m$1\e[0m" >> /var/log/control_node.log
@@ -14,16 +15,16 @@ create_user() {
     cat /tmp/public_keys/$1.pub | tee /home/$1/.ssh/authorized_keys > /dev/null || log_and_exit "Erro ao adicionar a chave pública ao arquivo /home/$1/.ssh/authorized_keys"
 }
 
-#users
-nomes=(antero miguel pedro)
+#usersLF
+names=(antero miguel pedro)
 
 #pacotes
 package_to_install=(python3-pip ansible)
 package_to_upgrade=(python3)
 
 
-for nome in ${nomes[@]}; do
-    create_user $nome
+for name in ${names[@]}; do
+    create_user $name
 done
 
 
@@ -52,12 +53,14 @@ chmod -R 770 /opt/ansible || log_and_exit "Erro ao alterar as permissões do dir
 # Configuração StrictHostKeyChecking no arquivo /root/.ssh/config
 echo "StrictHostKeyChecking no" >> /root/.ssh/config
 
-for nome in ${nomes[@]}; do
-    usermod -aG ansible_3 $nome || log_and_exit "Erro ao adicionar o usuário $nome ao grupo ansible"
-    ln -s /opt/ansible/ansible_v1 /home/$nome/ansible || log_and_exit "Erro ao criar o link simbólico /home/$nome/ansible"
-    ln -s /opt/ansible.pem /home/$nome/ansible.pem || log_and_exit "Erro ao criar o link simbólico /home/$nome/ansible.pem"
-    echo "StrictHostKeyChecking no" >> /home/$nome/.ssh/config || log_and_exit "Erro ao adicionar a configuração StrictHostKeyChecking no arquivo /home/$nome/.ssh/config"
+for name in ${names[@]}; do
+    usermod -aG ansible_3 $name || log_and_exit "Erro ao adicionar o usuário $name ao grupo ansible"
+    ln -s /opt/ansible/ansible /home/$name/ansible || log_and_exit "Erro ao criar o link simbólico /home/$name/ansible"
+    ln -s /opt/ansible.pem /home/$name/ansible.pem || log_and_exit "Erro ao criar o link simbólico /home/$name/ansible.pem"
+    echo "StrictHostKeyChecking no" >> /home/$name/.ssh/config || log_and_exit "Erro ao adicionar a configuração StrictHostKeyChecking no arquivo /home/$name/.ssh/config"
 done
+#Para o utilizador ansible poder aceder à pasta e executar playbooks
+usermod -aG ansible_3 ansible || log_and_exit "Erro ao adicionar o usuário ansible ao grupo ansible_3"
 
 for package in ${package_to_install[@]}; do
     apt install $package -y || log_and_exit "Erro ao instalar o pacote $package"
@@ -70,3 +73,4 @@ for package in ${package_to_upgrade[@]}; do
 done
 
 pip install "pywinrm>=0.3.0" || log_and_exit "Erro ao instalar o pacote pywinrm"
+
