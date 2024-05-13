@@ -39,8 +39,10 @@
         groups: "{{ item.groups }}"
       loop: "{{ users }}"
       no_log: true
+      notify: Restart Windows Server
     
-    - name: Restart Windows Server(s)
-      ansible.windows.win_reboot:
+    handlers:
+      - name: Restart Windows Server
+        ansible.windows.win_reboot:
 
 
