@@ -81,7 +81,7 @@
 #     #     state: installed
 #     #   register: win_upgrades_results
 
-- hosts: windows
+- hosts: windows_all
   tasks:
     - name: Install all updates
       ansible.windows.win_updates:
