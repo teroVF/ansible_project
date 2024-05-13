@@ -88,7 +88,9 @@
         category_names: 'all'
         state: installed
       register: update_result
+      notify: Reboot Windows if necessary
 
-    - name: Reboot the machine if updates were installed
-      ansible.windows.win_reboot:
-      when: update_result.reboot_required
+handlers:
+  - name: Reboot Windows if necessary
+    ansible.windows.win_reboot:
+    when: update_result.reboot_required == true
