@@ -13,18 +13,19 @@
     name: mysql-server
     state: present
 
+# Install the python3-pip package
 - name: Ensure pip is installed
   ansible.builtin.apt:
     name: python3-pip
     state: present
   
-
+# Install a helper tool to allow ansible libraries work with Mysql
 - name: Ensure pkg-config is installed
   ansible.builtin.apt:
     name: pkg-config
     state: present
   
-
+# More requeriments to install
 - name: Ensure libmysqlclient-dev is installed
   ansible.builtin.apt:
     name: libmysqlclient-dev
@@ -45,20 +46,6 @@
     login_unix_socket: /var/run/mysqld/mysqld.sock
     login_user: root
     login_password: "{{ DB_PASS_ROOT }}"
-  notify: Restart MySQL Service
-
-# - name: Start MySQL service
-#   ansible.builtin.service:
-#     name: mysql
-#     state: started
-#   become: true
-
-# # - name: Wait for MySQL to start up
-# #   ansible.builtin.wait_for:
-# #     host: localhost
-# #     port: 3306
-# #     delay: 5
-
 
 - name: Configure MySQL root user
   mysql_user:
@@ -68,7 +55,6 @@
     state: present
     login_user: root
     login_password: "{{ DB_PASS_ROOT }}"
-  become: true
 
 - name: Create a new database
   mysql_db:
@@ -89,17 +75,16 @@
 
 - name: Grant all privileges to root
   mysql_user:
-    name: "{{ DB_USER }}"
+    name: root
     password: "{{ DB_PASS_ROOT }}"
     priv: "{{ DB_NAME }}.*:ALL"
     state: present
     login_user: root
     login_password: "{{ DB_PASS_ROOT }}"
-  notify: Restart MySQL Service
-
+  
 
 - name: Allow remote connections to MySQL
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/mysql/mysql.conf.d/mysqld.cnf
     regexp: '^bind-address\s*=\s*127\.0\.0\.1\s*$'
     line: 'bind-address = 0.0.0.0'

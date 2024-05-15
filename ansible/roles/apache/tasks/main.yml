@@ -73,7 +73,7 @@
   when: default_site.stat.exists
 
 
-# #isto parece que está errado
+#Debugging this playbook
 # - name: Run smoke test 
 #   ansible.builtin.uri:
 #     url: http://localhost

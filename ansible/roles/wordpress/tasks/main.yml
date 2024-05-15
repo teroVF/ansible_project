@@ -1,11 +1,7 @@
 ---
 # tasks file for wordpress
 
-- name: Update apt cache
-  ansible.builtin.apt:
-    update_cache: yes
-  
-
+ #Install the program (binaries) that works with wordpress
 - name: Install Wordpress CLI
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -71,11 +67,13 @@
 - name: Change file permissions to 644
   ansible.builtin.file:
     path: /var/www/html/
+    recurse: yes
     mode: '0644'
 
 - name: Change directory permissions to 755
   ansible.builtin.file:
     path: /var/www/html/
+    recurse: yes
     mode: '0755'
     state: directory
 
