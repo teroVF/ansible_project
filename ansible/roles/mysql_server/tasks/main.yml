@@ -37,8 +37,8 @@
 # configure MySQL root password
 - name: Change root user's password and authentication method
   mysql_user:
-    name: root
-    password: "{{ DB_PASS_ROOT }}"
+    # name: root
+    # password: "{{ DB_PASS_ROOT }}"
     plugin: mysql_native_password
     login_unix_socket: /var/run/mysqld/mysqld.sock
     login_user: root
@@ -87,7 +87,7 @@
 
 - name: Grant all privileges to root
   mysql_user:
-    name: "{{ DB_USER }}"
+    name: root
     password: "{{ DB_PASS_ROOT }}"
     priv: "{{ DB_NAME }}.*:ALL"
     state: present
