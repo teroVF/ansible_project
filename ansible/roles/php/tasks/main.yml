@@ -9,16 +9,15 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - php
-    - php-bcmath
-    - php-curl
-    - php-imagick
-    - php-intl
-    - php-json
-    - php-mbstring
-    - php-mysql
-    - php-xml
-    - php-zip
-    - libapache2-mod-php
+    - php # This will install PHP 7.4
+    - php-bcmath # what is this? php-bcmath is a module for PHP that provides arbitrary precision mathematics
+    - php-curl  # what is this? php-curl is a module for PHP that provides a way to interact with various network protocols
+    - php-imagick # what is this? php-imagick is a module for PHP that provides a way to interact with ImageMagick
+    - php-intl # what is this? php-intl is a module for PHP that provides a way to interact with the Internationalization Functions
+    - php-json # what is this? php-json is a module for PHP that provides a way to interact with JSON
+    - php-mbstring # what is this? php-mbstring is a module for PHP that provides a way to interact with multibyte strings
+    - php-mysql # what is this? php-mysql is a module for PHP that provides a way to interact with MySQL
+    - php-xml # what is this? php-xml is a module for PHP that provides a way to interact with XML
+    - php-zip # what is this? php-zip is a module for PHP that provides a way to interact with ZIP
+    - libapache2-mod-php # what is this? libapache2-mod-php is a module for Apache that provides a way to interact with PHP
     
-
